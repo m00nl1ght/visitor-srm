@@ -46,7 +46,7 @@ services:
   php-7.4:
     container_name: php-7.4
     build:
-      context: ./projects/backend
+      context: ./backend
       dockerfile: Dockerfile
       args:
         DOCKER_PHP_VERSION: '7.4'
@@ -54,7 +54,7 @@ services:
         TZ: ${WORKSPACE_TIMEZONE}
     working_dir: /var/www/html
     volumes:
-      - ./projects/backend:/var/www/html
+      - ./backend:/var/www/html
       - ./php-ini/7.4/php.ini:/usr/local/etc/php/php.ini
     ports:
       - "${PHP_7_4_PORT}:9000"
@@ -80,10 +80,10 @@ services:
   frontend:
     container_name: frontend
     build: 
-      context: ./projects/frontend
+      context: ./frontend
       dockerfile: Dockerfile
     volumes:
-      - "./projects/frontend:/app"
+      - "./frontend:/app"
     ports:
       - "${FRONTEND_PORT}:8080"
     networks:
