@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RoleSecurityTableSeeder::class);
         $this->call(SecurityTableSeeder::class);
-        $this->call(CardCategorySeeder::class);
-        $this->call(CardSeeder::class);
-        $this->call(VisitorCategorySeeder::class);
-        $this->call(SystemAlarmListSeeder::class);
-        $this->call(PositionSeeder::class);
-        $this->call(EmployeeSeeder::class);
+        // $this->call(CardCategorySeeder::class);
+        // $this->call(CardSeeder::class);
+        // $this->call(VisitorCategorySeeder::class);
+        // $this->call(SystemAlarmListSeeder::class);
+        // $this->call(PositionSeeder::class);
+        // $this->call(EmployeeSeeder::class);
 
         Model::reguard();
     }

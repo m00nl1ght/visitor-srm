@@ -1,5 +1,7 @@
 
 /mysql-8
+/php-ini
+/nginx
 
 .env
 .env.*.local

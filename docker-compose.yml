@@ -52,6 +52,8 @@ services:
         DOCKER_PHP_VERSION: '7.4'
         DOCKER_PHP_ENABLE_XDEBUG: ${DOCKER_PHP_ENABLE_XDEBUG}
         TZ: ${WORKSPACE_TIMEZONE}
+        user: sammy
+        uid: 1000
     working_dir: /var/www/html
     volumes:
       - ./backend:/var/www/html
@@ -88,6 +90,7 @@ services:
       - "${FRONTEND_PORT}:8080"
     networks:
       - backend
+    tty: true
 
 
  
