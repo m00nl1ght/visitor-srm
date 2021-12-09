@@ -14,7 +14,7 @@
     </template>
 
     <template #[`item.inTime`]="{ item }">
-      {{ $moment(item.inTime).format('hh:mm DD.MM.YYYY') }}
+      {{ $moment(item.inTime).format('HH:mm DD.MM.YYYY') }}
     </template>
 
     <template #[`item.actions`]="{ item }">

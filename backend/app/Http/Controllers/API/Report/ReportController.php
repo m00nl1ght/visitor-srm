@@ -57,6 +57,7 @@ class ReportController extends Controller
           $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam(new Carbon($request->get('date')));
           $startDay = $startEndTimeByWorkingTeam[0];
           $endDay = $startEndTimeByWorkingTeam[1];
+          return response()->success('Отчет успешно получен', $request);
       
           $reportData = $this->getReportData($startDay, $endDay);
           return response()->success('Отчет успешно получен', $reportData);

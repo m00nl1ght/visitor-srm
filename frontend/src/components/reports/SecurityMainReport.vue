@@ -124,8 +124,8 @@ export default {
   },
 
   mounted() {
-    // this.$store.dispatch('securityReport/getReportBySecurityTeam', this.$moment(new Date()).format('YYYY-MM-DD'))
-    this.$store.dispatch('securityReport/getReportBySecurityTeam', '2021-09-10')
+    this.$store.dispatch('securityReport/getReportBySecurityTeam', this.$moment(new Date()).subtract(1,'d').format('YYYY-MM-DD'))
+    // this.$store.dispatch('securityReport/getReportBySecurityTeam', '2021-09-10')
   }
 }
 </script>

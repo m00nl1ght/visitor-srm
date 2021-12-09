@@ -171,7 +171,7 @@ class WorkingSecurityTeamService
     {
         try {
             $startDay = WorkingSecurityTeamModel::whereDay('created_at', ">=", $date)->first();
-            if(!$startDay) throw new \Exception('За текущую дату отчета не найдено');
+            if(!$startDay) throw new \Exception('За текущую дату отчета не найдено'.$date);
 
             $startDay = $startDay->created_at;
             $endDay = WorkingSecurityTeamModel::whereDay('created_at', ">", $startDay)->first();

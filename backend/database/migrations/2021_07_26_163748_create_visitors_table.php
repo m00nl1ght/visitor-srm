@@ -26,7 +26,7 @@ class CreateVisitorsTable extends Migration
 
             $table->string('name');
             $table->string('last_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->bigInteger('phone')->nullable();
         });
     }

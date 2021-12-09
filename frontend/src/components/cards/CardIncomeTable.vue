@@ -5,7 +5,7 @@
       :items="items"
     >
       <template #[`item.decided`]="{item}">
-        <v-btn @click="decided(item.id)" outlined small color="success">Вернули</v-btn>
+        <v-btn @click="decided(item.id)" outlined small color="success" :disabled="disabled">Вернули</v-btn>
       </template>
 
       <template #[`item.employee`]="{item}">
@@ -17,13 +17,14 @@
       </template>
 
       <template #[`item.inTime`]="{item}">
-        {{ $moment(item.inTime).format('hh:mm DD.MM.YYYY') }}
+        {{ $moment(item.inTime).format('HH:mm DD.MM.YYYY') }}
       </template>
 
       <template #[`item.actions`]="{ item }">
           <v-btn
             @click="onDelete(item.id)"
             icon
+            :disabled="disabled"
           >
             <v-icon>mdi-trash-can-outline</v-icon>
           </v-btn>
@@ -51,7 +52,11 @@ import ConfirmModal from '@/components/app/modals/ConfirmModal.vue'
 
 export default {
   props: {
-    items: Array
+    items: Array,
+    disabled: {
+      type: Boolean,
+      default: () => false
+    }
   },
 
   components: {
