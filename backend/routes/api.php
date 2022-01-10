@@ -83,3 +83,4 @@ Route::post('/employee/searchBySurname', [EmployeeController::class, 'searchBySu
 //Отчеты
 Route::get('/report/byDay', [ReportController::class, 'byDay']);
 Route::get('/report/bySecurityTeam', [ReportController::class, 'bySecurityTeam']);
+Route::post('/report/byDuration', [ReportController::class, 'byDuration']);

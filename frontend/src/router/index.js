@@ -5,13 +5,17 @@ import Home from '@/views/Home.vue'
 import Security from '@/views/Security.vue'
 import SecurityCurrentGroup from '@/components/security/CurrentGroup.vue'
 import SecurityList from '@/components/security/SecurityList.vue'
-import SecurityMainReport from '@/components/reports/SecurityMainReport.vue'
+import SecurityMainReport from '@/components/reports/SecurityMainReportConnect.js'
 
 import Cars from '@/views/Cars.vue'
 import Visitors from '@/views/Visitors.vue'
 import Alarms from '@/views/Alarms.vue'
 import Events from '@/views/Events.vue'
 import Cards from '@/views/Cards.vue'
+import Reports from '@/views/Reports.vue'
+import ReportOverview from '@/components/reports/ReportOverviewConnect.js'
+import ReportAnalitics from '@/components/reports/ReportAnalitics.vue'
+
 
 Vue.use(VueRouter)
 
@@ -79,6 +83,27 @@ const routes = [
     meta: {layout: 'main'},
     component: Cards
   },
+  {
+    path: '/reports',
+    name: 'Reports',
+    meta: {layout: 'main'},
+    component: Reports,
+    redirect: { name: 'ReportOverview'},
+    children: [
+      {
+        name: 'ReportOverview',
+        path: 'overview',
+        meta: {layout: 'main'},
+        component: ReportOverview
+      },
+      {
+        name: "ReportAnalitics",
+        path: 'analitics',
+        component: ReportAnalitics,
+        meta: {layout: 'main'},
+      }
+    ]
+  }
 ]
 
 const router = new VueRouter({

@@ -1,8 +1,8 @@
 import api from "@/services/reports/securityReportApi.js"
 
 const state = () => ({
-  reportByDayData: [],
-  reportBySecurityTeamData: []
+  reportByDayData: {},
+  reportBySecurityTeamData: {}
 })
 
 const getters = {

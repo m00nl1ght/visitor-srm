@@ -57,8 +57,21 @@ class ReportController extends Controller
           $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam(new Carbon($request->get('date')));
           $startDay = $startEndTimeByWorkingTeam[0];
           $endDay = $startEndTimeByWorkingTeam[1];
-          return response()->success('Отчет успешно получен', $request);
+          // return response()->success('Отчет успешно получен', new Carbon($request->get('date')));
       
+          $reportData = $this->getReportData($startDay, $endDay);
+          return response()->success('Отчет успешно получен', $reportData);
+      } catch (\Exception $exception) {
+          return response()->error('Ошибка получения отчета', $exception->getMessage());
+      }
+  }
+
+  public function byDuration(Request $request)
+  {
+      try {
+          $startDay = $request->input('start');
+          $endDay = $request->input('end');
+
           $reportData = $this->getReportData($startDay, $endDay);
           return response()->success('Отчет успешно получен', $reportData);
       } catch (\Exception $exception) {
@@ -83,8 +96,8 @@ class ReportController extends Controller
       ];
 
       return $reportData;
-  } catch (\Exception $exception){
-      throw new \Exception($exception->getMessage());
-  }
+    } catch (\Exception $exception){
+        throw new \Exception($exception->getMessage());
+    }
   }
 }

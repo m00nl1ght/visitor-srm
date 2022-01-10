@@ -15,6 +15,7 @@ import autoinsert from '@/store/modules/autoinsert.js'
 
 //reports
 import securityReport from '@/store/modules/reports/securityReport.js'
+import overviewReport from '@/store/modules/reports/overviewReport.js'
 
 Vue.use(Vuex)
 
@@ -32,6 +33,7 @@ export default new Vuex.Store({
     visitorCategory,
     systemAlarmCategory,
     autoinsert,
-    securityReport
+    securityReport,
+    overviewReport
   },
 })

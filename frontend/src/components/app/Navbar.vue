@@ -46,6 +46,7 @@ export default {
       { pathName: 'Alarms', title: 'Неисправности', icon: 'mdi-alert-rhombus' },
       { pathName: 'Events', title: 'События', icon: 'mdi-clipboard-list' },
       { pathName: 'Cards', title: 'Карты доступа', icon: 'mdi-card-account-details' },
+      { pathName: 'Reports', title: 'Отчеты', icon: 'mdi-chart-line' },
     ]
   })
 }
