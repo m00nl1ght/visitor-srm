@@ -1,3 +1,47 @@
+создаем файл конфига
+composer install
+key:generate
+migrate
+db:seed
+добавить файлы конфигурации для инжинкс в nginx/conf.d
+
+default.conf
+## start
+# All requests with response
+# codes 2xx and 3xx will not be logged:
+map $status $loggable {
+        ~^[23]  0;
+        default 1;
+    }
+## end
+
+vhost.conf
+## start
+server {
+    listen 80;
+    index index.php index.html;
+    error_log /var/log/nginx/backend.error.log;
+    access_log /var/log/nginx/backend.access.log combined if=$loggable;
+
+     location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        add_header Access-Control-Allow-Origin *;
+        root /var/www/html/public;
+        include fastcgi_params;
+        include fastcgi.conf;
+        fastcgi_pass php-7.4:9000;
+        fastcgi_index index.php;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+
+    }
+}
+
+## end
+
+
 sudo docker ps					-все запущенные контейнеры
 sudo docker stop $(sudo docker ps -a -q)	-остановить все контейнеры
 sudo docker rm $(sudo docker ps -a -q)	-удалить все контейнеры
