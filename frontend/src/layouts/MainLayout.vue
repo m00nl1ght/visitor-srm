@@ -4,7 +4,7 @@
     
     <Navbar />
 
-    <v-app-bar app clipped-left></v-app-bar>
+    <Appbar />
     
     <v-main>
       <v-container fluid>
@@ -29,11 +29,13 @@
 <script>
 import Navbar from '@/components/app/Navbar'
 import Snackbar from '@/components/app/Snackbar'
+import Appbar from '@/components/app/Appbar'
 
 export default {
   components: {
     Navbar,
-    Snackbar
+    Snackbar,
+    Appbar
   },
 
   mounted() {

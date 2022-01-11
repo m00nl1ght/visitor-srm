@@ -60,11 +60,11 @@
 </template>
 
 <script>
-import EventOpenTable from '@/components/events/EventOpenTable.vue'
-import AlarmOpenTable from '@/components/alarms/AlarmOpenTable.vue'
-import VisitorIncomeList from '@/components/visitors/VisitorsIncomeList.vue'
-import CarIncomeList from '@/components/cars/CarsIncomeList.vue'
-import CardIncomeTable from '@/components/cards/CardIncomeTable.vue'
+import EventOpenTable from '@/components/reports/tables/ReportEventOpenTable.vue'
+import AlarmOpenTable from '@/components/reports/tables/ReportAlarmOpenTable.vue'
+import VisitorIncomeList from '@/components/reports/tables/ReportVisitorIncomeList.vue'
+import CarIncomeList from '@/components/reports/tables/ReportCarIncomeList.vue'
+import CardIncomeTable from '@/components/reports/tables/ReportCardIncomeTable.vue'
 
 export default {
   props: {

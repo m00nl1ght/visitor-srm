@@ -3,12 +3,18 @@ import ReportOverview from './ReportOverview.vue'
 
 export default connect({
   stateToProps: {
-    reportData: (state) => state.overviewReport.reportByDurationData
+    reportData: state => state.overviewReport.reportByDurationData
   },
 
-  lifecycle: {
-    mounted: ({ dispatch }) => {
-      dispatch('overviewReport/getReportByDuration', { start: '2021-03-10', end: '2021-03-11' })
-    }
+  methodsToEvents: {
+    async getReportByDuration({ dispatch }, payload, callback) {
+      await dispatch('overviewReport/getReportByDuration', payload)
+      callback()
+    },
+
+    async getReportByDay({ dispatch }, payload, callback) {
+      await dispatch('overviewReport/getReportByDay', payload)
+      callback()
+    },
   }
 })('ReportOverview', ReportOverview)
