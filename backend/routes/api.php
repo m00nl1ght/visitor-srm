@@ -23,6 +23,11 @@ use App\Http\Controllers\API\People\PositionController;
 use App\Http\Controllers\API\Card\CardController;
 use App\Http\Controllers\API\Report\ReportController;
 
+use App\Http\Controllers\Auth\RegistrationController;
+use App\Http\Controllers\Auth\LoginController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,6 +38,8 @@ use App\Http\Controllers\API\Report\ReportController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('login', [LoginController::class, 'login']);
+Route::post('registration', [RegistrationController::class, 'registration']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
