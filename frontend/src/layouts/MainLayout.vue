@@ -12,17 +12,7 @@
       </v-container>
     </v-main>
 
-    <v-footer app color="#120a38">
-      <v-container>
-      <v-row>
-        <v-col>
-          <div class=" d-flex justify-center">
-            <a class="text-decoration-none blue-grey--text" href="https://vk.com/id24405913">&copy; Виталий Ковешников</a>
-          </div>
-        </v-col>
-      </v-row>
-      </v-container>
-    </v-footer>
+    <AppFooter />
   </v-app>
 </template>
 
@@ -30,12 +20,14 @@
 import Navbar from '@/components/app/Navbar'
 import Snackbar from '@/components/app/Snackbar'
 import Appbar from '@/components/app/Appbar'
+import AppFooter from '@/components/app/AppFooter.vue';
 
 export default {
   components: {
     Navbar,
     Snackbar,
-    Appbar
+    Appbar,
+    AppFooter
   },
 
   mounted() {
