@@ -23,9 +23,6 @@ class LoginController extends Controller
         if (Auth::attempt($request->validated())) {
             $token = Auth::user()->createToken('api');
             return response()->success([], $token->plainTextToken);
-            // return response()->json([
-            //     'token' => $token->plainTextToken
-            // ]);
         }
  
         return response()->json([], Response::HTTP_UNAUTHORIZED);
