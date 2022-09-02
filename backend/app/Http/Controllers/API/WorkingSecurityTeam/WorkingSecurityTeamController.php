@@ -28,6 +28,7 @@ class WorkingSecurityTeamController extends BaseController
         $this->roleSecurityService = $roleSecurityService;
         $this->securityService = $securityService;
         $this->workingSecurityTeamSettingService = $workingSecurityTeamSettingService;
+        $this->middleware(['auth:sanctum']);
     }
 
     // Получения списка рабочих смен охраны

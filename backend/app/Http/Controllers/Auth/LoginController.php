@@ -21,7 +21,7 @@ class LoginController extends Controller
     public function login(LoginUserRequest $request)
     {
         if (Auth::attempt($request->validated())) {
-            $token = Auth::user()->createToken('api');
+            $token = $request->user()->createToken('api');
             return response()->success([], $token->plainTextToken);
         }
  

@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SystemAlarmListSeeder::class);
         // $this->call(PositionSeeder::class);
         // $this->call(EmployeeSeeder::class);
-
+        $this->call(RoleSeeder::class);
+        $this->call(UserSeeder::class);
         Model::reguard();
     }
 }
