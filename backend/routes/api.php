@@ -42,10 +42,10 @@ use App\Http\Controllers\API\UserController;
 //пользователи
 Route::post('login', [LoginController::class, 'login']);
 Route::post('registration', [RegistrationController::class, 'registration']);
-Route::get('get-current-user', [UserController::class, 'getCurrentUser']);
+Route::middleware('auth:sanctum')->get('get-current-user', [UserController::class, 'getCurrentUser']);
 Route::get('/user/list', [UserController::class, 'getUserList']);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::get('/user', function (Request $request) {
     return $request->user();
 });
 

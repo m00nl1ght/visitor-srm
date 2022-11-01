@@ -10,24 +10,36 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    /**
-     * @param 
-     * @return 
-     */
-    public function getCurrentUser(Request $request)
-    {
-        $user = Auth::user();
-        return response()->success('Текущий пользователь получен', $user);
+  /**
+   * @param 
+   * @return 
+   */
+  public function getCurrentUser(Request $request)
+  {
+    // $user = Auth::user()->fresh('role');
+    $user = Auth::user();
+    
+    $roles = array();
+    foreach ($user->role as $role) {
+      $roles[] = $role->slug;
     }
 
-    /**
-     * @param 
-     * @return 
-     */
-    public function getUserList(Request $request)
-    {
-        $users = User::all();
-        return response()->success('Список пользователе получен', $users);
-    }
-    
+    // "security_chief","security"
+    return response()->success('Текущий пользователь получен', array(
+      "id" => $user->id,
+      "name" => $user->name,
+      "email" => $user->email,
+      "roles" => $roles
+    ));
+  }
+
+  /**
+   * @param 
+   * @return 
+   */
+  public function getUserList(Request $request)
+  {
+    $users = User::all();
+    return response()->success('Список пользователе получен', $users);
+  }
 }

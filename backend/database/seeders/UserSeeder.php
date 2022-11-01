@@ -44,24 +44,24 @@ class UserSeeder extends Seeder
 
     $role_users = array(
       [
-        'role' => 'admin',
+        'role_id' => 1,
         'user_id' => 1
       ],
       [
-        'role' => 'security_chief',
+        'role_id' => 2,
         'user_id' => 2
       ],
       [
-        'role' => 'security',
+        'role_id' => 3,
         'user_id' => 3
       ],
       [
-        'role' => 'employee',
+        'role_id' => 4,
         'user_id' => 4
       ]
     );
 
     DB::table('users')->insert($users);
-    DB::table('role_users')->insert($role_users);
+    DB::table('role_user')->insert($role_users);
   }
 }

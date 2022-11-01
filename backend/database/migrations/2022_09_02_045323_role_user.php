@@ -13,13 +13,13 @@ class RoleUser extends Migration
    */
   public function up()
   {
-    Schema::create('role_users', function (Blueprint $table) {
+    Schema::create('role_user', function (Blueprint $table) {
       $table->id();
-      $table->string('role');
+      $table->unsignedBigInteger('role_id');
       $table->unsignedBigInteger('user_id');
 
-      $table->foreign('role')
-        ->references('slug')
+      $table->foreign('role_id')
+        ->references('id')
         ->on('roles')
         ->onDelete('cascade');
 
@@ -37,6 +37,6 @@ class RoleUser extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('role_users');
+    Schema::dropIfExists('role_user');
   }
 }
