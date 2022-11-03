@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
+import LoginPage from '@/views/auth/LoginPage.vue'
+import LogoutPage from '@/views/auth/LogoutPage.vue'
 
 import Security from '@/views/Security.vue'
 import SecurityCurrentGroup from '@/components/security/CurrentGroup.vue'
@@ -16,91 +18,102 @@ import Reports from '@/views/Reports.vue'
 import ReportOverview from '@/components/reports/ReportOverviewConnect.js'
 import ReportAnalitics from '@/components/reports/ReportAnalitics.vue'
 
-
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    meta: {layout: 'main'},
+    meta: { layout: 'main' },
     component: Home
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    meta: { layout: 'empty' },
+    component: LoginPage
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    meta: { layout: 'empty' },
+    component: LogoutPage
   },
   {
     name: 'Security',
     path: '/security',
-    redirect: { name: 'SecurityCurrentGroup'},
-    meta: {layout: 'main'},
+    redirect: { name: 'SecurityCurrentGroup' },
+    meta: { layout: 'main' },
     component: Security,
     children: [
       {
         name: 'SecurityCurrentGroup',
         path: 'group',
-        meta: {layout: 'main'},
+        meta: { layout: 'main' },
         component: SecurityCurrentGroup
       },
       {
-        name: "SecurityList",
+        name: 'SecurityList',
         path: 'list',
         component: SecurityList,
-        meta: {layout: 'main'},
+        meta: { layout: 'main' }
       },
       {
-        name: "SecurityMainReport",
+        name: 'SecurityMainReport',
         path: 'report',
         component: SecurityMainReport,
-        meta: {layout: 'main'},
+        meta: { layout: 'main' }
       }
     ]
   },
   {
     path: '/cars',
     name: 'Cars',
-    meta: {layout: 'main'},
+    meta: { layout: 'main' },
     component: Cars
   },
   {
     path: '/visitors',
     name: 'Visitors',
-    meta: {layout: 'main'},
+    meta: { layout: 'main' },
     component: Visitors
   },
   {
     path: '/alarms',
     name: 'Alarms',
-    meta: {layout: 'main'},
+    meta: { layout: 'main' },
     component: Alarms
   },
   {
     path: '/events',
     name: 'Events',
-    meta: {layout: 'main'},
+    meta: { layout: 'main' },
     component: Events
   },
   {
     path: '/cards',
     name: 'Cards',
-    meta: {layout: 'main'},
+    meta: { layout: 'main' },
     component: Cards
   },
   {
     path: '/reports',
     name: 'Reports',
-    meta: {layout: 'main'},
+    meta: { layout: 'main' },
     component: Reports,
-    redirect: { name: 'ReportOverview'},
+    redirect: { name: 'ReportOverview' },
     children: [
       {
         name: 'ReportOverview',
         path: 'overview',
-        meta: {layout: 'main'},
+        meta: { layout: 'main' },
         component: ReportOverview
       },
       {
-        name: "ReportAnalitics",
+        name: 'ReportAnalitics',
         path: 'analitics',
         component: ReportAnalitics,
-        meta: {layout: 'main'},
+        meta: { layout: 'main' }
       }
     ]
   }
