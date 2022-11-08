@@ -44,7 +44,10 @@ export default {
           email: this.email,
           password: this.password
         })
-        if (resp.success) this.$router.push('/')
+        if (resp.success) {
+          await this.$store.dispatch('user/getCurrentUser')
+          this.$router.push('/')
+        }
         else this.error = true
       }
     },

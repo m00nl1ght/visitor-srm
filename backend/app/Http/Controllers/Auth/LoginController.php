@@ -35,4 +35,14 @@ class LoginController extends Controller
 
     return response()->json([], Response::HTTP_UNAUTHORIZED);
   }
+
+  public function logout(Request $request)
+  {
+    // $user = Auth::user();
+    
+    return response()->success('Отчет успешно полученdd', Auth::user());
+
+    $request->user()->currentAccessToken()->delete();
+    return response()->success('Отчет успешно получен', Response::HTTP_OK);
+  }
 }

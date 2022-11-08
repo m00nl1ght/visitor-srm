@@ -21,7 +21,7 @@ export default {
     return axios.get(urls.GET_CURRENT_USER)
   },
 
-  getCurrentUser() {
+  getUserList() {
     return axios.get(urls.GET_USERS_LIST)
   }
 }

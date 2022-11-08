@@ -1,7 +1,12 @@
+<template>
+  <h1>Logout</h1>
+</template>
+
 <script>
 export default {
-  beforeCreate() {
-    this.$store.dispatch('auth/logout')
+  async beforeMount() {
+    await this.$store.dispatch('auth/logout')
+    await this.$store.commit('user/storeCurrentUser', undefined)
     this.$router.push('/login')
   }
 }

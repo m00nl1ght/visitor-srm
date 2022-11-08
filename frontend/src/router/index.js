@@ -25,6 +25,7 @@ const routes = [
     path: '/',
     name: 'Home',
     meta: { layout: 'main' },
+    // meta: { layout: 'main', auth: true, accessRoles: ['security'] }, пример защиты
     component: Home
   },
   {

@@ -5,7 +5,9 @@ const state = () => ({
   authToken: undefined
 })
 
-const getters = {}
+const getters = {
+  isLoggedIn: state => !!state.authToken
+}
 
 const mutations = {
   setToken(state, payload) {
@@ -30,6 +32,7 @@ const actions = {
 
   async logout({ commit, state }) {
     try {
+      console.log('logout')
       await api.logout(state.authToken)
       localStorage.removeItem('token')
       axios.defaults.headers.common['Authorization'] = ''

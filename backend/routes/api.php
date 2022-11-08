@@ -44,6 +44,7 @@ Route::post('login', [LoginController::class, 'login']);
 Route::post('registration', [RegistrationController::class, 'registration']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
+  Route::post('logout', [LoginController::class, 'logout']);
 
   Route::get('get-current-user', [UserController::class, 'getCurrentUser']);
   Route::get('/user/list', [UserController::class, 'getUserList']);
