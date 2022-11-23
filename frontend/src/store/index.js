@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import user from '@/store/modules/user.js'
+import auth from '@/store/modules/auth.js'
 import globalSnackbar from '@/store/modules/globalSnackbar'
 import security from '@/store/modules/securities/security'
 import securityGroup from '@/store/modules/securities/securityGroup'
@@ -21,6 +23,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
+    user,
+    auth,
     globalSnackbar,
     security,
     securityGroup,
