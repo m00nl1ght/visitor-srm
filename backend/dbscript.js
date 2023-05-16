@@ -25,6 +25,13 @@ select p.name, p.surname, p.patronymic, pos.id
 from security_old.employees p
 left join `security`.positions pos on p.position = pos.position;
 
+DELETE `security`.employees
+FROM  `security`.employees
+LEFT OUTER JOIN 
+	(SELECT MAX(`id`) AS `id`, `last_name`, `name` FROM `security`.employees GROUP BY `last_name`, `name`) AS `tmp` 
+ON `security`.employees.`id` = `tmp`.`id`  
+where `tmp`.`id` IS null;
+
 -- категории карт
 INSERT into `security`.card_categories(title, description)
 select p.name, p.description 
