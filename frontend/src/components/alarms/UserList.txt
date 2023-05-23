@@ -1,0 +1,13 @@
+теперь ты создаешь компонент UserList
+
+в нем массив в data() { userAges: [1, 2, 10, 12]}
+
+шаблон:
+<CurrentUser v-for="age in ages">
+ <template v-slot:default="slotProps">
+<div>
+    <span>{{ slotProps.user.name }}</span>
+    <span>{{ age }}</span>
+  </div>
+</template>
+</CurrentUser>

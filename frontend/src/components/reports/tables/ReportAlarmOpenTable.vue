@@ -31,7 +31,7 @@ export default {
         value: 'system',
         sortable: false
       },
-      { text: 'Описание', value: 'title' },
+      { text: 'Описание11111', value: 'title' },
       { text: 'Место', value: 'place', sortable: false},
       { text: 'Комментарий', value: 'comment', sortable: false },
       { text: 'Дата возникновения', value: 'inTime'}

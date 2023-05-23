@@ -45,12 +45,14 @@ const routes = [
     path: '/security',
     redirect: { name: 'SecurityCurrentGroup' },
     meta: { layout: 'main' },
+
     component: Security,
     children: [
       {
         name: 'SecurityCurrentGroup',
         path: 'group',
         meta: { layout: 'main' },
+
         component: SecurityCurrentGroup
       },
       {
@@ -71,6 +73,7 @@ const routes = [
     path: '/cars',
     name: 'Cars',
     meta: { layout: 'main' },
+    // meta: { layout: 'main', auth: true, accessRoles: ['security'] },
     component: Cars
   },
   {

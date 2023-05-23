@@ -3,7 +3,7 @@
     :isOpen="isOpen"
     :onClose="onClose"
     :onConfirm="onConfirm"
-    :title="'Зарегестрировать новую смену'"
+    :title="'Зарегистрировать новую смену'"
   >
     <v-form 
       class="pt-5"
@@ -66,7 +66,7 @@
         <v-col>
           <v-combobox
             v-model="securities"
-            :items="securityList"
+            :items="filterSecurity"
             item-text="value"
             item-value="id"
             outlined
@@ -132,6 +132,10 @@ export default {
 
     securityList() {
       return this.$store.getters['security/securities']
+    },
+
+    filterSecurity() {
+      return this.securityList.filter(item => item.roleSecurityId == 3)
     },
 
     addSecurityModalValue() {

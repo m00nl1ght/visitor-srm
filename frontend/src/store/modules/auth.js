@@ -23,6 +23,7 @@ const actions = {
       localStorage.setItem('token', token)
       commit('setToken', token)
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      console.log(payload)
       return { success: true }
     } catch (error) {
       console.log(error)
@@ -37,6 +38,7 @@ const actions = {
       localStorage.removeItem('token')
       axios.defaults.headers.common['Authorization'] = ''
       commit('setToken', undefined)
+      console.log(commit)
     } catch (error) {
       console.log(error)
     }

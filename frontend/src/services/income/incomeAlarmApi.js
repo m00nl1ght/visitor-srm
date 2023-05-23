@@ -1,8 +1,8 @@
-import { BASE_URL } from "@/config.js"
-import axios from "axios"
+import { BASE_URL } from '@/config.js'
+import axios from 'axios'
 
 const urls = {
-  ALARM: BASE_URL + '/api/incomeAlarm',
+  ALARM: BASE_URL + '/api/incomeAlarm'
 }
 
 export default {
@@ -10,15 +10,25 @@ export default {
     return axios.get(urls.ALARM)
   },
 
+  viewAlarmApi(payload) {
+    console.log(payload)
+    return axios.post(urls.ALARM + '/' + payload.id, payload)
+  },
+
   addAlarm(payload) {
     return axios.post(urls.ALARM, payload)
   },
 
   editAlarm(payload) {
+    console.log(payload)
     return axios.put(urls.ALARM + '/' + payload.id, payload)
   },
 
   deleteAlarm(id) {
     return axios.delete(urls.ALARM + '/' + id)
+  },
+  closeAlarm(id) {
+    console.log('closeAlarnId', id)
+    return axios.post(urls.ALARM + '/close', { id: id })
   }
 }

@@ -4,6 +4,6 @@ module.exports = {
   ],
   
   devServer: {
-    proxy: 'http://nginx/',
+    proxy: 'http://localhost:8080',
   }
 }

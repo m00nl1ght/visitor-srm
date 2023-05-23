@@ -1,5 +1,5 @@
 <template>
-  <MainModalLayout
+  <MainModalLayoutView
     :isOpen="isOpen"
     :onClose="onClose"
     :onConfirm="onConfirm"
@@ -9,7 +9,7 @@
       <v-text-field
         v-model="formValue.title"
         outlined
-        label="Описание"
+        label="Название"
         dense
         :rules="rules"
       ></v-text-field>
@@ -40,15 +40,15 @@
       >
       </v-textarea>
     </v-form>
-  </MainModalLayout>
+  </MainModalLayoutView>
 </template>
 
 <script>
-import MainModalLayout from '@/components/app/modals/MainModalLayout.vue'
+import MainModalLayoutView from '@/components/app/modals/MainModalLayoutView.vue'
 
 export default {
   components: {
-    MainModalLayout
+    MainModalLayoutView
   },
 
   data() {
@@ -61,29 +61,35 @@ export default {
   },
 
   computed: {
-    isOpen() { 
-      return this.$store.state.incomeAlarm.openModal
+    isOpen() {
+      console.log('test') 
+      return this.$store.state.incomeAlarm.openModal2
     },
 
     formValue() { 
+      console.log('test') 
       return this.$store.state.incomeAlarm.formValue 
     },
 
     systemAlarmList() {
+      console.log('test') 
       return this.$store.state.systemAlarmCategory.systemAlarmList
     },
 
     title() {
+      console.log('test') 
       return this.$store.state.incomeAlarm.formValue.id ? 'Редактировать запись' : 'Создать запись'
     }
   },
 
   methods: {
     onClose() {
+      console.log('test') 
       this.$store.commit('incomeAlarm/closeModal')
     },
 
     onConfirm() {
+      console.log('test') 
       if(this.$refs.form.validate()) {
         this.$store.dispatch('incomeAlarm/registrateAlarm')
       }
@@ -91,6 +97,7 @@ export default {
   },
 
   mounted() {
+    console.log('test') 
     this.$store.dispatch('systemAlarmCategory/getSystemAlarmList')
   }
 }
