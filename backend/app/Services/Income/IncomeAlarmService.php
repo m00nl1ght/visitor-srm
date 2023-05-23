@@ -77,7 +77,8 @@ class IncomeAlarmService
         $alarm->out_time = $data->out_time ? $data->out_time : Carbon::now();
         $alarm->save();
 
-        return $alarm->with('system_alarm_list')->first();
+        // return $alarm->with('system_alarm_list')->first();
+        return $alarm->where('id', $data->id)->with('system_alarm_list')->first();
       } catch (\Exception $exception){
           throw new \Exception($exception->getMessage());
       }
