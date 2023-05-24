@@ -37,7 +37,13 @@ const mutations = {
   closeModal(state) {
     state.openModal = false
     state.formValue = defaultFormValue()
-  }
+  },
+
+  completedAlarm(state, index) {
+    const completedAlarmId = state.openAlarmList.findIndex((item) => item.id === index)
+    state.openAlarmList.splice(completedAlarmId, 1)
+    console.log('completedAlarmId', completedAlarmId)
+  },
 }
 
 const actions = {
@@ -73,7 +79,19 @@ const actions = {
     } catch (error) {
       console.log(error)
     }
-  }
+  },
+
+  async closeAlarm({ commit }, id) {
+    try {
+      console.log('id closeAlarm', id)
+      const { data } = await api.closeAlarm(id)
+      commit('completedAlarm', data.data.id)
+      console.log('data.data.id', data.data.id)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
 }
 export default {
   namespaced: true,
