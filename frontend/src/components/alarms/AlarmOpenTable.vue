@@ -1,23 +1,8 @@
 <template>
   <div>
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      :single-expand="true"
-      item-key="title"
-      show-expand
-      class="elevation-1"
-    >
+    <v-data-table :headers="headers" :items="items" :single-expand="true" item-key="title" show-expand class="elevation-1">
       <template #[`item.decided`]="{ item }">
-        <v-btn
-          :disabled="disabled"
-          outlined
-          small
-          color="success"
-          @click="decided(item.id)"
-        >
-          Решено
-        </v-btn>
+        <v-btn :disabled="disabled" outlined small color="success" @click="decided(item.id)"> Решено </v-btn>
       </template>
 
       <template #[`item.system`]="{ item }">
@@ -34,28 +19,18 @@
 
       <template #expanded-item="{ item }">
         <td :colspan="990">
-          <p class="v-data-table_title">
-            <span class="v-data-table_span">Описание:</span> {{ item.title }}
-          </p>
-          <p><span class="v-data-table_span">Место:</span> {{ item.place }} </p>
-          <p><span class="v-data-table_span">Комментарий:</span> {{ item.comment }}</p>
+          <p class="pt-2"><span class="font-weight-bold">Описание:</span> {{ item.title }}</p>
+          <p><span class="font-weight-bold">Место:</span> {{ item.place }}</p>
+          <p><span class="font-weight-bold">Комментарий:</span> {{ item.comment }}</p>
         </td>
       </template>
 
       <template #[`item.actions`]="{ item }">
-        <v-btn
-          icon
-          :disabled="disabled"
-          @click="onEdit(item.id)"
-        >
+        <v-btn icon :disabled="disabled" @click="onEdit(item.id)">
           <v-icon>mdi-pencil-outline</v-icon>
         </v-btn>
 
-        <v-btn
-          icon
-          :disabled="disabled"
-          @click="onDelete(item.id)"
-        >
+        <v-btn icon :disabled="disabled" @click="onDelete(item.id)">
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
       </template>
@@ -65,11 +40,7 @@
       </template>
     </v-data-table>
 
-    <ConfirmModal
-      :is-open="confimDeleteOpen"
-      :on-close="closeConfirmDelete"
-      :on-confirm="onConfirmDelete"
-    >
+    <ConfirmModal :is-open="confimDeleteOpen" :on-close="closeConfirmDelete" :on-confirm="onConfirmDelete">
       <v-subheader>Вы уверены, что хотите удалить данный элемент?</v-subheader>
     </ConfirmModal>
   </div>
@@ -79,7 +50,6 @@
 import ConfirmModal from '@/components/app/modals/ConfirmModal.vue'
 
 export default {
-
   components: {
     ConfirmModal
   },
@@ -93,8 +63,8 @@ export default {
 
   data: () => ({
     headers: [
-      { text: 'Решено', value: 'decided', sortable: false },
-      { text: 'Система', align: 'start', value: 'system', sortable: false },
+      { text: 'Решено', value: 'decided', sortable: false, width: 100 },
+      { text: 'Система', align: 'start', value: 'system', sortable: false, width: 200 },
       { text: 'Описание', value: 'title' },
       { text: 'Место', value: 'place', sortable: false },
       { text: 'Комментарий', value: 'comment', sortable: false, width: 200 },
@@ -112,6 +82,7 @@ export default {
     },
 
     onEdit(id) {
+      console.log(id),
       this.$store.commit('incomeAlarm/openEditModal', id)
     },
 
@@ -142,11 +113,5 @@ export default {
   overflow: hidden; /* Обрезаем все, что не помещается в область */
   padding: 5px; /* Поля вокруг текста */
   text-overflow: ellipsis; /* Добавляем многоточие */
-}
-.v-data-table_title {
-  padding-top: 10px;
-}
-.v-data-table_span {
-  font-weight: bold;
 }
 </style>

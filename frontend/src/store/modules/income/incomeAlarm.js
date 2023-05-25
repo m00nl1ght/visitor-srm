@@ -1,4 +1,5 @@
 import api from '@/services/income/incomeAlarmApi'
+import { cloneDeep } from 'lodash'
 
 function defaultFormValue() {
   return {
@@ -13,7 +14,8 @@ const state = () => ({
   openAlarmList: [],
 
   openModal: false,
-  formValue: defaultFormValue()
+  formValue: defaultFormValue(),
+  formValueEdit: defaultFormValue(),
 })
 
 const getters = {}
@@ -28,7 +30,8 @@ const mutations = {
   },
 
   openEditModal(state, id) {
-    state.formValue = state.openAlarmList.find((item) => item.id == id)
+    state.formValue = state.openAlarmList.find((item) => item.id == id),
+    state.formValueEdit = cloneDeep(state.formValue),
     state.openModal = true
   },
 
@@ -55,8 +58,8 @@ const actions = {
 
   async registrateAlarm({ state, commit }) {
     try {
-      if (state.formValue.id) {
-        const { data } = await api.editAlarm(state.formValue)
+      if (state.formValueEdit.id) {
+        const { data } = await api.editAlarm(state.formValueEdit)
         commit('storeOpenAlarmList', data.data)
       } else {
         const { data } = await api.addAlarm(state.formValue)
