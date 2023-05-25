@@ -23,7 +23,6 @@ export default {
   },
 
   closeAlarm(id) {
-    console.log('closeAlarnId', id)
     return axios.post(urls.ALARM + '/close', { id: id })
   },
 }

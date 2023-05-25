@@ -19,9 +19,9 @@
 
       <template v-slot:expanded-item="{ item }">
         <td :colspan="990">
-          <p class="v-data-table_title"><b>Описание:</b> {{ item.title }}</p>
-          <p><b>Место:</b> {{ item.place }}</p>
-          <p><b>Комментарий:</b> {{ item.comment }}</p>
+          <p class="v-data-table_title"><span class = 'v-data-table_span'>Описание:</span> {{ item.title }}</p>
+          <p><span class="v-data-table_span">Место:</span> {{ item.place }} </p>
+          <p><span class = 'v-data-table_span'>Комментарий:</span> {{ item.comment }}</p>
         </td>
       </template>
 
@@ -104,7 +104,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .comment_overflow {
   margin-left: -5px;
   display: block;
@@ -116,5 +116,8 @@ export default {
 }
 .v-data-table_title {
   padding-top: 10px;
+}
+.v-data-table_span {
+  font-weight: bold;
 }
 </style>
