@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <Snackbar />
+    <SnackBar />
     
-    <Navbar />
+    <NavBar />
 
-    <Appbar />
+    <AppBar />
     
     <v-main>
       <v-container fluid>
@@ -17,16 +17,16 @@
 </template>
 
 <script>
-import Navbar from '@/components/app/Navbar'
-import Snackbar from '@/components/app/Snackbar'
-import Appbar from '@/components/app/Appbar'
+import NavBar from '@/components/app/NavBar'
+import SnackBar from '@/components/app/SnackBar'
+import AppBar from '@/components/app/AppBar'
 import AppFooter from '@/components/app/AppFooter.vue';
 
 export default {
   components: {
-    Navbar,
-    Snackbar,
-    Appbar,
+    NavBar,
+    SnackBar,
+    AppBar,
     AppFooter
   },
 

@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isOpen" max-width="500px">
+  <v-dialog v-model="modal" max-width="500px">
     <v-card>
       <v-card-title class="text-h5">{{ title }}</v-card-title>
 
@@ -15,7 +15,7 @@
         <v-btn text @click="onClose">Отмена</v-btn>
 
         <v-spacer></v-spacer>
-        
+
         <v-btn color="primary" text @click="onConfirm">Подтвердить</v-btn>
       </v-card-actions>
     </v-card>
@@ -30,7 +30,18 @@ export default {
     onConfirm: Function,
     title: {
       type: String,
-      default: "Подтвердите совершаемое действие"
+      default: 'Подтвердите совершаемое действие'
+    }
+  },
+
+  computed: {
+    modal: {
+      get() {
+        return this.isOpen
+      },
+      set(value) {
+        this.$emit('input', value)
+      }
     }
   }
 }

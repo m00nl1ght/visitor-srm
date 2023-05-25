@@ -1,4 +1,4 @@
-import api from "@/services/income/incomeCarApi"
+import api from '@/services/income/incomeCarApi'
 
 const state = () => ({
   error: null,
@@ -28,9 +28,7 @@ const state = () => ({
   }
 })
 
-const getters = {
-
-}
+const getters = {}
 
 const mutations = {
   storeError(state, payload) {
@@ -60,37 +58,37 @@ const mutations = {
         model: '',
         number: ''
       },
-  
+
       securityId: null,
       categoryId: null
-    } 
+    }
   },
 
-  storeFormVisitor(state, {key, value}) {
+  storeFormVisitor(state, { key, value }) {
     state.formValue.visitor[key] = value
   },
 
-  storeFormEmployee( state, {key, value}) {
+  storeFormEmployee(state, { key, value }) {
     state.formValue.employee[key] = value
   },
 
-  storeFormSecurity( state, value) {
+  storeFormSecurity(state, value) {
     state.formValue.securityId = value
   },
 
-  storeFormCar( state, { key, value }) {
+  storeFormCar(state, { key, value }) {
     state.formValue.car[key] = value
   },
 
-  storeFormCategory( state, value) {
+  storeFormCategory(state, value) {
     state.formValue.categoryId = value
   },
 
-  exitCar( state, id) {
-    state.incomeCarList = state.incomeCarList.filter(item => item.id !== id)
+  exitCar(state, id) {
+    state.incomeCarList = state.incomeCarList.filter((item) => item.id !== id)
   },
 
-  storeImcomeCarList( state, value) {
+  storeImcomeCarList(state, value) {
     state.incomeCarList = value
   },
 
@@ -135,15 +133,15 @@ const actions = {
       const { data } = await api.registrateNewCar(state.formValue)
       commit('addIncomeCar', data.data)
       commit('closeModal')
-      dispatch('accessCard/getCardList', null, {root: true})
+      dispatch('accessCard/getCardList', null, { root: true })
     } catch (error) {
-      
+      commit('storeError', error)
     }
   },
 
-  async exitCar({dispatch, commit}, {id, time}) {
+  async exitCar({ dispatch, commit }, { id, time }) {
     try {
-      await api.exitCar({id, time})
+      await api.exitCar({ id, time })
       commit('exitCar', id)
       dispatch('accessCard/getCardList', null, { root: true })
     } catch (error) {

@@ -86,7 +86,7 @@ const actions = {
       const {data} = await api.getSecurities()
       commit('storeSecurities', data.data)
     } catch (error) {
-      commit('storeError', payload)
+      commit('storeError', error)
     }
   },
 

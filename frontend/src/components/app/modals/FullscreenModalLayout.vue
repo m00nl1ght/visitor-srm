@@ -1,36 +1,20 @@
 <template>
   <v-row justify="center">
-    <v-dialog
-      v-model="isOpen"
-      fullscreen
-      hide-overlay
-      transition="dialog-bottom-transition"
-    >
+    <v-dialog v-model="modal" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
-        <v-toolbar
-          dark
-          color="primary"
-        >
-          <v-btn
-            icon
-            dark
-            @click="onClose"
-          >
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="onClose">
             <v-icon>mdi-close</v-icon>
           </v-btn>
           <v-toolbar-title>{{ title }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn
-              dark
-              text
-              @click="onConfirm"
-            >
+            <v-btn dark text @click="onConfirm">
               {{ confirmBtnTitle }}
             </v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        
+
         <slot></slot>
       </v-card>
     </v-dialog>
@@ -54,14 +38,21 @@ export default {
     }
   },
 
-  methods: {
-    printCard() {
-
-    },
-
-    closeDialog() {
-
+  computed: {
+    modal: {
+      get() {
+        return this.isOpen
+      },
+      set(value) {
+        this.$emit('input', value)
+      }
     }
+  },
+
+  methods: {
+    printCard() {},
+
+    closeDialog() {}
   }
 }
 </script>
