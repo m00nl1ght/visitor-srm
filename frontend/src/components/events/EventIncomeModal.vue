@@ -1,18 +1,23 @@
 <template>
   <MainModalLayout
-    :isOpen="isOpen"
-    :onClose="onClose"
-    :onConfirm="onConfirm"
+    :is-open="isOpen"
+    :on-close="onClose"
+    :on-confirm="onConfirm"
     :title="title"
   >
-    <v-form class="pt-5" ref="form" v-model="valid" lazy-validation>
+    <v-form
+      ref="form"
+      v-model="valid"
+      class="pt-5"
+      lazy-validation
+    >
       <v-text-field
         v-model="formValue.description"
         outlined
         label="Описание"
         dense
         :rules="rules"
-      ></v-text-field>
+      />
 
       <v-textarea
         v-model="formValue.comment"
@@ -20,8 +25,7 @@
         label="Комменарий"
         dense
         :rules="rules"
-      >
-      </v-textarea>
+      />
     </v-form>
   </MainModalLayout>
 </template>

@@ -1,61 +1,63 @@
 <template>
-    <v-card>
-      <div class="d-flex justify-space-between align-center pr-5">
-        <v-card-title>Список сотрудников охраны</v-card-title>
+  <v-card>
+    <div class="d-flex justify-space-between align-center pr-5">
+      <v-card-title>Список сотрудников охраны</v-card-title>
 
-        <v-btn 
-          @click="openModal"
-          color="primary"
-          outlined
-        >Добавить сотрудника охраны</v-btn>
+      <v-btn 
+        color="primary"
+        outlined
+        @click="openModal"
+      >
+        Добавить сотрудника охраны
+      </v-btn>
 
-        <SecurityAddModal :title="modalTitle"/>
-        <ConfirmModal 
-          :isOpen="confirmModalOpen"
-          :onConfirm="confirmDelete"
-          :onClose="() => confirmModalOpen = false"
-          :title="'Подтвердите удаление'"
-        />
-      </div>
+      <SecurityAddModal :title="modalTitle" />
+      <ConfirmModal 
+        :is-open="confirmModalOpen"
+        :on-confirm="confirmDelete"
+        :on-close="() => confirmModalOpen = false"
+        :title="'Подтвердите удаление'"
+      />
+    </div>
 
-      <v-card-text>
-         <v-data-table
-            :headers="headers"
-            :items="securities"
+    <v-card-text>
+      <v-data-table
+        :headers="headers"
+        :items="securities"
+      >
+        <template #[`item.securityName`]="{ item }">
+          {{ printFullName(item) }}
+        </template>
+
+        <template #[`item.actions`]="{ item }">
+          <v-icon
+            small
+            class="mr-2"
+            @click="editItem(item)"
           >
-            <template #[`item.securityName`]="{ item }">
-              {{ printFullName(item) }}
-            </template>
+            mdi-pencil
+          </v-icon>
+          <v-icon
+            small
+            @click="deleteItem(item)"
+          >
+            mdi-delete
+          </v-icon>
+        </template>
 
-            <template #[`item.actions`]="{ item }">
-              <v-icon
-                small
-                class="mr-2"
-                @click="editItem(item)"
-              >
-                mdi-pencil
-              </v-icon>
-              <v-icon
-                small
-                @click="deleteItem(item)"
-              >
-                mdi-delete
-              </v-icon>
-            </template>
+        <template #no-data>
+          <p>Данные отсутствуют...</p>
 
-            <template v-slot:no-data>
-              <p>Данные отсутствуют...</p>
-
-              <v-btn
-                color="primary"
-                @click="initialize"
-              >
-                Обновить
-              </v-btn>
-            </template>
-          </v-data-table>
-      </v-card-text>
-    </v-card>
+          <v-btn
+            color="primary"
+            @click="initialize"
+          >
+            Обновить
+          </v-btn>
+        </template>
+      </v-data-table>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>

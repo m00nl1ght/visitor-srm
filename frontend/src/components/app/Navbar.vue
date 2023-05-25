@@ -1,5 +1,8 @@
 <template>
-  <v-navigation-drawer app clipped>
+  <v-navigation-drawer
+    app
+    clipped
+  >
     <v-list
       dense
       nav
@@ -14,7 +17,7 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-              <v-list-item-title>Главная</v-list-item-title>
+            <v-list-item-title>Главная</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -28,7 +31,7 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>

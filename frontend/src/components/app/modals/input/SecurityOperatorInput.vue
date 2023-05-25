@@ -4,17 +4,17 @@
     :items="items"
     item-text="lastName"
     item-value="id"
-    @change="onChange"
     dense
     outlined
     label="Оператор охраны"
     :rules="nameRules"
+    @change="onChange"
   >
-    <template v-slot:selection="{ item }">
+    <template #selection="{ item }">
       <span>{{ `${item.lastName} ${item.name}` }}</span>
     </template>
 
-    <template v-slot:item="{ item }">
+    <template #item="{ item }">
       {{ `${item.lastName} ${item.name}` }}
     </template>
   </v-select>

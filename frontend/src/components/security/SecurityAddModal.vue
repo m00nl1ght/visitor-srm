@@ -1,53 +1,57 @@
 <template>
   <MainModalLayout
-    :isOpen="isOpen"
-    :onClose="onClose"
-    :onConfirm="onConfirm"
+    :is-open="isOpen"
+    :on-close="onClose"
+    :on-confirm="onConfirm"
     :title="title"
   >
-    <v-form class="pt-5" ref="form" v-model="valid" lazy-validation>
-        <v-col class="pa-0">
-          <v-text-field
-            v-model="lastName"
-            label="Фамилия"
-            outlined
-            dense
-            :rules="nameRules"
-          ></v-text-field>
-        </v-col>
+    <v-form
+      ref="form"
+      v-model="valid"
+      class="pt-5"
+      lazy-validation
+    >
+      <v-col class="pa-0">
+        <v-text-field
+          v-model="lastName"
+          label="Фамилия"
+          outlined
+          dense
+          :rules="nameRules"
+        />
+      </v-col>
 
-        <v-col class="pa-0">
-          <v-text-field
-            v-model="name"
-            label="Имя"
-            outlined
-            dense
-            :rules="nameRules"
-          ></v-text-field>
-        </v-col>
+      <v-col class="pa-0">
+        <v-text-field
+          v-model="name"
+          label="Имя"
+          outlined
+          dense
+          :rules="nameRules"
+        />
+      </v-col>
 
-        <v-col class="pa-0">
-          <v-text-field
-            v-model="middleName"
-            label="Отчество"
-            outlined
-            dense
-            :value="addFormValue.middle_name"
-          ></v-text-field>
-        </v-col>
+      <v-col class="pa-0">
+        <v-text-field
+          v-model="middleName"
+          label="Отчество"
+          outlined
+          dense
+          :value="addFormValue.middle_name"
+        />
+      </v-col>
 
-        <v-col class="pa-0">
-          <v-select
-            v-model="role"
-            label="Должность"
-            outlined
-            dense
-            :items="securityRoles"
-            item-text="title"
-            item-value="id"
-          >
-          </v-select>
-        </v-col>
+      <v-col class="pa-0">
+        <v-select
+          v-model="role"
+          label="Должность"
+          outlined
+          dense
+          :items="securityRoles"
+          item-text="title"
+          item-value="id"
+        />
+      </v-col>
     </v-form>
   </MainModalLayout>
 </template>
@@ -56,12 +60,12 @@
 import MainModalLayout from '@/components/app/modals/MainModalLayout.vue'
 
 export default {
-  props: {
-    title: String
-  },
 
   components: {
     MainModalLayout
+  },
+  props: {
+    title: String
   },
 
   data() {

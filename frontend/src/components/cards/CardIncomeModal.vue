@@ -1,46 +1,75 @@
 <template>
-  <MainModalLayout :isOpen="isOpen" :onClose="onClose" :onConfirm="onConfirm" :title="'Выдать карту'">
-    <v-alert v-if="cards.length == 0" class="mt-5" border="left" outlined type="warning"> Не осталось свободных карт доступа </v-alert>
+  <MainModalLayout
+    :is-open="isOpen"
+    :on-close="onClose"
+    :on-confirm="onConfirm"
+    :title="'Выдать карту'"
+  >
+    <v-alert
+      v-if="cards.length == 0"
+      class="mt-5"
+      border="left"
+      outlined
+      type="warning"
+    >
+      Не осталось свободных карт доступа
+    </v-alert>
 
-    <v-form v-else class="pt-5" ref="form" v-model="valid" lazy-validation>
+    <v-form
+      v-else
+      ref="form"
+      v-model="valid"
+      class="pt-5"
+      lazy-validation
+    >
       <h2>Данные сотрудника</h2>
       <v-divider class="my-2" />
 
-      <PersonInput :data="formValue.employee" :callback="setEmployeeFormValue" />
+      <PersonInput
+        :data="formValue.employee"
+        :callback="setEmployeeFormValue"
+      />
       <v-text-field
         :value="formValue.employee.position"
-        @input="(value) => setEmployeeFormValue({ key: 'position', value })"
         outlined
         dense
         label="Должность"
-      ></v-text-field>
+        @input="(value) => setEmployeeFormValue({ key: 'position', value })"
+      />
 
       <AutoinsertPerson
         :active="showAutoinsertEmployee"
         :items="autoinsertList"
-        :onClick="autoinsertEmployee"
-        :onClose="() => (showAutoinsertEmployee = false)"
+        :on-click="autoinsertEmployee"
+        :on-close="() => (showAutoinsertEmployee = false)"
       />
 
-      <CardInput :cardId="formValue.cardId" :callback="setCardIdFormValue" :cards="cards" />
+      <CardInput
+        :card-id="formValue.cardId"
+        :callback="setCardIdFormValue"
+        :cards="cards"
+      />
 
       <h2>Данные руководителя сотрудника</h2>
       <v-divider class="my-2" />
 
-      <PersonInput :data="formValue.boss" :callback="setBossFormValue" />
+      <PersonInput
+        :data="formValue.boss"
+        :callback="setBossFormValue"
+      />
       <v-text-field
         :value="formValue.boss.position"
-        @input="(value) => setBossFormValue({ key: 'position', value })"
         outlined
         dense
         label="Должность"
-      ></v-text-field>
+        @input="(value) => setBossFormValue({ key: 'position', value })"
+      />
 
       <AutoinsertPerson
         :active="showAutoinsertBoss"
         :items="autoinsertList"
-        :onClick="autoinsertBoss"
-        :onClose="() => (showAutoinsertBoss = false)"
+        :on-click="autoinsertBoss"
+        :on-close="() => (showAutoinsertBoss = false)"
       />
     </v-form>
   </MainModalLayout>
@@ -86,6 +115,10 @@ export default {
     autoinsertList() {
       return this.$store.state.autoinsert.autoinsertEmployeeList
     }
+  },
+
+  mounted() {
+    this.$store.dispatch('accessCard/getCardList')
   },
 
   methods: {
@@ -134,10 +167,6 @@ export default {
       this.$store.commit('incomeCard/setAutoinsertBoss', value)
       this.closeAutoinsertField()
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('accessCard/getCardList')
   }
 }
 </script>

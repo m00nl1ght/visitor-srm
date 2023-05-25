@@ -1,5 +1,8 @@
 <template>
-  <v-app-bar app clipped-left>
+  <v-app-bar
+    app
+    clipped-left
+  >
     <v-spacer />
 
     <v-avatar color="primary">
@@ -13,8 +16,24 @@
       <span>Сотрудник охраны</span>
     </div>
 
-    <v-btn v-if="!activeLoginBtn" @click="login" color="primary" icon title="Войти"><v-icon>mdi-login</v-icon></v-btn>
-    <v-btn v-else @click="logout" color="primary" icon title="Выйти"><v-icon>mdi-logout</v-icon></v-btn>
+    <v-btn
+      v-if="!activeLoginBtn"
+      color="primary"
+      icon
+      title="Войти"
+      @click="login"
+    >
+      <v-icon>mdi-login</v-icon>
+    </v-btn>
+    <v-btn
+      v-else
+      color="primary"
+      icon
+      title="Выйти"
+      @click="logout"
+    >
+      <v-icon>mdi-logout</v-icon>
+    </v-btn>
   </v-app-bar>
 </template>
 

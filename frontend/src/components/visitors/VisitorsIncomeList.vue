@@ -1,7 +1,14 @@
 <template>
-  <v-data-table :headers="headers" :items="items">
+  <v-data-table
+    :headers="headers"
+    :items="items"
+  >
     <template #[`item.printBtn`]="{ item }">
-      <v-btn :disabled="disabled" @click="printCard({ id: item.id })" icon>
+      <v-btn
+        :disabled="disabled"
+        icon
+        @click="printCard({ id: item.id })"
+      >
         <v-icon>mdi-printer</v-icon>
       </v-btn>
     </template>
@@ -19,12 +26,22 @@
         <v-text-field
           v-if="!disabled"
           :value="exitTime[item.id] ? exitTime[item.id] : null"
-          @change="value => setExitTime({ id: item.id, value })"
           type="time"
-        ></v-text-field>
+          @change="value => setExitTime({ id: item.id, value })"
+        />
 
-        <v-btn @click="exitVisitor({ id: item.id })" outlined small color="primary" class="ml-5" :disabled="disabled">
-          <v-icon small class="mr-2">
+        <v-btn
+          outlined
+          small
+          color="primary"
+          class="ml-5"
+          :disabled="disabled"
+          @click="exitVisitor({ id: item.id })"
+        >
+          <v-icon
+            small
+            class="mr-2"
+          >
             mdi-exit-run
           </v-icon>
           Вышел
@@ -32,7 +49,7 @@
       </div>
     </template>
 
-    <template v-slot:no-data>
+    <template #no-data>
       <p>Данные отсутствуют...</p>
     </template>
   </v-data-table>

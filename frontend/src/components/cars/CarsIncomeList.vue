@@ -5,15 +5,15 @@
   >
     <template #[`item.printBtn`]="{ item }">
       <v-btn 
-        @click="printCard({id: item.id})" 
-        :disabled="disabled"
+        :disabled="disabled" 
         icon
+        @click="printCard({id: item.id})"
       >
         <v-icon>mdi-printer</v-icon>
       </v-btn>
     </template>
 
-      <template #[`item.visitorName`]="{ item }">
+    <template #[`item.visitorName`]="{ item }">
       {{ printFullName(item.visitor) }}
     </template>
 
@@ -21,17 +21,17 @@
       <div class="d-flex align-center">
         <v-text-field
           :value="exitTime[item.id] ? exitTime[item.id] : null"
-          @change="(value) => setExitTime({ id: item.id, value })"
           type="time"
-        ></v-text-field>
+          @change="(value) => setExitTime({ id: item.id, value })"
+        />
 
         <v-btn
-          @click="exitCar({id: item.id})" 
-          outlined
-          small 
+          outlined 
+          small
           color="primary" 
-          class="ml-5"
+          class="ml-5" 
           :disabled="disabled"
+          @click="exitCar({id: item.id})"
         >
           <v-icon
             small
@@ -42,10 +42,9 @@
           Вышел
         </v-btn>
       </div>
-
     </template>
 
-    <template v-slot:no-data>
+    <template #no-data>
       <p>Данные отсутствуют...</p>
     </template>
   </v-data-table>

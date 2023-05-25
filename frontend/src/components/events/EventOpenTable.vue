@@ -9,32 +9,32 @@
       </template>
 
       <template #[`item.actions`]="{ item }">
-          <v-btn
-            @click="onEdit(item.id)"
-            icon
-            :disabled="disabled"
-          >
-            <v-icon>mdi-pencil-outline</v-icon>
-          </v-btn>
+        <v-btn
+          icon
+          :disabled="disabled"
+          @click="onEdit(item.id)"
+        >
+          <v-icon>mdi-pencil-outline</v-icon>
+        </v-btn>
 
-          <v-btn
-            @click="onDelete(item.id)"
-            icon 
-            :disabled="disabled"
-          >
-            <v-icon>mdi-trash-can-outline</v-icon>
-          </v-btn>
+        <v-btn
+          icon
+          :disabled="disabled" 
+          @click="onDelete(item.id)"
+        >
+          <v-icon>mdi-trash-can-outline</v-icon>
+        </v-btn>
       </template>
 
-      <template v-slot:no-data>
+      <template #no-data>
         <p>Проишествия не происходили...</p>
       </template>
     </v-data-table>
 
     <ConfirmModal
-      :isOpen="confimDeleteOpen"
-      :onClose="closeConfirmDelete"
-      :onConfirm="onConfirmDelete"
+      :is-open="confimDeleteOpen"
+      :on-close="closeConfirmDelete"
+      :on-confirm="onConfirmDelete"
     >
       <v-subheader>Вы уверены, что хотите удалить данный элемент?</v-subheader>
     </ConfirmModal>
@@ -45,16 +45,16 @@
 import ConfirmModal from '@/components/app/modals/ConfirmModal.vue'
 
 export default {
+
+  components: {
+    ConfirmModal
+  },
   props: {
     items: Array,
     disabled: {
       type: Boolean,
       default: false
     }
-  },
-
-  components: {
-    ConfirmModal
   },
 
   data: () => ({

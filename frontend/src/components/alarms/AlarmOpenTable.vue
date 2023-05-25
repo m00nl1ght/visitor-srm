@@ -1,8 +1,23 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="items" :single-expand="true" item-key="title" show-expand class="elevation-1">
+    <v-data-table
+      :headers="headers"
+      :items="items"
+      :single-expand="true"
+      item-key="title"
+      show-expand
+      class="elevation-1"
+    >
       <template #[`item.decided`]="{ item }">
-        <v-btn @click="decided(item.id)" :disabled="disabled" outlined small color="success">Решено</v-btn>
+        <v-btn
+          :disabled="disabled"
+          outlined
+          small
+          color="success"
+          @click="decided(item.id)"
+        >
+          Решено
+        </v-btn>
       </template>
 
       <template #[`item.system`]="{ item }">
@@ -17,30 +32,44 @@
         {{ $moment(item.inTime).format('hh:mm DD.MM.YYYY') }}
       </template>
 
-      <template v-slot:expanded-item="{ item }">
+      <template #expanded-item="{ item }">
         <td :colspan="990">
-          <p class="v-data-table_title"><span class = 'v-data-table_span'>Описание:</span> {{ item.title }}</p>
+          <p class="v-data-table_title">
+            <span class="v-data-table_span">Описание:</span> {{ item.title }}
+          </p>
           <p><span class="v-data-table_span">Место:</span> {{ item.place }} </p>
-          <p><span class = 'v-data-table_span'>Комментарий:</span> {{ item.comment }}</p>
+          <p><span class="v-data-table_span">Комментарий:</span> {{ item.comment }}</p>
         </td>
       </template>
 
       <template #[`item.actions`]="{ item }">
-        <v-btn @click="onEdit(item.id)" icon :disabled="disabled">
+        <v-btn
+          icon
+          :disabled="disabled"
+          @click="onEdit(item.id)"
+        >
           <v-icon>mdi-pencil-outline</v-icon>
         </v-btn>
 
-        <v-btn @click="onDelete(item.id)" icon :disabled="disabled">
+        <v-btn
+          icon
+          :disabled="disabled"
+          @click="onDelete(item.id)"
+        >
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
       </template>
 
-      <template v-slot:no-data>
+      <template #no-data>
         <p>Нерешенные неисправности отсутствуют...</p>
       </template>
     </v-data-table>
 
-    <ConfirmModal :isOpen="confimDeleteOpen" :onClose="closeConfirmDelete" :onConfirm="onConfirmDelete">
+    <ConfirmModal
+      :is-open="confimDeleteOpen"
+      :on-close="closeConfirmDelete"
+      :on-confirm="onConfirmDelete"
+    >
       <v-subheader>Вы уверены, что хотите удалить данный элемент?</v-subheader>
     </ConfirmModal>
   </div>
@@ -50,16 +79,16 @@
 import ConfirmModal from '@/components/app/modals/ConfirmModal.vue'
 
 export default {
+
+  components: {
+    ConfirmModal
+  },
   props: {
     items: Array,
     disabled: {
       type: Boolean,
       default: false
     }
-  },
-
-  components: {
-    ConfirmModal
   },
 
   data: () => ({

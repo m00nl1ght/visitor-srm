@@ -1,21 +1,23 @@
 <template>
-    <v-card>
-      <v-toolbar>
-        <v-toolbar-title>Список активных неисправностей</v-toolbar-title>
-        <v-spacer />
-        <v-btn 
-          @click="openModal"
-          color="primary"
-          outlined
-        >Добавить неисправность</v-btn>
-      </v-toolbar>
+  <v-card>
+    <v-toolbar>
+      <v-toolbar-title>Список активных неисправностей</v-toolbar-title>
+      <v-spacer />
+      <v-btn 
+        color="primary"
+        outlined
+        @click="openModal"
+      >
+        Добавить неисправность
+      </v-btn>
+    </v-toolbar>
 
-      <v-card-text>
-        <AlarmOpenTable :items="openAlarmList"/>
-      </v-card-text>
+    <v-card-text>
+      <AlarmOpenTable :items="openAlarmList" />
+    </v-card-text>
 
-      <AlarmIncomeModal />
-    </v-card>
+    <AlarmIncomeModal />
+  </v-card>
 </template>
 
 <script>
@@ -34,14 +36,14 @@ export default {
     }
   },
 
+  mounted() {
+    this.$store.dispatch('incomeAlarm/getOpenAlarmList')
+  },
+
   methods: {
     openModal() {
       this.$store.commit('incomeAlarm/openAddModal')
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('incomeAlarm/getOpenAlarmList')
   }
 }
 </script>

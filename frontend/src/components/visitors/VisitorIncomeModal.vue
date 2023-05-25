@@ -1,25 +1,45 @@
 <template>
-  <MainModalLayout :isOpen="isOpen" :onClose="onClose" :onConfirm="onConfirm" :title="'Добавить нового посетителя'">
-    <v-form class="pt-5" ref="form" v-model="valid" lazy-validation>
+  <MainModalLayout
+    :is-open="isOpen"
+    :on-close="onClose"
+    :on-confirm="onConfirm"
+    :title="'Добавить нового посетителя'"
+  >
+    <v-form
+      ref="form"
+      v-model="valid"
+      class="pt-5"
+      lazy-validation
+    >
       <h2>Данные посетителя</h2>
       <v-divider class="my-2" />
-      <VisitorInput :data="formValue.visitor" :callback="setVisitor" />
+      <VisitorInput
+        :data="formValue.visitor"
+        :callback="setVisitor"
+      />
       <AutoinsertPerson
         :active="showAutoinsertVisitor"
         :items="autoinsertVisitorList"
-        :onClick="autoinsertVisitor"
-        :onClose="() => (showAutoinsertVisitor = false)"
+        :on-click="autoinsertVisitor"
+        :on-close="() => (showAutoinsertVisitor = false)"
       />
-      <CategoryInput :value="formValue.categoryId" :items="categoryList" :onChange="setCategory" />
+      <CategoryInput
+        :value="formValue.categoryId"
+        :items="categoryList"
+        :on-change="setCategory"
+      />
 
       <h2>Данные принимающей стороны</h2>
       <v-divider class="my-2" />
-      <EmployeeInput :data="formValue.employee" :callback="setEmployee" />
+      <EmployeeInput
+        :data="formValue.employee"
+        :callback="setEmployee"
+      />
       <AutoinsertPerson
         :active="showAutoinsertEmployee"
         :items="autoinsertEmployeeList"
-        :onClick="autoinsertEmployee"
-        :onClose="() => (showAutoinsertEmployee = false)"
+        :on-click="autoinsertEmployee"
+        :on-close="() => (showAutoinsertEmployee = false)"
       />
 
       <v-select
@@ -27,15 +47,18 @@
         :items="cardList"
         item-text="number"
         item-value="id"
-        @change="setCard"
         dense
         outlined
         label="Карта доступа"
         :rules="rules"
-      >
-      </v-select>
+        @change="setCard"
+      />
 
-      <SecurityOperatorInput :value="formValue.securityId" :items="currentGroupMembers" :onChange="setSecurity" />
+      <SecurityOperatorInput
+        :value="formValue.securityId"
+        :items="currentGroupMembers"
+        :on-change="setSecurity"
+      />
     </v-form>
   </MainModalLayout>
 </template>
@@ -94,6 +117,19 @@ export default {
     }
   },
 
+  watch: {
+    operator() {
+      if (this.currentGroupMembers) {
+        this.setSecurity(this.operator.id)
+      }
+    }
+  },
+
+  mounted() {
+    this.$store.dispatch('accessCard/getCardList')
+    this.$store.dispatch('visitorCategory/getCategoryList')
+  },
+
   methods: {
     onClose() {
       this.$store.commit('incomeVisitor/closeModal')
@@ -142,19 +178,6 @@ export default {
     setCategory(value) {
       this.$store.commit('incomeVisitor/storeFormCategory', value)
     }
-  },
-
-  watch: {
-    operator() {
-      if (this.currentGroupMembers) {
-        this.setSecurity(this.operator.id)
-      }
-    }
-  },
-
-  mounted() {
-    this.$store.dispatch('accessCard/getCardList')
-    this.$store.dispatch('visitorCategory/getCategoryList')
   }
 }
 </script>

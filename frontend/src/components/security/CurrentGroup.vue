@@ -7,18 +7,22 @@
         <v-spacer />
 
         <v-btn 
-          @click="openEditModal"
+          v-if="currentGroup && currentGroup.length !== 0"
           color="primary"
           outlined
-          v-if="currentGroup && currentGroup.length !== 0"
-        >Редактировать смену</v-btn>
+          @click="openEditModal"
+        >
+          Редактировать смену
+        </v-btn>
 
         <v-btn 
-          @click="openAddModal"
           class="ml-3"
           color="primary"
           outlined
-        >Новая смена</v-btn>
+          @click="openAddModal"
+        >
+          Новая смена
+        </v-btn>
       </div>
 
       <v-card-text>
@@ -28,10 +32,12 @@
           colored-border
           type="warning"
           elevation="2"
-        >Смена на текущую дату еще не зарегестрирована!!</v-alert>
+        >
+          Смена на текущую дату еще не зарегестрирована!!
+        </v-alert>
 
         <v-simple-table v-else>
-          <template v-slot:default>
+          <template #default>
             <thead>
               <tr>
                 <th class="text-left">

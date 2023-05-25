@@ -4,13 +4,12 @@
     :items="items"
     item-text="title"
     item-value="id"
-    @change="onChange"
     dense
     outlined
     label="Категория посетителя"
     :rules="nameRules"
-  >
-  </v-select>
+    @change="onChange"
+  />
 </template>
 
 <script>

@@ -1,33 +1,37 @@
 <template>
-    <v-card>
-      <v-toolbar>
-        <v-toolbar-title>Список автомобилей на объекте</v-toolbar-title>
-        <v-spacer />
-        <v-btn 
-          @click="openModal"
-          color="primary"
-          outlined
-        >Добавить новый автомобиль</v-btn>
-      </v-toolbar>
+  <v-card>
+    <v-toolbar>
+      <v-toolbar-title>Список автомобилей на объекте</v-toolbar-title>
+      <v-spacer />
+      <v-btn 
+        color="primary"
+        outlined
+        @click="openModal"
+      >
+        Добавить новый автомобиль
+      </v-btn>
+    </v-toolbar>
 
-      <v-card-text>
-        <CarsIncomeList 
-          v-if="incomeCarList && incomeCarList.length > 0"
-          :items="incomeCarList"
-          @printCard="printCard"
-        />
-
-        <p v-else>Территория пуста, все посетители на автомобилях дома...</p>
-      </v-card-text>
-
-      <CarPrintCardModal 
-        :isOpen="isOpenPrintModal"
-        :onClose="() => isOpenPrintModal = false"
-        :printCardValue="printCardValue"
+    <v-card-text>
+      <CarsIncomeList 
+        v-if="incomeCarList && incomeCarList.length > 0"
+        :items="incomeCarList"
+        @printCard="printCard"
       />
 
-      <CarIncomeModal />
-    </v-card>
+      <p v-else>
+        Территория пуста, все посетители на автомобилях дома...
+      </p>
+    </v-card-text>
+
+    <CarPrintCardModal 
+      :is-open="isOpenPrintModal"
+      :on-close="() => isOpenPrintModal = false"
+      :print-card-value="printCardValue"
+    />
+
+    <CarIncomeModal />
+  </v-card>
 </template>
 
 <script>
@@ -53,6 +57,10 @@ export default {
     }
   },
 
+  mounted() {
+    this.$store.dispatch('incomeCar/getIncomeCarList')
+  },
+
   methods: {
     openModal() {
       this.$store.commit('incomeCar/openModal')
@@ -62,10 +70,6 @@ export default {
       this.printCardValue = this.incomeCarList.find(item => item.id == id)
       this.isOpenPrintModal = true
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('incomeCar/getIncomeCarList')
   }
 }
 </script>

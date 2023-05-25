@@ -1,5 +1,8 @@
 <template>
-  <v-data-table :headers="headers" :items="items">
+  <v-data-table
+    :headers="headers"
+    :items="items"
+  >
     <template #[`item.visitorName`]="{ item }">
       {{ printFullName(item.visitor) }}
     </template>
@@ -12,7 +15,7 @@
       {{ item.outTime ? $moment(item.outTime).format('HH:mm DD.MM.YYYY') : '' }}
     </template>
 
-    <template v-slot:no-data>
+    <template #no-data>
       <p>Данные отсутствуют...</p>
     </template>
   </v-data-table>

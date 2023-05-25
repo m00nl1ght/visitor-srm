@@ -5,32 +5,32 @@
         <v-text-field
           label="Фамилия"
           :value="data.lastName"
-          @input="(value) => callback({key: 'lastName', value})"
           dense
           outlined
           :rules="nameRules"
-        ></v-text-field>
+          @input="(value) => callback({key: 'lastName', value})"
+        />
       </v-col>
             
       <v-col cols="4">
         <v-text-field
           label="Имя"
           :value="data.name"
-          @input="(value) => callback({key: 'name', value})"
           dense
           outlined
           :rules="nameRules"
-        ></v-text-field>
+          @input="(value) => callback({key: 'name', value})"
+        />
       </v-col>
 
       <v-col cols="4">
         <v-text-field
           label="Отчество"
           :value="data.middleName"
-          @input="(value) => callback({key: 'middleName', value})"
           dense
           outlined
-        ></v-text-field>
+          @input="(value) => callback({key: 'middleName', value})"
+        />
       </v-col>
     </v-row>
 
@@ -38,10 +38,10 @@
       v-if="position"
       label="Должность"
       :value="data.position"
-      @input="(value) => callback({key: 'position', value})"
       dense
       outlined
-    ></v-text-field>
+      @input="(value) => callback({key: 'position', value})"
+    />
   </div>
 </template>
 

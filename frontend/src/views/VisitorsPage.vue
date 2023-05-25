@@ -1,32 +1,36 @@
 <template>
-    <v-card>
-      <v-toolbar>
-        <v-toolbar-title>Список посетителей на объекте</v-toolbar-title>
-        <v-spacer />
-        <v-btn 
-          @click="openModal"
-          color="primary"
-          outlined
-        >Добавить нового посетителя</v-btn>
-      </v-toolbar>
+  <v-card>
+    <v-toolbar>
+      <v-toolbar-title>Список посетителей на объекте</v-toolbar-title>
+      <v-spacer />
+      <v-btn 
+        color="primary"
+        outlined
+        @click="openModal"
+      >
+        Добавить нового посетителя
+      </v-btn>
+    </v-toolbar>
 
-      <v-card-text>
-        <VisitorsIncomeList 
-          v-if="incomeVisitorList && incomeVisitorList.length > 0"
-          :items="incomeVisitorList"
-          @printCard="printCard"
-        />
-
-        <p v-else>Территория пуста, все посетители дома...</p>
-      </v-card-text>
-
-      <VisitorPrintCardModal 
-        :isOpen="isOpenPrintModal"
-        :onClose="() => isOpenPrintModal = false"
-        :printCardValue="printCardValue"
+    <v-card-text>
+      <VisitorsIncomeList 
+        v-if="incomeVisitorList && incomeVisitorList.length > 0"
+        :items="incomeVisitorList"
+        @printCard="printCard"
       />
-      <VisitorIncomeModal />
-    </v-card>
+
+      <p v-else>
+        Территория пуста, все посетители дома...
+      </p>
+    </v-card-text>
+
+    <VisitorPrintCardModal 
+      :is-open="isOpenPrintModal"
+      :on-close="() => isOpenPrintModal = false"
+      :print-card-value="printCardValue"
+    />
+    <VisitorIncomeModal />
+  </v-card>
 </template>
 
 <script>
@@ -52,6 +56,10 @@ export default {
     }
   },
 
+  mounted() {
+    this.$store.dispatch('incomeVisitor/getIncomeVisitorList')
+  },
+
   methods: {
     openModal() {
       this.$store.commit('incomeVisitor/openModal')
@@ -61,10 +69,6 @@ export default {
       this.printCardValue = this.incomeVisitorList.find(item => item.id == id)
       this.isOpenPrintModal = true
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('incomeVisitor/getIncomeVisitorList')
   }
 }
 </script>

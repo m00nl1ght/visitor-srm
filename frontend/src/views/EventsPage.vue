@@ -1,21 +1,23 @@
 <template>
-    <v-card>
-      <v-toolbar>
-        <v-toolbar-title>Список текущих проишествий</v-toolbar-title>
-        <v-spacer />
-        <v-btn 
-          @click="openModal"
-          color="primary"
-          outlined
-        >Добавить проишествие</v-btn>
-      </v-toolbar>
+  <v-card>
+    <v-toolbar>
+      <v-toolbar-title>Список текущих проишествий</v-toolbar-title>
+      <v-spacer />
+      <v-btn 
+        color="primary"
+        outlined
+        @click="openModal"
+      >
+        Добавить проишествие
+      </v-btn>
+    </v-toolbar>
 
-      <v-card-text>
-        <EventOpenTable :items="openEventList"/>
-      </v-card-text>
+    <v-card-text>
+      <EventOpenTable :items="openEventList" />
+    </v-card-text>
 
-      <EventIncomeModal />
-    </v-card>
+    <EventIncomeModal />
+  </v-card>
 </template>
 
 <script>
@@ -34,14 +36,14 @@ export default {
     }
   },
 
+  mounted() {
+    this.$store.dispatch('incomeEvent/getOpenEventList')
+  },
+
   methods: {
     openModal() {
       this.$store.commit('incomeEvent/openAddModal')
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('incomeEvent/getOpenEventList')
   }
 }
 </script>
