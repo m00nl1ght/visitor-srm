@@ -15,7 +15,7 @@ const state = () => ({
 
   openModal: false,
   formValue: defaultFormValue(),
-  formValueEdit: defaultFormValue(),
+  // formValueEdit: defaultFormValue(),
 })
 
 const getters = {}
@@ -30,8 +30,7 @@ const mutations = {
   },
 
   openEditModal(state, id) {
-    state.formValue = state.openAlarmList.find((item) => item.id == id),
-    state.formValueEdit = cloneDeep(state.formValue),
+    state.formValue = cloneDeep(state.openAlarmList.find((item) => item.id == id)),
     state.openModal = true
   },
 
@@ -58,8 +57,8 @@ const actions = {
 
   async registrateAlarm({ state, commit }) {
     try {
-      if (state.formValueEdit.id) {
-        const { data } = await api.editAlarm(state.formValueEdit)
+      if (state.formValue.id) {
+        const { data } = await api.editAlarm(state.formValue)
         commit('storeOpenAlarmList', data.data)
       } else {
         const { data } = await api.addAlarm(state.formValue)

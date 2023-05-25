@@ -70,7 +70,7 @@ export default {
     },
 
     formValue() { 
-      return this.$store.state.incomeAlarm.formValueEdit
+      return this.$store.state.incomeAlarm.formValue
     },
 
     systemAlarmList() {

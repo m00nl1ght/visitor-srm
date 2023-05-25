@@ -82,7 +82,6 @@ export default {
     },
 
     onEdit(id) {
-      console.log(id),
       this.$store.commit('incomeAlarm/openEditModal', id)
     },
 
