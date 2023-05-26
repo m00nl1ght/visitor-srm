@@ -26,7 +26,7 @@
       </template>
 
       <template #[`item.actions`]="{ item }">
-        <v-btn icon :disabled="disabled" @click="onEdit(item.id)">
+        <v-btn icon :disabled="disabled" @click="onEdit(item)">
           <v-icon>mdi-pencil-outline</v-icon>
         </v-btn>
 
@@ -65,9 +65,9 @@ export default {
     headers: [
       { text: 'Решено', value: 'decided', sortable: false, width: 100 },
       { text: 'Система', align: 'start', value: 'system', sortable: false, width: 200 },
-      { text: 'Описание', value: 'title' },
-      { text: 'Место', value: 'place', sortable: false },
-      { text: 'Комментарий', value: 'comment', sortable: false, width: 200 },
+      { text: 'Описание', value: 'title', width: 150 },
+      { text: 'Место', value: 'place', sortable: false, width: 150 },
+      { text: 'Комментарий', value: 'comment', sortable: false, width: 600 },
       { text: 'Дата', value: 'inTime' },
       { text: 'Действия', value: 'actions', sortable: false }
     ],
@@ -81,8 +81,8 @@ export default {
       this.$store.dispatch('incomeAlarm/closeAlarm', id)
     },
 
-    onEdit(id) {
-      this.$store.commit('incomeAlarm/openEditModal', id)
+    onEdit(item) {
+      this.$store.commit('incomeAlarm/openEditModal', item.id)
     },
 
     onDelete(id) {
@@ -107,7 +107,7 @@ export default {
 .comment_overflow {
   margin-left: -5px;
   display: block;
-  max-width: 200px;
+  max-width: 600px;
   white-space: nowrap; /* Запрещаем перенос строк */
   overflow: hidden; /* Обрезаем все, что не помещается в область */
   padding: 5px; /* Поля вокруг текста */

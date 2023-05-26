@@ -15,8 +15,7 @@ const state = () => ({
 
   openModal: false,
   formValue: defaultFormValue(),
-  // formValueEdit: defaultFormValue(),
-})
+  })
 
 const getters = {}
 
