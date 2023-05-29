@@ -111,6 +111,11 @@ class IncomeEventController extends Controller
      */
     public function destroy($id)
     {
-        //
+      try {
+        $event = $this->incomeEventService->deleteEvent($id);
+        return response()->success('Событие обновлено удалено', $event);
+      } catch (\Exception $exception) {
+        return response()->error($exception);
+      }
     }
 }

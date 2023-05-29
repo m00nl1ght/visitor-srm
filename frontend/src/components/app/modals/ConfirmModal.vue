@@ -1,6 +1,7 @@
 <template>
   <v-dialog
     v-model="modal"
+    persistent
     max-width="500px"
   >
     <v-card>
