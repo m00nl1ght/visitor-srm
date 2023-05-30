@@ -36,7 +36,7 @@
             <v-text-field
               v-model="email"
               :rules="emailRules"
-              label="E-mail"
+              label="Login"
               required
               clearable
               @input="resetError"
@@ -45,7 +45,7 @@
             <v-text-field
               v-model="password"
               :rules="passwordRules"
-              label="Name"
+              label="Password"
               required
               clearable
               @input="resetError"

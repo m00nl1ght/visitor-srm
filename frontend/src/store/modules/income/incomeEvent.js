@@ -29,7 +29,7 @@ const mutations = {
 
   storeEditEvent(state, event) {
     state.openEventList = state.openEventList.map((item) => {
-      if (item.id == event.id) return event
+      if (item.id === event.id) return event
       return item
     })
   },
@@ -39,7 +39,7 @@ const mutations = {
   },
 
   openEditModal(state, id) {
-    state.formValue = cloneDeep(state.openEventList.find((item) => item.id == id))
+    state.formValue = cloneDeep(state.openEventList.find((item) => item.id === id))
     state.openModal = true
   },
 
