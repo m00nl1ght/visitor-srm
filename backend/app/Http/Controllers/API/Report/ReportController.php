@@ -83,7 +83,7 @@ class ReportController extends Controller
     try {
       $visitors = $this->incomeVisitorService->visitorBetweenDays($startDay, $endDay);
       $cars = $this->incomeCarService->carBetweenDays($startDay, $endDay);
-      $alarms = $this->incomeAlarmService->getOpenAlarms();
+      $alarms = $this->incomeAlarmService->alarmBetweenDays($startDay, $endDay);
       $events = $this->incomeEventService->eventBetweenDays($startDay, $endDay);
       $foggotenCard = $this->incomeFoggotenCardService->cardBetweenDays($startDay, $endDay);
 

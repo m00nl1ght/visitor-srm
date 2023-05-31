@@ -82,4 +82,13 @@ class IncomeAlarmService
           throw new \Exception($exception->getMessage());
       }
     }
+
+    public function alarmBetweenDays($startDay, $endDay) {
+      try {
+        $alarm = IncomeAlarm::whereBetween('in_time', array($startDay, $endDay))->orWhere('out_time', null)->with(['system_alarm_list'])->get();
+        return $alarm;
+      } catch (\Exception $exception){
+          throw new \Exception($exception->getMessage());
+      }
+    }
 }

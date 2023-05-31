@@ -29,7 +29,8 @@ const mutations = {
   },
 
   openEditModal(state, id) {
-    ;(state.formValue = cloneDeep(state.openAlarmList.find((item) => item.id == id))), (state.openModal = true)
+    state.formValue = cloneDeep(state.openAlarmList.find((item) => item.id === id))
+    state.openModal = true
   },
 
   closeModal(state) {

@@ -1,13 +1,14 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="items"
-  >
-    <template #[`item.system`]="{item}">
+  <v-data-table :headers="headers" :items="items">
+    <template #[`item.status`]="{ item }">
+      {{ `TODO ${item.outTime}` }}
+    </template>
+
+    <template #[`item.system`]="{ item }">
       {{ item.systemAlarmList.title }}
     </template>
 
-    <template #[`item.inTime`]="{item}">
+    <template #[`item.inTime`]="{ item }">
       {{ $moment(item.inTime).format('hh:mm DD.MM.YYYY') }}
     </template>
 
@@ -20,11 +21,12 @@
 <script>
 export default {
   props: {
-    items: Array,
+    items: Array
   },
 
   data: () => ({
     headers: [
+      { text: 'Статус', value: 'status' },
       {
         text: 'Система',
         align: 'start',
@@ -32,9 +34,9 @@ export default {
         sortable: false
       },
       { text: 'Описание', value: 'title' },
-      { text: 'Место', value: 'place', sortable: false},
+      { text: 'Место', value: 'place', sortable: false },
       { text: 'Комментарий', value: 'comment', sortable: false },
-      { text: 'Дата возникновения', value: 'inTime'}
+      { text: 'Дата возникновения', value: 'inTime' }
     ],
 
     confimDeleteOpen: false,
