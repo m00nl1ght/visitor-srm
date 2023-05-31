@@ -32,7 +32,7 @@ class IncomeCarService
         $incomeCar->in_time = Carbon::now();
         $incomeCar->save();
   
-        return IncomeCar::where('id', $incomeCar->id)->with(['visitor.firm', 'employee'])->first();
+        return IncomeCar::where('id', $incomeCar->id)->with(['visitor.firm', 'visitor.car', 'employee', 'security'])->first();
       } catch (\Exception $exception){
           throw new \Exception($exception->getMessage());
       }
