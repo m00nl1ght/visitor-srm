@@ -1,4 +1,4 @@
-import api from "@/services/securityApi"
+import api from '@/services/securityApi'
 
 const state = () => ({
   securities: [],
@@ -16,10 +16,10 @@ const state = () => ({
 })
 
 const getters = {
-  securities: state => state.securities,
-  securityRoles: state => state.securityRoles,
-  securityModalOpen: state => state.securityModalOpen,
-  addFormValue: state => state.addFormValue
+  securities: (state) => state.securities,
+  securityRoles: (state) => state.securityRoles,
+  securityModalOpen: (state) => state.securityModalOpen,
+  addFormValue: (state) => state.addFormValue
 }
 
 const mutations = {
@@ -32,8 +32,8 @@ const mutations = {
   },
 
   storeEditSecurities(state, payload) {
-    state.securities = state.securities.map(item => {
-      if(item.id == payload.id) {
+    state.securities = state.securities.map((item) => {
+      if (item.id == payload.id) {
         return payload
       }
       return item
@@ -45,14 +45,14 @@ const mutations = {
   },
 
   deleteSecurity(state, id) {
-    state.securities = state.securities.filter(item => item.id !== id)
+    state.securities = state.securities.filter((item) => item.id !== id)
   },
 
   setSecurityModalOpen(state, payload) {
     state.securityModalOpen = payload
   },
 
-  setAddFormValue(state, {value, key}) {
+  setAddFormValue(state, { value, key }) {
     state.addFormValue[key] = value
   },
 
@@ -81,28 +81,28 @@ const mutations = {
 }
 
 const actions = {
-  async getSecurities({commit}) {
+  async getSecurities({ commit }) {
     try {
-      const {data} = await api.getSecurities()
+      const { data } = await api.getSecurities()
       commit('storeSecurities', data.data)
     } catch (error) {
       commit('storeError', error)
     }
   },
 
-  async addSecurity({state, commit}) {
+  async addSecurity({ state, commit }) {
     try {
-      if(state.addFormValue.id) {
+      if (state.addFormValue.id) {
         const { data } = await api.editSecurity(state.addFormValue)
         commit('storeEditSecurities', data.data)
       } else {
         const { data } = await api.addSecurity(state.addFormValue)
         commit('storeAddSecurity', data.data)
       }
-      
+
       commit('setSecurityModalOpen', false)
     } catch (error) {
-      console.log(error);
+      console.log(error)
       commit('storeError', error)
     }
   },
@@ -112,17 +112,17 @@ const actions = {
       await api.deleteSecurity(id)
       commit('deleteSecurity', id)
     } catch (error) {
-      console.log(error);
+      console.log(error)
       commit('storeError', error)
     }
   },
 
-  async getSecurityRoles({commit}) {
+  async getSecurityRoles({ commit }) {
     try {
       const { data } = await api.getSecurityRoles()
       commit('storeSecurityRoles', data.data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
       commit('storeError', error)
     }
   }

@@ -1,11 +1,11 @@
-import api from "@/services/categoryApi"
+import api from '@/services/categoryApi'
 
 const state = () => ({
   categoryList: []
 })
 
 const getters = {
-  getCategoryList: state => state.categoryList
+  getCategoryList: (state) => state.categoryList
 }
 
 const mutations = {
@@ -17,7 +17,7 @@ const mutations = {
 const actions = {
   async getCategoryList({ state, commit }) {
     try {
-      if(state.categoryList.length == 0) {
+      if (state.categoryList.length == 0) {
         const { data } = await api.getCategoryList()
         commit('storeCategoryList', data.data)
       }

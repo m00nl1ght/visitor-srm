@@ -1,5 +1,5 @@
-import { BASE_URL } from "@/config.js"
-import axios from "axios"
+import { BASE_URL } from '@/config.js'
+import axios from 'axios'
 
 const urls = {
   REPORT_BY_DAY: BASE_URL + '/api/report/byDay',

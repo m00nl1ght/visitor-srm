@@ -1,11 +1,10 @@
-import api from "@/services/categoryApi"
+import api from '@/services/categoryApi'
 
 const state = () => ({
   systemAlarmList: []
 })
 
-const getters = {
-}
+const getters = {}
 
 const mutations = {
   storeSystemAlarmList(state, payload) {
@@ -19,7 +18,7 @@ const actions = {
       const { data } = await api.getSystemAlarmList()
       commit('storeSystemAlarmList', data.data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 }

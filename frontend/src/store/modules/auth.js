@@ -6,7 +6,7 @@ const state = () => ({
 })
 
 const getters = {
-  isLoggedIn: state => !!state.authToken
+  isLoggedIn: (state) => !!state.authToken
 }
 
 const mutations = {

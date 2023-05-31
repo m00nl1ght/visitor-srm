@@ -1,8 +1,8 @@
-import { BASE_URL } from "@/config.js"
-import axios from "axios"
+import { BASE_URL } from '@/config.js'
+import axios from 'axios'
 
 const urls = {
-  EMPLOYEE: BASE_URL + '/api/employee',
+  EMPLOYEE: BASE_URL + '/api/employee'
 }
 
 export default {

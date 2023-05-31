@@ -1,4 +1,4 @@
-import api from "@/services/income/incomeVisitorApi"
+import api from '@/services/income/incomeVisitorApi'
 
 const state = () => ({
   error: null,
@@ -26,9 +26,9 @@ const state = () => ({
 })
 
 const getters = {
-  getIncomeVisitorList: state => state.incomeVisitorList,
-  getOpenModal: state => state.openModal,
-  getFormValue: state => state.formValue
+  getIncomeVisitorList: (state) => state.incomeVisitorList,
+  getOpenModal: (state) => state.openModal,
+  getFormValue: (state) => state.formValue
 }
 
 const mutations = {
@@ -55,38 +55,38 @@ const mutations = {
         lastName: '',
         middleName: ''
       },
-  
+
       securityId: null,
       cardId: null,
       categoryId: null
-    } 
+    }
   },
 
-  storeFormVisitor(state, {key, value}) {
+  storeFormVisitor(state, { key, value }) {
     state.formValue.visitor[key] = value
   },
 
-  storeFormEmployee( state, {key, value}) {
+  storeFormEmployee(state, { key, value }) {
     state.formValue.employee[key] = value
   },
 
-  storeFormSecurity( state, value) {
+  storeFormSecurity(state, value) {
     state.formValue.securityId = value
   },
 
-  storeFormCard( state, value) {
+  storeFormCard(state, value) {
     state.formValue.cardId = value
   },
 
-  storeFormCategory( state, value) {
+  storeFormCategory(state, value) {
     state.formValue.categoryId = value
   },
 
-  exitVisitor( state, id) {
-    state.incomeVisitorList = state.incomeVisitorList.filter(item => item.id !== id)
+  exitVisitor(state, id) {
+    state.incomeVisitorList = state.incomeVisitorList.filter((item) => item.id !== id)
   },
 
-  storeImcomeVisitorList( state, value) {
+  storeImcomeVisitorList(state, value) {
     state.incomeVisitorList = value
   },
 
@@ -126,15 +126,15 @@ const actions = {
       const { data } = await api.registrateNewVisitor(state.formValue)
       commit('addIncomeVisitor', data.data)
       commit('closeModal')
-      dispatch('accessCard/getCardList', null, {root: true})
+      dispatch('accessCard/getCardList', null, { root: true })
     } catch (error) {
       console.log(error)
     }
   },
 
-  async exitVisitor({dispatch, commit}, {id, time}) {
+  async exitVisitor({ dispatch, commit }, { id, time }) {
     try {
-      await api.exitVisitor({id, time})
+      await api.exitVisitor({ id, time })
       commit('exitVisitor', id)
       dispatch('accessCard/getCardList', null, { root: true })
     } catch (error) {

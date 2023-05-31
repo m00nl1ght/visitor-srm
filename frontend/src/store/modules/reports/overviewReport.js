@@ -1,8 +1,8 @@
-import api from "@/services/reports/reportApi.js"
-import apiSecurity from "@/services/reports/securityReportApi.js"
+import api from '@/services/reports/reportApi.js'
+import apiSecurity from '@/services/reports/securityReportApi.js'
 
 const state = () => ({
-  reportByDurationData: {},
+  reportByDurationData: {}
 })
 
 const getters = {}
@@ -28,9 +28,9 @@ const actions = {
       const { data } = await apiSecurity.getReportByDay(date)
       commit('storeReportByDuration', data.data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  },
+  }
 }
 export default {
   namespaced: true,

@@ -1,10 +1,10 @@
-import { BASE_URL } from "@/config.js"
-import axios from "axios"
+import { BASE_URL } from '@/config.js'
+import axios from 'axios'
 
 const urls = {
   ON_TERRITORY: BASE_URL + '/api/incomeVisitor/onTerritory',
   OUT: BASE_URL + '/api/incomeVisitor/out',
-  IN: BASE_URL + '/api/incomeVisitor/in',
+  IN: BASE_URL + '/api/incomeVisitor/in'
 }
 
 export default {
@@ -16,7 +16,7 @@ export default {
     return axios.post(urls.IN, payload)
   },
 
-  exitVisitor({id, time}) {
-    return axios.post(urls.OUT, {id, outTime: time})
+  exitVisitor({ id, time }) {
+    return axios.post(urls.OUT, { id, outTime: time })
   }
 }

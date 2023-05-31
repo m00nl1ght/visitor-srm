@@ -1,12 +1,12 @@
-import api from "@/services/cardApi"
+import api from '@/services/cardApi'
 
 const state = () => ({
   cardList: []
 })
 
 const getters = {
-  getFreeVisitorCard: state => state.cardList.filter(item => item.cardCategory.title == 'visitor' && !item.issued),
-  getFreeEmployeeCard: state => state.cardList.filter(item => item.cardCategory.title == 'employee' && !item.issued)
+  getFreeVisitorCard: (state) => state.cardList.filter((item) => item.cardCategory.title == 'visitor' && !item.issued),
+  getFreeEmployeeCard: (state) => state.cardList.filter((item) => item.cardCategory.title == 'employee' && !item.issued)
 }
 
 const mutations = {

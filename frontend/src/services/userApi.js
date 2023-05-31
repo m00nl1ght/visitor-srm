@@ -1,11 +1,11 @@
-import { BASE_URL } from "@/config.js"
-import axios from "axios"
+import { BASE_URL } from '@/config.js'
+import axios from 'axios'
 
 const urls = {
   LOGIN: BASE_URL + '/api/login',
   REQISTRATION: BASE_URL + '/api/registration',
   GET_CURRENT_USER: BASE_URL + '/api/get-current-user',
-  GET_USERS_LIST: BASE_URL + '/api/user/list',
+  GET_USERS_LIST: BASE_URL + '/api/user/list'
 }
 
 export default {

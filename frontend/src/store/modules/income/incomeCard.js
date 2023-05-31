@@ -1,4 +1,4 @@
-import api from "@/services/income/incomeCardApi"
+import api from '@/services/income/incomeCardApi'
 
 function defaultFormValue() {
   return {
@@ -27,9 +27,7 @@ const state = () => ({
   formValue: defaultFormValue()
 })
 
-const getters = {
-
-}
+const getters = {}
 
 const mutations = {
   storeIncomeCardList(state, payload) {
@@ -39,7 +37,6 @@ const mutations = {
   openAddModal(state) {
     state.openModal = true
   },
-
 
   closeModal(state) {
     state.openModal = false
@@ -59,19 +56,19 @@ const mutations = {
   },
 
   setAutoinsertEmployee(state, payload) {
-    if(payload && payload.lastName) state.formValue.employee.lastName = payload.lastName
-    if(payload && payload.name) state.formValue.employee.name = payload.name
-    if(payload && payload.middleName) state.formValue.employee.middleName = payload.middleName
-    if(payload && payload.position && typeof(payload.position) == 'object') state.formValue.employee.position = payload.position.position
-    if(payload && payload.position && typeof(payload.position) == 'string') state.formValue.employee.position = payload.position
+    if (payload && payload.lastName) state.formValue.employee.lastName = payload.lastName
+    if (payload && payload.name) state.formValue.employee.name = payload.name
+    if (payload && payload.middleName) state.formValue.employee.middleName = payload.middleName
+    if (payload && payload.position && typeof payload.position == 'object') state.formValue.employee.position = payload.position.position
+    if (payload && payload.position && typeof payload.position == 'string') state.formValue.employee.position = payload.position
   },
 
   setAutoinsertBoss(state, payload) {
-    if(payload && payload.lastName) state.formValue.boss.lastName = payload.lastName
-    if(payload && payload.name) state.formValue.boss.name = payload.name
-    if(payload && payload.middleName) state.formValue.boss.middleName = payload.middleName
-    if(payload && payload.position && (typeof(payload.position) == 'object')) state.formValue.boss.position = payload.position.position
-    if(payload && payload.position && typeof(payload.position) == 'string') state.formValue.boss.position = payload.position
+    if (payload && payload.lastName) state.formValue.boss.lastName = payload.lastName
+    if (payload && payload.name) state.formValue.boss.name = payload.name
+    if (payload && payload.middleName) state.formValue.boss.middleName = payload.middleName
+    if (payload && payload.position && typeof payload.position == 'object') state.formValue.boss.position = payload.position.position
+    if (payload && payload.position && typeof payload.position == 'string') state.formValue.boss.position = payload.position
   },
 
   setClearAutoinsert(state) {
@@ -93,7 +90,7 @@ const actions = {
     try {
       await api.addIncomeCard(state.formValue)
       dispatch('getIncomeCardList')
-      dispatch('accessCard/getCardList', null, {root: true})
+      dispatch('accessCard/getCardList', null, { root: true })
       commit('closeModal')
     } catch (error) {
       console.log(error)
@@ -104,7 +101,7 @@ const actions = {
     try {
       await api.returnIncomeCard(id)
       await dispatch('getIncomeCardList')
-      dispatch('accessCard/getCardList', null, {root: true})
+      dispatch('accessCard/getCardList', null, { root: true })
     } catch (error) {
       console.log(error)
     }
@@ -114,7 +111,7 @@ const actions = {
     try {
       await api.deleteIncomeCard(id)
       await dispatch('getIncomeCardList')
-      dispatch('accessCard/getCardList', null, {root: true})
+      dispatch('accessCard/getCardList', null, { root: true })
     } catch (error) {
       console.log(error)
     }

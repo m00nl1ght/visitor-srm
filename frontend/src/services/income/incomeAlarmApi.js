@@ -1,8 +1,8 @@
-import { BASE_URL } from "@/config.js"
-import axios from "axios"
+import { BASE_URL } from '@/config.js'
+import axios from 'axios'
 
 const urls = {
-  ALARM: BASE_URL + '/api/incomeAlarm',
+  ALARM: BASE_URL + '/api/incomeAlarm'
 }
 
 export default {
@@ -24,5 +24,5 @@ export default {
 
   closeAlarm(id) {
     return axios.post(urls.ALARM + '/close', { id: id })
-  },
+  }
 }

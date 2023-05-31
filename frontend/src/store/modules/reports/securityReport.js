@@ -1,12 +1,11 @@
-import api from "@/services/reports/securityReportApi.js"
+import api from '@/services/reports/securityReportApi.js'
 
 const state = () => ({
   reportByDayData: {},
   reportBySecurityTeamData: {}
 })
 
-const getters = {
-}
+const getters = {}
 
 const mutations = {
   storeReportByDay(state, payload) {
@@ -24,7 +23,7 @@ const actions = {
       const { data } = await api.getReportByDay(date)
       commit('storeReportByDay', data.data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   },
 
@@ -34,7 +33,7 @@ const actions = {
       const { data } = await api.getReportByDay(date)
       commit('storeReportBySecurityTeam', data.data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 }

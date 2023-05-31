@@ -3,7 +3,7 @@ import ReportOverview from './ReportOverview.vue'
 
 export default connect({
   stateToProps: {
-    reportData: state => state.overviewReport.reportByDurationData
+    reportData: (state) => state.overviewReport.reportByDurationData
   },
 
   methodsToEvents: {
@@ -15,6 +15,6 @@ export default connect({
     async getReportByDay({ dispatch }, payload, callback) {
       await dispatch('overviewReport/getReportByDay', payload)
       callback()
-    },
+    }
   }
 })('ReportOverview', ReportOverview)

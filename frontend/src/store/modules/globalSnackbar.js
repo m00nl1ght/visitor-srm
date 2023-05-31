@@ -4,11 +4,10 @@ const state = () => ({
     isOpen: false,
     timeout: 3000
   }
-
 })
 
 const getters = {
-  mainSnackbar: state => state.main
+  mainSnackbar: (state) => state.main
 }
 
 const mutations = {
@@ -25,9 +24,7 @@ const mutations = {
   }
 }
 
-const actions = {
-
-}
+const actions = {}
 export default {
   namespaced: true,
   state,

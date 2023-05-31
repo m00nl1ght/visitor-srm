@@ -1,5 +1,5 @@
-import { BASE_URL } from "@/config.js"
-import axios from "axios"
+import { BASE_URL } from '@/config.js'
+import axios from 'axios'
 
 const urls = {
   SECURITY_ROLES: BASE_URL + '/api/security/roles',
