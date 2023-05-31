@@ -6,33 +6,13 @@
 
         <v-spacer />
 
-        <v-btn 
-          v-if="currentGroup && currentGroup.length !== 0"
-          color="primary"
-          outlined
-          @click="openEditModal"
-        >
-          Редактировать смену
-        </v-btn>
+        <v-btn v-if="currentGroup && currentGroup.length !== 0" color="primary" outlined @click="openEditModal"> Редактировать смену </v-btn>
 
-        <v-btn 
-          class="ml-3"
-          color="primary"
-          outlined
-          @click="openAddModal"
-        >
-          Новая смена
-        </v-btn>
+        <v-btn class="ml-3" color="primary" outlined @click="openAddModal"> Новая смена </v-btn>
       </div>
 
       <v-card-text>
-        <v-alert 
-          v-if="!currentGroup || currentGroup.length == 0"
-          border="top"
-          colored-border
-          type="warning"
-          elevation="2"
-        >
+        <v-alert v-if="!currentGroup || currentGroup.length == 0" border="top" colored-border type="warning" elevation="2">
           Смена на текущую дату еще не зарегестрирована!!
         </v-alert>
 
@@ -40,12 +20,8 @@
           <template #default>
             <thead>
               <tr>
-                <th class="text-left">
-                  Статус
-                </th>
-                <th class="text-left">
-                  Сотрудник
-                </th>
+                <th class="text-left">Статус</th>
+                <th class="text-left">Сотрудник</th>
               </tr>
             </thead>
 
@@ -60,10 +36,7 @@
                 <td>{{ getShortName(currentGroup.operator) }}</td>
               </tr>
 
-              <tr
-                v-for="security in currentGroup.securities"
-                :key="security.id + '_' + security.name"
-              >
+              <tr v-for="security in currentGroup.securities" :key="security.id + '_' + security.name">
                 <td>Инспектор пропускного режима</td>
                 <td>{{ getShortName(security) }}</td>
               </tr>
@@ -78,8 +51,8 @@
 </template>
 
 <script>
-import CurrentGroupRegistrateModal from "@/components/security/CurrentGroupRegistrateModal.vue"
-import peopleHelper from "@/services/helpers/people.js"
+import CurrentGroupRegistrateModal from '@/components/security/CurrentGroupRegistrateModal.vue'
+import peopleHelper from '@/services/helpers/people.js'
 
 export default {
   components: {

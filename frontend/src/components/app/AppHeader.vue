@@ -14,6 +14,7 @@
     <div class="d-flex flex-column ml-5 subtitle-2">
       <span>Вы вошли как:</span>
       <span v-if="activeLoginBtn">Сотрудник охраны</span>
+      <span v-else>Гость</span>
     </div>
 
     <v-btn
