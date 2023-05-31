@@ -95,4 +95,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::get('/report/byDay', [ReportController::class, 'byDay']);
   Route::get('/report/bySecurityTeam', [ReportController::class, 'bySecurityTeam']);
   Route::post('/report/byDuration', [ReportController::class, 'byDuration']);
+  Route::get('/report/send-report', [ReportController::class, 'sendReport']);
 });

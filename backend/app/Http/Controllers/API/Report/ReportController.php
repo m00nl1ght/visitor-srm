@@ -100,4 +100,13 @@ class ReportController extends Controller
         throw new \Exception($exception->getMessage());
     }
   }
+
+  public function sendReport() {
+    try {
+      $reportData = 'Fake report';
+      return response()->success('Отчет успешно получен', $reportData);
+  } catch (\Exception $exception) {
+      return response()->error('Ошибка получения отчета', $exception->getMessage());
+  }
+  }
 }
