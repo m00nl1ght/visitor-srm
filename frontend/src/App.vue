@@ -1,6 +1,5 @@
 <template>
-  <component :is="layout">
-  </component>
+  <component :is="layout" />
 </template>
 
 <script>
@@ -9,12 +8,12 @@ import MainLayout from '@/layouts/MainLayout'
 
 export default {
   name: 'App',
-  data: () => ({
-    //
-  }),
   components: {
     EmptyLayout, MainLayout
   },
+  data: () => ({
+    //
+  }),
   computed: {
     layout() {
       return (this.$route.meta.layout || 'empty') + '-layout'

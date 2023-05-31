@@ -1,57 +1,47 @@
 <template>
   <div>
-    <v-data-table
-      :headers="headers"
-      :items="items"
-    >
-      <template #[`item.decided`]="{item}">
-        <v-btn 
-          @click="decided(item.id)" 
-          :disabled="disabled"
-          outlined 
-          small 
-          color="success"
-        >Решено</v-btn>
+    <v-data-table :headers="headers" :items="items" :single-expand="true" item-key="title" show-expand class="elevation-1">
+      <template #[`item.decided`]="{ item }">
+        <v-btn :disabled="disabled" outlined small color="success" @click="decided(item.id)"> Решено </v-btn>
       </template>
 
-      <template #[`item.system`]="{item}">
+      <template #[`item.system`]="{ item }">
         {{ item.systemAlarmList.title }}
       </template>
 
-      <template #[`item.inTime`]="{item}">
+      <template #[`item.comment`]="{ item }">
+        <span class="comment_overflow">{{ item.comment }}</span>
+      </template>
+
+      <template #[`item.inTime`]="{ item }">
         {{ $moment(item.inTime).format('hh:mm DD.MM.YYYY') }}
       </template>
 
-      <template #[`item.actions`]="{ item }">
-          <v-btn
-            @click="onEdit(item.id)"
-            icon
-            :disabled="disabled"
-          >
-            <v-icon>mdi-pencil-outline</v-icon>
-          </v-btn>
-
-          <v-btn
-            @click="onDelete(item.id)"
-            icon 
-            :disabled="disabled"
-          >
-            <v-icon>mdi-trash-can-outline</v-icon>
-          </v-btn>
+      <template #expanded-item="{ item }">
+        <td :colspan="990">
+          <p class="pt-2"><span class="font-weight-bold">Описание:</span> {{ item.title }}</p>
+          <p><span class="font-weight-bold">Место:</span> {{ item.place }}</p>
+          <p><span class="font-weight-bold">Комментарий:</span> {{ item.comment }}</p>
+        </td>
       </template>
 
-      <template v-slot:no-data>
+      <template #[`item.actions`]="{ item }">
+        <v-btn icon :disabled="disabled" @click="onEdit(item)">
+          <v-icon>mdi-pencil-outline</v-icon>
+        </v-btn>
+
+        <v-btn icon :disabled="disabled" @click="onDelete(item.id)">
+          <v-icon>mdi-trash-can-outline</v-icon>
+        </v-btn>
+      </template>
+
+      <template #no-data>
         <p>Нерешенные неисправности отсутствуют...</p>
       </template>
     </v-data-table>
 
-    <ConfirmModal
-      :isOpen="confimDeleteOpen"
-      :onClose="closeConfirmDelete"
-      :onConfirm="onConfirmDelete"
-    >
+    <ConfirmModal :is-open="confimDeleteOpen" :on-close="closeConfirmDelete" :on-confirm="onConfirmDelete">
       <v-subheader>Вы уверены, что хотите удалить данный элемент?</v-subheader>
-  
     </ConfirmModal>
   </div>
 </template>
@@ -60,6 +50,9 @@
 import ConfirmModal from '@/components/app/modals/ConfirmModal.vue'
 
 export default {
+  components: {
+    ConfirmModal
+  },
   props: {
     items: Array,
     disabled: {
@@ -68,28 +61,15 @@ export default {
     }
   },
 
-  components: {
-    ConfirmModal
-  },
-
   data: () => ({
     headers: [
-      {
-        text: 'Решено',
-        value: 'decided',
-        sortable: false
-      },
-      {
-        text: 'Система',
-        align: 'start',
-        value: 'system',
-        sortable: false
-      },
-      { text: 'Описание', value: 'title' },
-      { text: 'Место', value: 'place', sortable: false},
-      { text: 'Комментарий', value: 'comment', sortable: false },
-      { text: 'Дата', value: 'inTime'},
-      { text: 'Действия', value: 'actions', sortable: false },
+      { text: 'Решено', value: 'decided', sortable: false, width: 100 },
+      { text: 'Система', align: 'start', value: 'system', sortable: false, width: 200 },
+      { text: 'Описание', value: 'title', width: 150 },
+      { text: 'Место', value: 'place', sortable: false, width: 150 },
+      { text: 'Комментарий', value: 'comment', sortable: false, width: 600 },
+      { text: 'Дата', value: 'inTime' },
+      { text: 'Действия', value: 'actions', sortable: false }
     ],
 
     confimDeleteOpen: false,
@@ -98,11 +78,11 @@ export default {
 
   methods: {
     decided(id) {
-      console.log(id);
+      this.$store.dispatch('incomeAlarm/closeAlarm', id)
     },
 
-    onEdit(id) {
-      this.$store.commit('incomeAlarm/openEditModal', id)
+    onEdit(item) {
+      this.$store.commit('incomeAlarm/openEditModal', item.id)
     },
 
     onDelete(id) {
@@ -122,3 +102,15 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.comment_overflow {
+  margin-left: -5px;
+  display: block;
+  max-width: 600px;
+  white-space: nowrap; /* Запрещаем перенос строк */
+  overflow: hidden; /* Обрезаем все, что не помещается в область */
+  padding: 5px; /* Поля вокруг текста */
+  text-overflow: ellipsis; /* Добавляем многоточие */
+}
+</style>

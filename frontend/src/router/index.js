@@ -1,20 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/Home.vue'
+import Home from '@/views/HomePage.vue'
 import LoginPage from '@/views/auth/LoginPage.vue'
 import LogoutPage from '@/views/auth/LogoutPage.vue'
 
-import Security from '@/views/Security.vue'
+import Security from '@/views/SecurityPage.vue'
 import SecurityCurrentGroup from '@/components/security/CurrentGroup.vue'
 import SecurityList from '@/components/security/SecurityList.vue'
 import SecurityMainReport from '@/components/reports/SecurityMainReportConnect.js'
 
-import Cars from '@/views/Cars.vue'
-import Visitors from '@/views/Visitors.vue'
-import Alarms from '@/views/Alarms.vue'
-import Events from '@/views/Events.vue'
-import Cards from '@/views/Cards.vue'
-import Reports from '@/views/Reports.vue'
+import Cars from '@/views/CarsPage.vue'
+import Visitors from '@/views/VisitorsPage.vue'
+import Alarms from '@/views/AlarmsPage.vue'
+import Events from '@/views/EventsPage.vue'
+import Cards from '@/views/CardsPage.vue'
+import Reports from '@/views/ReportsPage.vue'
 import ReportOverview from '@/components/reports/ReportOverviewConnect.js'
 import ReportAnalitics from '@/components/reports/ReportAnalitics.vue'
 
@@ -122,6 +122,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
+  // eslint-disable-next-line
   base: process.env.BASE_URL,
   routes
 })

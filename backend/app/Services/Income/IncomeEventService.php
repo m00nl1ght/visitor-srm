@@ -54,6 +54,15 @@ class IncomeEventService
       }
     }
 
+    public function deleteEvent($id) {
+      try {
+        IncomeEvent::where('id', $id)->first()->delete();
+        return IncomeEvent::get();
+      } catch (\Exception $exception){
+          throw new \Exception($exception->getMessage());
+      }
+    }
+
     //получение событий за заданный промежуток
     public function eventBetweenDays($startDay, $endDay) {
       try {

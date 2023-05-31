@@ -1,28 +1,64 @@
 <template>
   <v-container>
     <v-overlay :value="overlay">
-      <v-progress-circular indeterminate size="64" color="primary"></v-progress-circular>
+      <v-progress-circular
+        indeterminate
+        size="64"
+        color="primary"
+      />
     </v-overlay>
 
     <v-row align="center">
-      <v-col cols="12" sm="6" md="4">
-        <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="auto">
-          <template v-slot:activator="{ on, attrs }">
-            <v-text-field v-model="date" label="Выберите даты" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+      <v-col
+        cols="12"
+        sm="6"
+        md="4"
+      >
+        <v-menu
+          v-model="menu"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template #activator="{ on, attrs }">
+            <v-text-field
+              v-model="date"
+              label="Выберите даты"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            />
           </template>
-          <v-date-picker v-model="date" range color="primary" locale="ru-ru"></v-date-picker>
+          <v-date-picker
+            v-model="date"
+            range
+            color="primary"
+            locale="ru-ru"
+          />
         </v-menu>
       </v-col>
 
       <v-col>
-        <v-btn :disabled="!date" color="primary" outlined @click="getReport">Показать отчет</v-btn>
+        <v-btn
+          :disabled="!date"
+          color="primary"
+          outlined
+          @click="getReport"
+        >
+          Показать отчет
+        </v-btn>
       </v-col>
     </v-row>
 
     <v-row>
       <v-col>
-        <h2 class="mb-3">Отчет за следующие даты: {{ dateTitle ? dateTitle : '' }}</h2>
-        <SecurityMainReport :reportData="reportData" />
+        <h2 class="mb-3">
+          Отчет за следующие даты: {{ dateTitle ? dateTitle : '' }}
+        </h2>
+        <SecurityMainReport :report-data="reportData" />
       </v-col>
     </v-row>
   </v-container>
@@ -32,15 +68,15 @@
 import SecurityMainReport from '@/components/reports/SecurityMainReport.vue'
 
 export default {
+
+  components: {
+    SecurityMainReport
+  },
   props: {
     reportData: {
       type: Object,
       default: () => {}
     }
-  },
-
-  components: {
-    SecurityMainReport
   },
 
   data() {

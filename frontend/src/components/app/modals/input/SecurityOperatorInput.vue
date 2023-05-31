@@ -2,14 +2,21 @@
   <v-select
     :value="value"
     :items="items"
-    item-text="title"
+    item-text="lastName"
     item-value="id"
-    @change="onChange"
     dense
     outlined
-    label="Категория посетителя"
+    label="Оператор охраны"
     :rules="nameRules"
+    @change="onChange"
   >
+    <template #selection="{ item }">
+      <span>{{ `${item.lastName} ${item.name}` }}</span>
+    </template>
+
+    <template #item="{ item }">
+      {{ `${item.lastName} ${item.name}` }}
+    </template>
   </v-select>
 </template>
 

@@ -5,7 +5,7 @@
   >
     {{ snackbarStore.message }}
 
-    <template v-slot:action="{ attrs }">
+    <template #action="{ attrs }">
       <v-btn
         color="red"
         text

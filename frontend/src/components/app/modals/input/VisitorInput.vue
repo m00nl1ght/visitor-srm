@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Person 
+    <PersonInput
       :data="data"
       :callback="callback"
     />
@@ -8,32 +8,32 @@
     <v-text-field
       label="Телефон"
       :value="data.phone"
-      @input="(value) => callback({key: 'phone', value})"
       outlined
       dense
-    ></v-text-field>
+      @input="(value) => callback({ key: 'phone', value })"
+    />
 
     <v-text-field
       label="Компания/Фирма"
       :value="data.firm"
-      @input="(value) => callback({key: 'firm', value})"
       outlined
       dense
-    ></v-text-field>
+      @input="(value) => callback({ key: 'firm', value })"
+    />
   </div>
 </template>
 
 <script>
-import Person from "@/components/app/modals/input/Person"
+import PersonInput from '@/components/app/modals/input/PersonInput.vue'
 
 export default {
+
+  components: {
+    PersonInput
+  },
   props: {
     data: Object,
     callback: Function
-  },
-
-  components: {
-    Person
   }
 }
 </script>

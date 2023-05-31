@@ -1,4 +1,5 @@
-import api from "@/services/income/incomeAlarmApi"
+import api from '@/services/income/incomeAlarmApi'
+import { cloneDeep } from 'lodash'
 
 function defaultFormValue() {
   return {
@@ -13,12 +14,10 @@ const state = () => ({
   openAlarmList: [],
 
   openModal: false,
-  formValue: defaultFormValue()
-})
+  formValue: defaultFormValue(),
+  })
 
-const getters = {
-
-}
+const getters = {}
 
 const mutations = {
   storeOpenAlarmList(state, payload) {
@@ -30,13 +29,18 @@ const mutations = {
   },
 
   openEditModal(state, id) {
-    state.formValue = state.openAlarmList.find(item => item.id == id)
+    state.formValue = cloneDeep(state.openAlarmList.find((item) => item.id == id)),
     state.openModal = true
   },
 
   closeModal(state) {
     state.openModal = false
     state.formValue = defaultFormValue()
+  },
+
+  completedAlarm(state, index) {
+    const completedAlarmId = state.openAlarmList.findIndex((item) => item.id === index)
+    state.openAlarmList.splice(completedAlarmId, 1)
   }
 }
 
@@ -52,7 +56,7 @@ const actions = {
 
   async registrateAlarm({ state, commit }) {
     try {
-      if(state.formValue.id) {
+      if (state.formValue.id) {
         const { data } = await api.editAlarm(state.formValue)
         commit('storeOpenAlarmList', data.data)
       } else {
@@ -70,6 +74,15 @@ const actions = {
     try {
       const { data } = await api.deleteAlarm(id)
       commit('storeOpenAlarmList', data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async closeAlarm({ commit }, id) {
+    try {
+      const { data } = await api.closeAlarm(id)
+      commit('completedAlarm', data.data.id)
     } catch (error) {
       console.log(error)
     }

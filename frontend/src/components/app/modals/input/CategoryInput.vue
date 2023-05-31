@@ -2,22 +2,14 @@
   <v-select
     :value="value"
     :items="items"
-    item-text="lastName"
+    item-text="title"
     item-value="id"
-    @change="onChange"
     dense
     outlined
-    label="Оператор охраны"
+    label="Категория посетителя"
     :rules="nameRules"
-  >
-    <template v-slot:selection="{ item }">
-      <span>{{ `${item.lastName} ${item.name}` }}</span>
-    </template>
-
-    <template v-slot:item="{ item }">
-      {{ `${item.lastName} ${item.name}` }}
-    </template>
-  </v-select>
+    @change="onChange"
+  />
 </template>
 
 <script>

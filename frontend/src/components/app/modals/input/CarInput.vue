@@ -4,22 +4,22 @@
       <v-text-field
         label="Модель автомобиля"
         :value="data.model"
-        @input="(value) => callback({key: 'model', value})"
         dense
         outlined
         :rules="rules"
-      ></v-text-field>
+        @input="(value) => callback({key: 'model', value})"
+      />
     </v-col>
           
     <v-col cols="6">
       <v-text-field
         label="Номер автомобиля"
         :value="data.number"
-        @input="(value) => callback({key: 'number', value})"
         dense
         outlined
         :rules="rules"
-      ></v-text-field>
+        @input="(value) => callback({key: 'number', value})"
+      />
     </v-col>
   </v-row>
 </template>

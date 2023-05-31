@@ -1,8 +1,8 @@
 <template>
   <MainModalLayout
-    :isOpen="isOpen"
-    :onClose="onClose"
-    :onConfirm="onConfirm"
+    :is-open="isOpen"
+    :on-close="onClose"
+    :on-confirm="onConfirm"
     :title="'Выдать карту'"
   >
     <v-alert
@@ -15,70 +15,76 @@
       Не осталось свободных карт доступа
     </v-alert>
 
-    <v-form v-else class="pt-5" ref="form" v-model="valid" lazy-validation>
+    <v-form
+      v-else
+      ref="form"
+      v-model="valid"
+      class="pt-5"
+      lazy-validation
+    >
       <h2>Данные сотрудника</h2>
-      <v-divider class="my-2"/>
+      <v-divider class="my-2" />
 
-      <Person 
+      <PersonInput
         :data="formValue.employee"
         :callback="setEmployeeFormValue"
       />
       <v-text-field
         :value="formValue.employee.position"
-        @input="value => setEmployeeFormValue({ key: 'position', value })"
         outlined
         dense
         label="Должность"
-      ></v-text-field>
-
-      <AutoinsertPerson 
-        :active="showAutoinsertEmployee"
-        :items="autoinsertList"
-        :onClick="autoinsertEmployee"
-        :onClose="() => showAutoinsertEmployee = false"
+        @input="(value) => setEmployeeFormValue({ key: 'position', value })"
       />
 
-      <Card 
-        :cardId="formValue.cardId"
+      <AutoinsertPerson
+        :active="showAutoinsertEmployee"
+        :items="autoinsertList"
+        :on-click="autoinsertEmployee"
+        :on-close="() => (showAutoinsertEmployee = false)"
+      />
+
+      <CardInput
+        :card-id="formValue.cardId"
         :callback="setCardIdFormValue"
         :cards="cards"
       />
 
       <h2>Данные руководителя сотрудника</h2>
-      <v-divider class="my-2"/>
+      <v-divider class="my-2" />
 
-      <Person 
+      <PersonInput
         :data="formValue.boss"
         :callback="setBossFormValue"
       />
       <v-text-field
         :value="formValue.boss.position"
-        @input="value => setBossFormValue({ key: 'position', value })"
         outlined
         dense
         label="Должность"
-      ></v-text-field>
+        @input="(value) => setBossFormValue({ key: 'position', value })"
+      />
 
-      <AutoinsertPerson 
+      <AutoinsertPerson
         :active="showAutoinsertBoss"
         :items="autoinsertList"
-        :onClick="autoinsertBoss"
-        :onClose="() => showAutoinsertBoss = false"
+        :on-click="autoinsertBoss"
+        :on-close="() => (showAutoinsertBoss = false)"
       />
     </v-form>
   </MainModalLayout>
 </template>
 
 <script>
-import Person from '@/components/app/modals/input/Person.vue'
-import Card from '@/components/app/modals/input/Card.vue'
+import PersonInput from '@/components/app/modals/input/PersonInput.vue'
+import CardInput from '@/components/app/modals/input/CardInput.vue'
 import MainModalLayout from '@/components/app/modals/MainModalLayout.vue'
 import AutoinsertPerson from '@/components/app/autoinsert/AutoinsertPerson.vue'
 
 export default {
   components: {
-    Person,
-    Card,
+    PersonInput,
+    CardInput,
     MainModalLayout,
     AutoinsertPerson
   },
@@ -86,9 +92,7 @@ export default {
   data() {
     return {
       valid: true,
-      nameRules: [
-        v => !!v || 'Поле обязательно для заполнения',
-      ],
+      nameRules: [(v) => !!v || 'Поле обязательно для заполнения'],
 
       showAutoinsertEmployee: false,
       showAutoinsertBoss: false
@@ -109,8 +113,12 @@ export default {
     },
 
     autoinsertList() {
-      return  this.$store.state.autoinsert.autoinsertEmployeeList
+      return this.$store.state.autoinsert.autoinsertEmployeeList
     }
+  },
+
+  mounted() {
+    this.$store.dispatch('accessCard/getCardList')
   },
 
   methods: {
@@ -119,7 +127,7 @@ export default {
     },
 
     onConfirm() {
-      if(this.$refs.form.validate()) {
+      if (this.$refs.form.validate()) {
         this.$store.dispatch('incomeCard/addIncomeCard')
       }
     },
@@ -132,7 +140,7 @@ export default {
 
     setEmployeeFormValue(value) {
       this.$store.commit('incomeCard/setEmployeeFormValue', value)
-      if(value.key == "lastName" && value.value.length > 2) {
+      if (value.key == 'lastName' && value.value.length > 2) {
         this.$store.dispatch('autoinsert/getEmployeeForAutoinsert', value.value)
         this.showAutoinsertEmployee = true
       }
@@ -140,7 +148,7 @@ export default {
 
     setBossFormValue(value) {
       this.$store.commit('incomeCard/setBossFormValue', value)
-      if(value.key == "lastName" && value.value.length > 2) {
+      if (value.key == 'lastName' && value.value.length > 2) {
         this.$store.dispatch('autoinsert/getEmployeeForAutoinsert', value.value)
         this.showAutoinsertBoss = true
       }
@@ -159,10 +167,6 @@ export default {
       this.$store.commit('incomeCard/setAutoinsertBoss', value)
       this.closeAutoinsertField()
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('accessCard/getCardList')
   }
 }
 </script>

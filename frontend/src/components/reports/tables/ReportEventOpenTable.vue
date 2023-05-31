@@ -1,10 +1,13 @@
 <template>
-  <v-data-table :headers="headers" :items="items">
+  <v-data-table
+    :headers="headers"
+    :items="items"
+  >
     <template #[`item.inTime`]="{item}">
       {{ $moment(item.inTime).format('hh:mm DD.MM.YYYY') }}
     </template>
 
-    <template v-slot:no-data>
+    <template #no-data>
       <p>Проишествия не происходили...</p>
     </template>
   </v-data-table>

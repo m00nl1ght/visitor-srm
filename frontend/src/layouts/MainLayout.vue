@@ -1,14 +1,14 @@
 <template>
   <v-app>
-    <Snackbar />
-    
-    <Navbar />
+    <AppSnackbar />
 
-    <Appbar />
-    
+    <AppNavbar />
+
+    <AppHeader />
+
     <v-main>
       <v-container fluid>
-        <router-view></router-view>
+        <router-view />
       </v-container>
     </v-main>
 
@@ -17,21 +17,21 @@
 </template>
 
 <script>
-import Navbar from '@/components/app/Navbar'
-import Snackbar from '@/components/app/Snackbar'
-import Appbar from '@/components/app/Appbar'
-import AppFooter from '@/components/app/AppFooter.vue';
+import AppNavbar from '@/components/app/AppNavbar.vue'
+import AppSnackbar from '@/components/app/AppSnackbar.vue'
+import AppHeader from '@/components/app/AppHeader.vue'
+import AppFooter from '@/components/app/AppFooter.vue'
 
 export default {
   components: {
-    Navbar,
-    Snackbar,
-    Appbar,
+    AppNavbar,
+    AppSnackbar,
+    AppHeader,
     AppFooter
   },
 
   mounted() {
     this.$store.dispatch('securityGroup/getCurrentGroup')
   }
-};
+}
 </script>

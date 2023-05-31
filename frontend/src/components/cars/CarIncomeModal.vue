@@ -1,54 +1,59 @@
 <template>
   <MainModalLayout
-    :isOpen="isOpen"
-    :onClose="onClose"
-    :onConfirm="onConfirm"
+    :is-open="isOpen"
+    :on-close="onClose"
+    :on-confirm="onConfirm"
     :title="'Добавить нового посетителя'"
   >
-    <v-form class="pt-5" ref="form" v-model="valid" lazy-validation>
+    <v-form
+      ref="form"
+      v-model="valid"
+      class="pt-5"
+      lazy-validation
+    >
       <h2>Данные посетителя</h2>
-      <v-divider class="my-2"/>
-      <Visitor 
+      <v-divider class="my-2" />
+      <VisitorInput
         :data="formValue.visitor"
         :callback="setVisitor"
       />
 
-      <AutoinsertPerson 
+      <AutoinsertPerson
         :active="showAutoinsertVisitor"
         :items="autoinsertVisitorList"
-        :onClick="autoinsertVisitor"
-        :onClose="() => showAutoinsertVisitor = false"
+        :on-click="autoinsertVisitor"
+        :on-close="() => (showAutoinsertVisitor = false)"
       />
 
-      <Car 
+      <CarInput
         :data="formValue.car"
         :callback="setCar"
       />
 
-      <Category 
+      <CategoryInput
         :value="formValue.categoryId"
         :items="categoryList"
-        :onChange="setCategory"
+        :on-change="setCategory"
       />
 
       <h2>Данные принимающей стороны</h2>
-      <v-divider class="my-2"/>
-      <Employee 
+      <v-divider class="my-2" />
+      <EmployeeInput
         :data="formValue.employee"
         :callback="setEmployee"
       />
 
-      <AutoinsertPerson 
+      <AutoinsertPerson
         :active="showAutoinsertEmployee"
         :items="autoinsertEmployeeList"
-        :onClick="autoinsertEmployee"
-        :onClose="() => showAutoinsertEmployee = false"
+        :on-click="autoinsertEmployee"
+        :on-close="() => (showAutoinsertEmployee = false)"
       />
 
-      <SecurityOperator 
+      <SecurityOperatorInput
         :value="formValue.securityId"
         :items="currentGroupMembers"
-        :onChange="setSecurity"
+        :on-change="setSecurity"
       />
     </v-form>
   </MainModalLayout>
@@ -56,41 +61,39 @@
 
 <script>
 import MainModalLayout from '@/components/app/modals/MainModalLayout.vue'
-import Visitor from '@/components/app/modals/input/Visitor.vue'
-import Employee from '@/components/app/modals/input/Employee.vue'
-import Category from '@/components/app/modals/input/Category.vue'
-import SecurityOperator from '@/components/app/modals/input/SecurityOperator.vue'
-import Car from '@/components/app/modals/input/Car.vue'
+import VisitorInput from '@/components/app/modals/input/VisitorInput.vue'
+import EmployeeInput from '@/components/app/modals/input/EmployeeInput.vue'
+import CategoryInput from '@/components/app/modals/input/CategoryInput.vue'
+import SecurityOperatorInput from '@/components/app/modals/input/SecurityOperatorInput.vue'
+import CarInput from '@/components/app/modals/input/CarInput.vue'
 import AutoinsertPerson from '@/components/app/autoinsert/AutoinsertPerson.vue'
 
 export default {
   components: {
     MainModalLayout,
-    Visitor,
-    Employee,
-    Category,
-    SecurityOperator,
-    Car,
+    VisitorInput,
+    EmployeeInput,
+    CategoryInput,
+    SecurityOperatorInput,
+    CarInput,
     AutoinsertPerson
   },
 
   data() {
     return {
       valid: true,
-      nameRules: [
-        v => !!v || 'Поле обязательно для заполнения',
-      ],
+      nameRules: [(v) => !!v || 'Поле обязательно для заполнения'],
       showAutoinsertEmployee: false,
       showAutoinsertVisitor: false
     }
-  },  
+  },
 
   computed: {
-    isOpen() { 
+    isOpen() {
       return this.$store.state.incomeCar.openModal
     },
-    formValue() { 
-      return this.$store.state.incomeCar.formValue 
+    formValue() {
+      return this.$store.state.incomeCar.formValue
     },
     currentGroupMembers() {
       return this.$store.getters['securityGroup/getCurrentGroupMembers'] || []
@@ -102,11 +105,24 @@ export default {
       return this.$store.state.visitorCategory.categoryList
     },
     autoinsertEmployeeList() {
-      return  this.$store.state.autoinsert.autoinsertEmployeeList
+      return this.$store.state.autoinsert.autoinsertEmployeeList
     },
     autoinsertVisitorList() {
-      return  this.$store.state.autoinsert.autoinsertVisitorList
+      return this.$store.state.autoinsert.autoinsertVisitorList
     }
+  },
+
+  watch: {
+    operator() {
+      if (this.currentGroupMembers) {
+        this.setSecurity(this.operator.id)
+      }
+    }
+  },
+
+  mounted() {
+    this.$store.dispatch('accessCard/getCardList')
+    this.$store.dispatch('visitorCategory/getCategoryList')
   },
 
   methods: {
@@ -115,14 +131,14 @@ export default {
     },
 
     onConfirm() {
-      if(this.$refs.form.validate()) {
+      if (this.$refs.form.validate()) {
         this.$store.dispatch('incomeCar/registrateNewCar')
       }
     },
 
     setVisitor(value) {
       this.$store.commit('incomeCar/storeFormVisitor', value)
-      if(value.key == "lastName" && value.value.length > 2) {
+      if (value.key == 'lastName' && value.value.length > 2) {
         this.$store.dispatch('autoinsert/getVisitorForAutoinsert', value.value)
         this.showAutoinsertVisitor = true
       }
@@ -134,7 +150,7 @@ export default {
 
     setEmployee(value) {
       this.$store.commit('incomeCar/storeFormEmployee', value)
-      if(value.key == "lastName" && value.value.length > 2) {
+      if (value.key == 'lastName' && value.value.length > 2) {
         this.$store.dispatch('autoinsert/getEmployeeForAutoinsert', value.value)
         this.showAutoinsertEmployee = true
       }
@@ -154,20 +170,7 @@ export default {
 
     setCategory(value) {
       this.$store.commit('incomeCar/storeFormCategory', value)
-    },
-  },
-
-  watch: {
-    operator() {
-      if(this.currentGroupMembers) {
-        this.setSecurity(this.operator.id)
-      }
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('accessCard/getCardList')
-    this.$store.dispatch('visitorCategory/getCategoryList')
   }
 }
 </script>

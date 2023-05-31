@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center">
     <v-dialog
-      v-model="isOpen"
+      v-model="modal"
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
@@ -19,7 +19,7 @@
             <v-icon>mdi-close</v-icon>
           </v-btn>
           <v-toolbar-title>{{ title }}</v-toolbar-title>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-toolbar-items>
             <v-btn
               dark
@@ -30,8 +30,8 @@
             </v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        
-        <slot></slot>
+
+        <slot />
       </v-card>
     </v-dialog>
   </v-row>
@@ -54,14 +54,21 @@ export default {
     }
   },
 
-  methods: {
-    printCard() {
-
-    },
-
-    closeDialog() {
-
+  computed: {
+    modal: {
+      get() {
+        return this.isOpen
+      },
+      set(value) {
+        this.$emit('input', value)
+      }
     }
+  },
+
+  methods: {
+    printCard() {},
+
+    closeDialog() {}
   }
 }
 </script>

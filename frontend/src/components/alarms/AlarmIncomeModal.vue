@@ -1,18 +1,23 @@
 <template>
   <MainModalLayout
-    :isOpen="isOpen"
-    :onClose="onClose"
-    :onConfirm="onConfirm"
+    :is-open="isOpen"
+    :on-close="onClose"
+    :on-confirm="onConfirm"
     :title="title"
   >
-    <v-form class="pt-5" ref="form" v-model="valid" lazy-validation>
+    <v-form
+      ref="form"
+      v-model="valid"
+      class="pt-5"
+      lazy-validation
+    >
       <v-text-field
         v-model="formValue.title"
         outlined
         label="Название"
         dense
         :rules="rules"
-      ></v-text-field>
+      />
 
       <v-text-field
         v-model="formValue.place"
@@ -20,7 +25,7 @@
         label="Место возникновения"
         dense
         :rules="rules"
-      ></v-text-field>
+      />
 
       <v-select
         v-model="formValue.systemAlarmListId"
@@ -30,15 +35,14 @@
         outlined
         dense
         :rules="rules"
-      ></v-select>
+      />
 
       <v-textarea
         v-model="formValue.comment"
         outlined
         label="Описание"
         dense
-      >
-      </v-textarea>
+      />
     </v-form>
   </MainModalLayout>
 </template>
@@ -66,7 +70,7 @@ export default {
     },
 
     formValue() { 
-      return this.$store.state.incomeAlarm.formValue 
+      return this.$store.state.incomeAlarm.formValue
     },
 
     systemAlarmList() {
@@ -76,6 +80,10 @@ export default {
     title() {
       return this.$store.state.incomeAlarm.formValue.id ? 'Редактировать запись' : 'Создать запись'
     }
+  },
+
+  mounted() {
+    this.$store.dispatch('systemAlarmCategory/getSystemAlarmList')
   },
 
   methods: {
@@ -88,10 +96,6 @@ export default {
         this.$store.dispatch('incomeAlarm/registrateAlarm')
       }
     },
-  },
-
-  mounted() {
-    this.$store.dispatch('systemAlarmCategory/getSystemAlarmList')
   }
 }
 </script>

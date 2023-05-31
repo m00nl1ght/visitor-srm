@@ -1,14 +1,14 @@
 <template>
   <MainModalLayout
-    :isOpen="isOpen"
-    :onClose="onClose"
-    :onConfirm="onConfirm"
+    :is-open="isOpen"
+    :on-close="onClose"
+    :on-confirm="onConfirm"
     :title="'Зарегестрировать новую смену'"
   >
     <v-form 
-      class="pt-5"
       ref="form"
       v-model="valid"
+      class="pt-5"
       lazy-validation
     >
       <v-row>
@@ -22,15 +22,23 @@
             dense
             label="Начальник смены"
             :filter="filter"
-            @change="search=''"
             :search-input.sync="search"
             auto-select-first
             :rules="rulesSingleSec"
+            @change="search=''"
           >
-            <template slot="selection" slot-scope="data">
-              <v-chip small>{{ data.item.lastName }} {{ data.item.name }}</v-chip>
+            <template
+              slot="selection"
+              slot-scope="data"
+            >
+              <v-chip small>
+                {{ data.item.lastName }} {{ data.item.name }}
+              </v-chip>
             </template>
-            <template slot="item" slot-scope="data">
+            <template
+              slot="item"
+              slot-scope="data"
+            >
               {{ data.item.lastName }} {{ data.item.name }}
             </template>
           </v-combobox>
@@ -47,15 +55,23 @@
             outlined
             dense
             label="Оператор"
-            @change="search2=''"
             :search-input.sync="search2"
             auto-select-first
             :rules="rulesSingleSec"
+            @change="search2=''"
           >
-            <template slot="selection" slot-scope="data">
-              <v-chip small>{{ data.item.lastName }} {{ data.item.name }}</v-chip>
+            <template
+              slot="selection"
+              slot-scope="data"
+            >
+              <v-chip small>
+                {{ data.item.lastName }} {{ data.item.name }}
+              </v-chip>
             </template>
-            <template slot="item" slot-scope="data">
+            <template
+              slot="item"
+              slot-scope="data"
+            >
               {{ data.item.lastName }} {{ data.item.name }}
             </template>
           </v-combobox>
@@ -74,11 +90,11 @@
             label="Сотрудники смены"
             multiple
             :filter="filter"
-            @change="search3=''"
             :search-input.sync="search3"
             auto-select-first
+            @change="search3=''"
           >
-            <template v-slot:selection="{ attrs, item, parent, selected }">
+            <template #selection="{ attrs, item, parent, selected }">
               <v-chip
                 v-if="item === Object(item)"
                 v-bind="attrs"
@@ -96,7 +112,10 @@
                 </v-icon>
               </v-chip>
             </template>
-            <template slot="item" slot-scope="data">
+            <template
+              slot="item"
+              slot-scope="data"
+            >
               {{ data.item.lastName }} {{ data.item.name }}
             </template>
           </v-combobox>

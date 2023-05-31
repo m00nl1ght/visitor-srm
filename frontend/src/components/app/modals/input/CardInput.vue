@@ -2,7 +2,6 @@
   <v-select
     label="Карта доступа"
     :value="cardId"
-    @change="(value) => callback(value)"
     :rules="nameRules"
     :items="cards"
     item-text="number"
@@ -10,8 +9,8 @@
     dense
     outlined
     no-data-text="Все карты выданны"
-  >
-  </v-select>
+    @change="(value) => callback(value)"
+  />
 </template>
 
 <script>

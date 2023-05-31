@@ -1,4 +1,5 @@
-import api from "@/services/income/incomeEventApi"
+import api from '@/services/income/incomeEventApi'
+import { cloneDeep } from 'lodash'
 
 function defaultFormValue() {
   return {
@@ -15,9 +16,7 @@ const state = () => ({
   formValue: defaultFormValue()
 })
 
-const getters = {
-
-}
+const getters = {}
 
 const mutations = {
   storeOpenEventList(state, payload) {
@@ -29,8 +28,8 @@ const mutations = {
   },
 
   storeEditEvent(state, event) {
-    state.openEventList = state.openEventList.map(item => {
-      if(item.id == event.id) return event
+    state.openEventList = state.openEventList.map((item) => {
+      if (item.id === event.id) return event
       return item
     })
   },
@@ -40,7 +39,7 @@ const mutations = {
   },
 
   openEditModal(state, id) {
-    state.formValue = state.openEventList.find(item => item.id == id)
+    state.formValue = cloneDeep(state.openEventList.find((item) => item.id === id))
     state.openModal = true
   },
 
@@ -62,7 +61,7 @@ const actions = {
 
   async registrateEvent({ state, commit }) {
     try {
-      if(state.formValue.id) {
+      if (state.formValue.id) {
         const { data } = await api.editEvent(state.formValue)
         commit('storeEditEvent', data.data)
       } else {
@@ -78,7 +77,7 @@ const actions = {
 
   async deleteEvent({ commit }, id) {
     try {
-      const { data } = await api.deleteAlarm(id)
+      const { data } = await api.deleteEvent(id)
       commit('storeOpenEventList', data.data)
     } catch (error) {
       console.log(error)

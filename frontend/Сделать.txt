@@ -1,0 +1,5 @@
+1) Починить время (при новом посетителе, событии и тд) разница в 3 часа.
+2) Сделать кнопку отправки отчета, как в первой вверсии охранки
+3) не корректно работает ОТЧЕТ. Смена охраны - Отчет. Отображает только открытые неисправности. 
+4) При добавлении авто не заполняется поле Номер авто [Vue warn]: Error in render: "TypeError: Cannot read properties of undefined (reading 'regNumber')" found in ---> <CarPrintCardModal> at src/components/cars/CarPrintCardModal.vue
+5) не работает кнопка печать в Автомобили из-за 4)

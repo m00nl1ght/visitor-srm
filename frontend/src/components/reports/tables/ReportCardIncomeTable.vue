@@ -1,5 +1,8 @@
 <template>
-  <v-data-table :headers="headers" :items="items">
+  <v-data-table
+    :headers="headers"
+    :items="items"
+  >
     <template #[`item.employee`]="{item}">
       {{ printName(item.employee) }}
     </template>
@@ -12,7 +15,7 @@
       {{ $moment(item.inTime).format('HH:mm DD.MM.YYYY') }}
     </template>
 
-    <template v-slot:no-data>
+    <template #no-data>
       <p>Все карты доступа на своем месте...</p>
     </template>
   </v-data-table>

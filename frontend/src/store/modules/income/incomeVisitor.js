@@ -128,7 +128,7 @@ const actions = {
       commit('closeModal')
       dispatch('accessCard/getCardList', null, {root: true})
     } catch (error) {
-      
+      console.log(error)
     }
   },
 

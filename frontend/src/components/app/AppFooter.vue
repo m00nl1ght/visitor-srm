@@ -1,11 +1,17 @@
 <template>
-  <v-footer app color="#120a38">
+  <v-footer
+    app
+    color="#120a38"
+  >
     <v-container>
       <v-row>
         <v-col>
           <div class=" d-flex justify-center">
-            <a class="text-decoration-none blue-grey--text" href="https://vk.com/id24405913">&copy; {{ getYear }}, Виталий Ковешников</a>
-            <span></span>
+            <a
+              class="text-decoration-none blue-grey--text"
+              href="https://vk.com/id24405913"
+            >&copy; {{ getYear }}, Виталий Ковешников</a>
+            <span />
           </div>
         </v-col>
       </v-row>

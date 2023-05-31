@@ -4,14 +4,16 @@
       <v-toolbar-title>Список выданых карт</v-toolbar-title>
       <v-spacer />
       <v-btn 
-        @click="openModal"
         color="primary"
         outlined
-      >Выдать карту</v-btn>
+        @click="openModal"
+      >
+        Выдать карту
+      </v-btn>
     </v-toolbar>
 
     <v-card-text>
-      <CardIncomeTable :items="incomeCardList"/>
+      <CardIncomeTable :items="incomeCardList" />
     </v-card-text>
 
     <CardIncomeModal />
@@ -34,14 +36,14 @@ export default {
     }
   },
 
+  mounted() {
+    this.$store.dispatch('incomeCard/getIncomeCardList')
+  },
+
   methods: {
     openModal() {
       this.$store.commit('incomeCard/openAddModal')
     }
-  },
-
-  mounted() {
-    this.$store.dispatch('incomeCard/getIncomeCardList')
   }
 }
 </script>

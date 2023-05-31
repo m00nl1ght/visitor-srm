@@ -20,5 +20,9 @@ export default {
 
   deleteAlarm(id) {
     return axios.delete(urls.ALARM + '/' + id)
-  }
+  },
+
+  closeAlarm(id) {
+    return axios.post(urls.ALARM + '/close', { id: id })
+  },
 }
