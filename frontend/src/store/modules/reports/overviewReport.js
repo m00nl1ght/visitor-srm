@@ -5,7 +5,9 @@ const state = () => ({
   reportByDurationData: {}
 })
 
-const getters = {}
+const getters = {
+  sendReportApi () {}
+}
 
 const mutations = {
   storeReportByDuration(state, payload) {

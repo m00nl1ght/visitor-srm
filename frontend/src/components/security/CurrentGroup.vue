@@ -5,10 +5,12 @@
         <v-card-title>Состав текущей смены</v-card-title>
 
         <v-spacer />
-
+        
         <v-btn v-if="currentGroup && currentGroup.length !== 0" color="primary" outlined @click="openEditModal"> Редактировать смену </v-btn>
 
         <v-btn class="ml-3" color="primary" outlined @click="openAddModal"> Новая смена </v-btn>
+
+        <v-btn class="ml-3" color="primary" outlined @click="sendReport"> Отправить отчет </v-btn>
       </div>
 
       <v-card-text>
@@ -76,6 +78,10 @@ export default {
 
     openAddModal() {
       this.$store.commit('securityGroup/addGroupModalOpen')
+    },
+
+    sendReport() {
+      this.$store.getters()
     }
   }
 }

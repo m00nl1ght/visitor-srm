@@ -2,11 +2,16 @@ import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  REPORT_BY_DURATION: BASE_URL + '/api/report/byDuration'
+  REPORT_BY_DURATION: BASE_URL + '/api/report/byDuration',
+  SEND_REPORT: BASE_URL + '/api/report/send-report'
 }
 
 export default {
   getReportByDuration(payload) {
     return axios.post(urls.REPORT_BY_DURATION, payload)
+  },
+
+  sendReportApi () {
+    return axios.get(urls.SEND_REPORT)
   }
 }

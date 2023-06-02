@@ -21,7 +21,7 @@ export default {
       tabs: [
         {text: "Текущая смена", to: { name: 'SecurityCurrentGroup'}},
         {text: "Состав охраны", to: { name: "SecurityList"}},
-        {text: "Отчет за смему", to: {name: 'SecurityMainReport'}}
+        {text: "Отчет за смену", to: {name: 'SecurityMainReport'}}
       ]
     }
   },
