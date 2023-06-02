@@ -11,7 +11,7 @@ export default {
     return axios.post(urls.REPORT_BY_DURATION, payload)
   },
 
-  sendReportApi () {
+  getSendedReport () {
     return axios.get(urls.SEND_REPORT)
   }
 }

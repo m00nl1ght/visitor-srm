@@ -81,7 +81,7 @@ export default {
     },
 
     sendReport() {
-      this.$store.getters()
+      this.$store.dispatch('overviewReport/getSendedReport')
     }
   }
 }
