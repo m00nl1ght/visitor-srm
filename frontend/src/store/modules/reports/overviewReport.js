@@ -6,11 +6,7 @@ const state = () => ({
   sendedReport: {}
 })
 
-const getters = {
-  SendReport(state, payload) {
-    state.sendedReport = payload
-  }
-}
+const getters = {}
 
 const mutations = {
   storeReportByDuration(state, payload) {
@@ -37,10 +33,10 @@ const actions = {
     }
   },
 
-  async getSendedReport ( {getters} ) {
+  async getSendedReport() {
     try {
       const { data } = await api.getSendedReport()
-      getters('sendReport', data.data)
+      console.log(data.data)
     } catch (error) {
       console.log(error)
     }

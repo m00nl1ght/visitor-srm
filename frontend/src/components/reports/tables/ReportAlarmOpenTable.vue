@@ -1,12 +1,9 @@
 <template>
   <v-data-table :headers="headers" :items="items">
     <template #[`item.status`]="{ item }">
-      <v-chip class="ma-2" :color="item.outTime === null ? 'red' : 'green'"  text-color="black" outlined> {{ item.outTime === null ? 'Не решено' : 'Решено' }} </v-chip>
-      
-
-      <!-- <v-chip v-if="!item.outTime" class="ma-2" color="red" text-color="white"> Не решено </v-chip>
-      <v-chip v-else class="ma-2" color="green" text-color="white"> Решено </v-chip> -->
-
+      <v-chip class="ma-2" :color="item.outTime === null ? 'red' : 'green'" text-color="black" outlined>
+        {{ item.outTime === null ? 'Не решено' : 'Решено' }}
+      </v-chip>
     </template>
 
     <template #[`item.system`]="{ item }">
