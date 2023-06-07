@@ -8,7 +8,7 @@ use App\Services\People\EmployeeService;
 
 class EmployeeController extends Controller
 {
-  private $EmployeeService;
+  private $employeeService;
 
   public function __construct
   (

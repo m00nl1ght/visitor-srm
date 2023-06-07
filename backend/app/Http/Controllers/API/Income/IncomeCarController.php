@@ -16,6 +16,12 @@ use App\Services\Car\CarModelService;
 class IncomeCarController extends Controller
 {
   private $incomeCarService;
+  private $firmService;
+  private $visitorService;
+  private $employeeService;
+  private $securityService;
+  private $carService;
+  private $carModelService;
 
   public function __construct
   (

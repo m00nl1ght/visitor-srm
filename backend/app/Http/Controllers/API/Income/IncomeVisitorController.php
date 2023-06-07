@@ -16,6 +16,11 @@ use App\Services\Card\CardService;
 class IncomeVisitorController extends Controller
 {
   private $incomeVisitorService;
+  private $firmService;
+  private $visitorService;
+  private $employeeService;
+  private $securityService;
+  private $cardService;
 
   public function __construct
   (

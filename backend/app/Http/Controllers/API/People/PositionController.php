@@ -8,7 +8,7 @@ use App\Services\People\PositionService;
 
 class PositionController extends Controller
 {
-  private $PositionService;
+  private $positionService;
 
   public function __construct
   (

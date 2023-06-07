@@ -4,7 +4,10 @@ namespace App\Http\Controllers\API\Report;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+
+use App\Mail\SecurityMail;
 
 use App\Services\Income\IncomeVisitorService;
 use App\Services\Income\IncomeCarService;
@@ -17,6 +20,11 @@ use App\Services\WorkingSecurityTeam\WorkingSecurityTeamService;
 class ReportController extends Controller
 {
   private $workingSecurityTeamService;
+  private $incomeVisitorService;
+  private $incomeCarService;
+  private $incomeAlarmService;
+  private $incomeEventService;
+  private $incomeFoggotenCardService;
 
   public function __construct
   (
@@ -34,49 +42,6 @@ class ReportController extends Controller
       $this->incomeAlarmService = $incomeAlarmService;
       $this->incomeEventService = $incomeEventService;
       $this->incomeFoggotenCardService = $incomeFoggotenCardService;
-  }
-
-  public function byDay(Request $request)
-  {
-      try {
-          $startDay = new Carbon($request->get('date'));
-          $endDay = new Carbon($request->date);
-          $endDay->addDays(1);
-
-          $reportData = $this->getReportData($startDay, $endDay);
-
-          return response()->success('Отчет успешно получен', $reportData);
-      } catch (\Exception $exception) {
-          return response()->error('Ошибка получения отчета', $exception->getMessage());
-      }
-  }
-
-  public function bySecurityTeam(Request $request)
-  {
-      try {
-          $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam(new Carbon($request->get('date')));
-          $startDay = $startEndTimeByWorkingTeam[0];
-          $endDay = $startEndTimeByWorkingTeam[1];
-          // return response()->success('Отчет успешно получен', new Carbon($request->get('date')));
-      
-          $reportData = $this->getReportData($startDay, $endDay);
-          return response()->success('Отчет успешно получен', $reportData);
-      } catch (\Exception $exception) {
-          return response()->error('Ошибка получения отчета', $exception->getMessage());
-      }
-  }
-
-  public function byDuration(Request $request)
-  {
-      try {
-          $startDay = $request->input('start');
-          $endDay = $request->input('end');
-
-          $reportData = $this->getReportData($startDay, $endDay);
-          return response()->success('Отчет успешно получен', $reportData);
-      } catch (\Exception $exception) {
-          return response()->error('Ошибка получения отчета', $exception->getMessage());
-      }
   }
 
   public function getReportData($startDay, $endDay) {
@@ -101,12 +66,66 @@ class ReportController extends Controller
     }
   }
 
-  public function sendReport() {
-    try {
-      $reportData = 'Fake report';
-      return response()->success('Отчет успешно получен', $reportData);
-  } catch (\Exception $exception) {
-      return response()->error('Ошибка получения отчета', $exception->getMessage());
+  public function byDay(Request $request)
+  {
+      try {
+          $startDay = new Carbon($request->get('date'));
+          $endDay = new Carbon($request->date);
+          $endDay->addDays(1);
+
+          $reportData = $this->getReportData($startDay, $endDay);
+
+          return response()->success('Отчет успешно получен', $reportData);
+      } catch (\Exception $exception) {
+          return response()->error('Ошибка получения отчета', $exception->getMessage());
+      }
   }
+
+  public function bySecurityTeam(Request $request)
+  {
+      try {
+          $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam(new Carbon($request->get('date')));
+          $startDay = $startEndTimeByWorkingTeam[0];
+          $endDay = $startEndTimeByWorkingTeam[1];
+      
+          $reportData = $this->getReportData($startDay, $endDay);
+          return response()->success('Отчет успешно получен', $reportData);
+      } catch (\Exception $exception) {
+          return response()->error('Ошибка получения отчета', $exception->getMessage());
+      }
+  }
+
+  public function byDuration(Request $request)
+  {
+      try {
+          $startDay = $request->input('start');
+          $endDay = $request->input('end');
+
+          $reportData = $this->getReportData($startDay, $endDay);
+          return response()->success('Отчет успешно получен', $reportData);
+      } catch (\Exception $exception) {
+          return response()->error('Ошибка получения отчета', $exception->getMessage());
+      }
+  }
+
+  public function sendSecurityTeamReport() {
+    try {
+      $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam(new Carbon());
+      $startDay = $startEndTimeByWorkingTeam[0];
+      $endDay = $startEndTimeByWorkingTeam[1];
+
+      $reportData = $this->getReportData($startDay, $endDay);
+      $reportData['reportDay'] = $startDay;
+      $reportData['reportDayTomorrow'] = $endDay;
+      $reportData['securityGuys'] = []; 
+
+      $toEmail = explode(',', env('MAIL_SECURITY_REPORT_RECIVERS'));
+      Mail::to($toEmail)->send(new SecurityMail($reportData));
+
+      // return view('emails.reportSecurity', compact('reportData'));
+      return response()->success('Отчет успешно отправлен', $reportData);
+    } catch (\Exception $exception) {
+        return response()->error('Ошибка отправки отчета', $exception->getMessage());
+    }
   }
 }

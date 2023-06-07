@@ -9,7 +9,7 @@ use App\Services\Income\SystemAlarmListService;
 
 class SystemAlarmListController extends Controller
 {
-  private $SystemAlarmListService;
+  private $systemAlarmListService;
 
   public function __construct
   (

@@ -9,7 +9,7 @@ use App\Services\Income\IncomeEventService;
 
 class IncomeEventController extends Controller
 {
-  private $IncomeEventService;
+  private $incomeEventService;
 
   public function __construct
   (

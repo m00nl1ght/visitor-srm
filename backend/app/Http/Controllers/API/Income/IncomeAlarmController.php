@@ -9,7 +9,7 @@ use App\Services\Income\IncomeAlarmService;
 
 class IncomeAlarmController extends Controller
 {
-  private $IncomeAlarmService;
+  private $incomeAlarmService;
 
   public function __construct
   (

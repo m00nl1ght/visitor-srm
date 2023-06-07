@@ -12,7 +12,10 @@ use App\Services\Card\CardService;
 
 class IncomeFoggotenCardController extends Controller
 {
-  private $IncomeFoggotenCardService;
+  private $incomeFoggotenCardService;
+  private $employeeService;
+  private $positionService;
+  private $cardService;
 
   public function __construct
   (
