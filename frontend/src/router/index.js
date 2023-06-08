@@ -17,6 +17,7 @@ import Cards from '@/views/CardsPage.vue'
 import Reports from '@/views/ReportsPage.vue'
 import ReportOverview from '@/components/reports/ReportOverviewConnect.js'
 import ReportAnalitics from '@/components/reports/ReportAnalitics.vue'
+import Devices from '@/views/DevicesPage.vue'
 
 Vue.use(VueRouter)
 
@@ -117,7 +118,13 @@ const routes = [
         meta: { layout: 'main' }
       }
     ]
-  }
+  },
+  {
+    path: '/devices',
+    name: 'Devices',
+    meta: { layout: 'main' },
+    component: Devices
+  },
 ]
 
 const router = new VueRouter({
