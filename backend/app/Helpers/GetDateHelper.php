@@ -22,9 +22,9 @@ class GetDateHelper
     {
         $data = explode(':', $string);
         $time = new class{};
-        $time->hours = +$data[0];
-        $time->minutes = +$data[1];
-        $time->second = 0;
+        $time['hours'] = +$data[0];
+        $time['minutes'] = +$data[1];
+        $time['second'] = 0;
         return $time;
     }
 

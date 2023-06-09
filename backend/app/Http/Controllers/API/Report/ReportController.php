@@ -108,6 +108,39 @@ class ReportController extends Controller
       }
   }
 
+  private function countCategories($report) {
+    $result = [];
+    $result['Всего'] = $report->count();
+
+    foreach($report as $arr) {
+      $key = $arr->visitor_category->title;
+   
+      if(isset($result[$key])) {
+          $result[$arr->visitor_category->title]++;
+      } else {
+          $result[$arr->visitor_category->title] = 1;
+      }
+    }
+
+    return $result;
+  }
+
+  private function flatSecurities($securities) {
+    function getName($arr) {
+      return $arr['last_name'] . ' ' .  $arr['name'] . ' ' . $arr['middle_name'];
+    }
+    
+    $result = [];
+    $result[] = getName($securities['operator']);
+    $result[] = getName($securities['chief']);
+
+    foreach($securities['securities'] as $arr) {
+      $result[] = getName($arr);
+    }
+
+    return $result;
+  }
+
   public function sendSecurityTeamReport() {
     try {
       $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam(new Carbon());
@@ -115,15 +148,23 @@ class ReportController extends Controller
       $endDay = $startEndTimeByWorkingTeam[1];
 
       $reportData = $this->getReportData($startDay, $endDay);
+      $securities = $this->workingSecurityTeamService->getLastWorkingSecurityTeam();
+
+      $countPeopleArr = $this->countCategories($reportData['visitors']);
+      $countCarArr = $this->countCategories($reportData['cars']);
+
+      $reportData['securities'] =$this->flatSecurities($securities);
       $reportData['reportDay'] = $startDay;
       $reportData['reportDayTomorrow'] = $endDay;
-      $reportData['securityGuys'] = []; 
+      $reportData['securityGuys'] = [];
+      $reportData['visitorsCount'] = $countPeopleArr;
+      $reportData['carsCount'] = $countCarArr;
 
       $toEmail = explode(',', env('MAIL_SECURITY_REPORT_RECIVERS'));
       Mail::to($toEmail)->send(new SecurityMail($reportData));
 
-      // return view('emails.reportSecurity', compact('reportData'));
-      return response()->success('Отчет успешно отправлен', $reportData);
+      return view('emails.reportSecurity', compact('reportData'));
+      // return response()->success('Отчет успешно отправлен', $reportData);
     } catch (\Exception $exception) {
         return response()->error('Ошибка отправки отчета', $exception->getMessage());
     }

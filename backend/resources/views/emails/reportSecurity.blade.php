@@ -10,15 +10,17 @@
     <table class="main-table" style="width: 960px; margin: 0 auto;">
         <tr>
             <td colspan="12">
-                <a class="report-link" 
-                href="#" 
-                style="font-size: 16px;">Показать отчет в браузере</a>
+                <a class="report-link" href="#" style="font-size: 16px;">Показать отчет в браузере</a>
             </td>
         </tr>
 
         <tr>
             <td colspan="12" style="border-bottom: 1px solid #000;">
-                <h1 class="py-4">Дежурная сводка охраны за {{ $reportData['reportDay'] }} - {{ $reportData['reportDayTomorrow']->created_at }} число</h3>
+                <h1 class="py-4">Дежурная сводка охраны за {{ 
+                  $reportData['reportDay']->format('d.m.Y') 
+                }} - {{ 
+                  $reportData['reportDayTomorrow']->format('d.m.Y') 
+                }} число</h1>
             </td>
         </tr>
 
@@ -29,8 +31,8 @@
                 <h2>Состав Смены:</h2>
 
                 <ul>
-                    @foreach ($reportData['securityGuys'] as $arr)
-                        <li>{{ $arr->name }}</li>
+                    @foreach ($reportData['securities'] as $arr)
+                        <li>{{ $arr }}</li>
                     @endforeach
                 </ul>
             </td>
@@ -98,7 +100,7 @@
                         <th colspan="2" style="border: 1px solid #000; padding: 5px 10px;">Автотранспорт</th>
                     </tr>
 
-                    @foreach ($reportData['cars'] as $array=>$key)
+                    @foreach ($reportData['visitorsCount'] as $array=>$key)
                         <tr>
                             <td style="border: 1px solid #000; padding: 5px 10px;">{{ $array }}</td>
                             <td style="border: 1px solid #000; padding: 5px 10px;">{{ $key }}</td>
@@ -113,7 +115,7 @@
                         <th colspan="2" style="border: 1px solid #000; padding: 5px 10px;">Посетители</th>
                     </tr>
 
-                    @foreach ($reportData['visitors'] as $array=>$key)
+                    @foreach ($reportData['carsCount'] as $array=>$key)
                         <tr>
                             <td style="border: 1px solid #000; padding: 5px 10px;">{{ $array }}</td>
                             <td style="border: 1px solid #000; padding: 5px 10px;">{{ $key }}</td>

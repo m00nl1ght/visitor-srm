@@ -167,16 +167,29 @@ class WorkingSecurityTeamService
   public function startEndTimeByWorkingTeam($date)
   {
     try {
-      $startDay = WorkingSecurityTeamModel::whereDay('created_at', ">=", $date)->first();
+      $startDay = WorkingSecurityTeamModel::whereDate('created_at', "<", $date)->latest()->first();
       if (!$startDay) throw new \Exception('За текущую дату отчета не найдено' . $date);
 
       $startDay = $startDay->created_at;
       $endDay = WorkingSecurityTeamModel::whereDay('created_at', ">", $startDay)->first();
       if (!$endDay) $endDay = Carbon::now();
+      else $endDay = $endDay->created_at;
 
       return [$startDay, $endDay];
     } catch (\Exception $exception) {
       throw new \Exception($exception->getMessage());
     }
   }
+
+    //получение смены по дате
+    public function getWorkingTeamByDate($date)
+    {
+      try {
+        $team = WorkingSecurityTeamModel::whereDate('created_at', "<", $date)->latest()->first();
+        if (!$team) throw new \Exception('За текущую дату отчета не найдено' . $date);
+        return $team;
+      } catch (\Exception $exception) {
+        throw new \Exception($exception->getMessage());
+      }
+    }
 }
