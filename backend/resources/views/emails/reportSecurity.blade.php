@@ -18,7 +18,7 @@
 
         <tr>
             <td colspan="12" style="border-bottom: 1px solid #000;">
-                <h1 class="py-4">Дежурная сводка охраны за {{ $reportData['reportDay'] }} - {{ $reportData['reportDayTomorrow'] }} число</h3>
+                <h1 class="py-4">Дежурная сводка охраны за {{ $reportData['reportDay'] }} - {{ $reportData['reportDayTomorrow']->created_at }} число</h3>
             </td>
         </tr>
 
@@ -81,10 +81,10 @@
 
                     @foreach ($reportData['alarms'] as $arr)
                         <tr>
-                            <td>{{ $arr->system }}</td>
-                            <td>{{ $arr->name }}</td>
+                            <td>{{ $arr->system_alarm_list->title }}</td>
+                            <td>{{ $arr->title }}</td>
                             <td>{{ $arr->place }}</td>
-                            <td></td>             
+                            <td>{{ $arr->in_time }}</td>             
                         </tr>
                     @endforeach
                 </table>

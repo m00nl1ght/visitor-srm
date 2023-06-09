@@ -67,7 +67,7 @@ export default {
     },
 
     printCard({id}) {
-      this.printCardValue = this.incomeCarList.find(item => item.id == id)
+      this.printCardValue = this.incomeCarList.find(item => item.id === id)
       this.isOpenPrintModal = true
     }
   }

@@ -23,14 +23,17 @@
 
 <script>
 export default {
-  data: () => ({
-    headers: [
-      { text: 'ФИО', value: 'fullName', sortable: false, width: 100 },
-      { text: 'Модель', align: 'model', value: 'modelDevice', sortable: false, width: 200 },
-      { text: 'Сетевое имя', value: 'networkName', width: 150 },
-      { text: 'Инвентарный номер', value: 'inventoryNumber', sortable: false, width: 150 },
-      { text: 'Серийный номер', value: 'serialNumber', sortable: false, width: 600 }
-    ]
-  })
+  data: function () {
+    return {
+      headers: [
+        { text: 'Разрешение', value: 'approval', sortable: false, width: 100 },
+        { text: 'ФИО', value: 'fullName', sortable: false, width: 100 },
+        { text: 'Модель', align: 'model', value: 'modelDevice', sortable: false, width: 200 },
+        { text: 'Сетевое имя', value: 'networkName', width: 150 },
+        { text: 'Инвентарный номер', value: 'inventoryNumber', sortable: false, width: 150 },
+        { text: 'Серийный номер', value: 'serialNumber', sortable: false, width: 600 }
+      ]
+    }
+  }
 }
 </script>
