@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const urls = {
   REPORT_BY_DURATION: BASE_URL + '/api/report/byDuration',
-  SEND_REPORT: BASE_URL + '/api/report/send-report'
+  SEND_REPORT: BASE_URL + '/api/report/send-security-team-report'
 }
 
 export default {
