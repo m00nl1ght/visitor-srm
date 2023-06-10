@@ -16,8 +16,8 @@ use App\Http\Controllers\API\Income\IncomeCarController;
 use App\Http\Controllers\API\Income\IncomeAlarmController;
 use App\Http\Controllers\API\Income\IncomeEventController;
 use App\Http\Controllers\API\Income\IncomeFoggotenCardController;
-
 use App\Http\Controllers\API\Income\SystemAlarmListController;
+
 use App\Http\Controllers\API\People\EmployeeController;
 use App\Http\Controllers\API\People\PositionController;
 use App\Http\Controllers\API\Card\CardController;
@@ -26,6 +26,7 @@ use App\Http\Controllers\API\Report\ReportController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\Devices\DeviceController;
 
 
 
@@ -39,6 +40,7 @@ use App\Http\Controllers\API\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::resource('/device', DeviceController::class);
 //пользователи
 Route::post('login', [LoginController::class, 'login']);
 Route::post('registration', [RegistrationController::class, 'registration']);
