@@ -171,7 +171,7 @@ class WorkingSecurityTeamService
       if (!$startDay) throw new \Exception('За текущую дату отчета не найдено' . $date);
 
       $startDay = $startDay->created_at;
-      $endDay = WorkingSecurityTeamModel::whereDay('created_at', ">", $startDay)->first();
+      $endDay = WorkingSecurityTeamModel::whereDate('created_at', ">", $startDay)->first();
       if (!$endDay) $endDay = Carbon::now();
       else $endDay = $endDay->created_at;
 

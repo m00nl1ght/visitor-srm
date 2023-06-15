@@ -26,7 +26,7 @@ use App\Http\Controllers\API\Report\ReportController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\API\UserController;
-
+use App\Http\Controllers\API\Devices\DeviceController;
 
 
 /*
@@ -39,6 +39,8 @@ use App\Http\Controllers\API\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//девайсы
+Route::resource('/device', DeviceController::class);
 //пользователи
 Route::post('login', [LoginController::class, 'login']);
 Route::post('registration', [RegistrationController::class, 'registration']);
