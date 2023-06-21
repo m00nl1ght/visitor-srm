@@ -57,7 +57,7 @@
                     @foreach ($reportData['events'] as $arr)
                         <tr>
                             <td>{{ $arr->description }}</td>
-                            <td>{{ $arr->action }}</td>
+                            <td>{{ $arr->comment }}</td>
                             <td>{{ $arr->in_time }}</td>          
                         </tr>
                     @endforeach

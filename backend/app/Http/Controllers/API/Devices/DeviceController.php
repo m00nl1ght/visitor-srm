@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\Devices;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DeviceController extends Controller
@@ -13,16 +12,32 @@ class DeviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getNetworkName()
     {
-      try {
-        DB::connection('sqlsrv')->beginTransaction();
-        $test = DB::connection('sqlsrv')->table('Models')->get();
-        DB::connection('sqlsrv')->commit();
-
-        return response()->success('ТЕСТ БД', $test);
-      } catch (\Exception $exception) {
-        return response()->error($exception);
-      }
+        try {
+            $networkName = DB::connection('sqlsrv')->table('Units')
+                ->select('NetworkName')
+                ->where('NetworkName', 'LIKE', 'N%')
+                ->get();
+            return response()->success($networkName);
+        } catch (\Exception $exception) {
+            return response()->error($exception);
+        }
     }
+
+    public function getNetworkNameData()
+    {
+        try {
+            $networkNameData = DB::connection('sqlsrv')->table('Units')
+                ->leftJoin('Models', 'Units.ModelID', '=', 'Models.ModelID')
+                ->select('Units.NetworkName', 'Units.InventoryNumber', 'Units.SerialNumber', 'Models.Name')
+                ->where('NetworkName', 'LIKE', 'N%')
+                ->get();
+            return response()->success($networkName);
+        } catch (\Exception $exception) {
+            return response()->error($exception);
+        }
+
+    }
+
 }

@@ -98,4 +98,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::get('/report/bySecurityTeam', [ReportController::class, 'bySecurityTeam']);
   Route::post('/report/byDuration', [ReportController::class, 'byDuration']);
   Route::get('/report/send-security-team-report', [ReportController::class, 'sendSecurityTeamReport']);
+
+  //устройства
+  Route::get('/device/getNetworkName', [DeviceController::class, 'getNetworkName']);
+  Route::get('/device/getNetworkNameData', [DeviceController::class, 'getNetworkNameData']);
 });
