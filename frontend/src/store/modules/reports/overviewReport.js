@@ -35,8 +35,7 @@ const actions = {
 
   async getSendedReport() {
     try {
-      const { data } = await api.getSendedReport()
-      console.log(data.data)
+      await api.getSendedReport()
     } catch (error) {
       console.log(error)
     }

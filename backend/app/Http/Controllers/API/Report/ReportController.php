@@ -163,8 +163,8 @@ class ReportController extends Controller
       $toEmail = explode(',', env('MAIL_SECURITY_REPORT_RECIVERS'));
       Mail::to($toEmail)->send(new SecurityMail($reportData));
 
-      return view('emails.reportSecurity', compact('reportData'));
-      // return response()->success('Отчет успешно отправлен', $reportData);
+      // return view('emails.reportSecurity', compact('reportData'));
+      return response()->success('Отчет успешно отправлен', $reportData);
     } catch (\Exception $exception) {
         return response()->error('Ошибка отправки отчета', $exception->getMessage());
     }

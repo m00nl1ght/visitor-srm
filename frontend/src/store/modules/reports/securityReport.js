@@ -14,7 +14,6 @@ const mutations = {
 
   storeReportBySecurityTeam(state, payload) {
     state.reportBySecurityTeamData = payload
-    console.log('storeReportBySecurityTeam', payload)
   }
 }
 

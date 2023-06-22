@@ -9,6 +9,7 @@ import incomeVisitor from '@/store/modules/income/incomeVisitor'
 import incomeCar from '@/store/modules/income/incomeCar'
 import incomeAlarm from '@/store/modules/income/incomeAlarm'
 import incomeEvent from '@/store/modules/income/incomeEvent'
+import incomeDevice from '@/store/modules/income/incomeDevice'
 import incomeCard from '@/store/modules/income/incomeCard'
 import accessCard from '@/store/modules/card/accessCard'
 import visitorCategory from '@/store/modules/category/visitorCategory'
@@ -33,6 +34,7 @@ export default new Vuex.Store({
     incomeAlarm,
     incomeEvent,
     incomeCard,
+    incomeDevice,
     accessCard,
     visitorCategory,
     systemAlarmCategory,

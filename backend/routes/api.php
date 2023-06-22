@@ -26,7 +26,7 @@ use App\Http\Controllers\API\Report\ReportController;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\API\UserController;
-
+use App\Http\Controllers\API\Devices\DeviceController;
 
 
 /*
@@ -39,6 +39,7 @@ use App\Http\Controllers\API\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 //пользователи
 Route::post('login', [LoginController::class, 'login']);
 Route::post('registration', [RegistrationController::class, 'registration']);
@@ -96,4 +97,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::get('/report/bySecurityTeam', [ReportController::class, 'bySecurityTeam']);
   Route::post('/report/byDuration', [ReportController::class, 'byDuration']);
   Route::get('/report/send-security-team-report', [ReportController::class, 'sendSecurityTeamReport']);
+
+  //устройства
+  Route::get('/device/getNetworkName', [DeviceController::class, 'getNetworkName']);
+  Route::get('/device/getNetworkNameData', [DeviceController::class, 'getNetworkNameData']);
 });
