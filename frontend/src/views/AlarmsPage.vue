@@ -3,13 +3,7 @@
     <v-toolbar>
       <v-toolbar-title>Список активных неисправностей</v-toolbar-title>
       <v-spacer />
-      <v-btn 
-        color="primary"
-        outlined
-        @click="openModal"
-      >
-        Добавить неисправность
-      </v-btn>
+      <v-btn color="primary" outlined @click="openModal"> Добавить неисправность </v-btn>
     </v-toolbar>
 
     <v-card-text>

@@ -33,7 +33,7 @@ class DeviceController extends Controller
                 ->select('Units.NetworkName', 'Units.InventoryNumber', 'Units.SerialNumber', 'Models.Name')
                 ->where('NetworkName', 'LIKE', 'N%')
                 ->get();
-            return response()->success($networkName);
+            return response()->success($networkNameData);
         } catch (\Exception $exception) {
             return response()->error($exception);
         }

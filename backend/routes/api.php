@@ -39,8 +39,7 @@ use App\Http\Controllers\API\Devices\DeviceController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-//девайсы
-Route::resource('/device', DeviceController::class);
+
 //пользователи
 Route::post('login', [LoginController::class, 'login']);
 Route::post('registration', [RegistrationController::class, 'registration']);
