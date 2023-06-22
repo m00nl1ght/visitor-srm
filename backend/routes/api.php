@@ -27,6 +27,7 @@ use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\Devices\DeviceController;
+use App\Http\Controllers\API\Devices\DevicePermissionController;
 
 
 /*
@@ -101,4 +102,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   //устройства
   Route::get('/device/getNetworkName', [DeviceController::class, 'getNetworkName']);
   Route::get('/device/getNetworkNameData', [DeviceController::class, 'getNetworkNameData']);
+  Route::resource('/device-permission', DevicePermissionController::class);
+  Route::post('/device-permission/get-by-statuses', [DevicePermissionController::class, 'getListByStatuses']);
 });
