@@ -1,16 +1,28 @@
-// import api from '@/services/income/incomeDeviceApi'
+import api from '@/services/income/incomeDeviceApi'
 
 const state = () => ({
-    openAlarmList: [],
-  
-    openModal: false,
-    
-  })
+  networkNameList: {},
 
-const getters = {}
+  formValue: {
+    device: {
+      networkName: '',
+    },
+    employee: {
+      name: '',
+      lastName: '',
+      middleName: ''
+    }
+  },
+  openModal: false
+})
+
+const getters = {
+  getOpenModal: (state) => state.openModal,
+  getFormValue: (state) => state.formValue
+}
 
 const mutations = {
-  openAddModal(state) {
+  openModal(state) {
     state.openModal = true
   },
 
@@ -18,10 +30,27 @@ const mutations = {
 
   closeModal(state) {
     state.openModal = false
+  },
+
+  storeNetworkNameList(state, value) {
+    state.networkNameList = value
+    console.log ('list NN2222', state.networkNameList)
   }
+  
 }
 
-const actions = {}
+const actions = {
+  async getNetworkNameList ( { commit } ) {
+    try {
+      const { data } = await api.getNetworkNameList()
+      console.log('action listNN', data)
+      commit('storeNetworkNameList', data.data)
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 export default {
   namespaced: true,

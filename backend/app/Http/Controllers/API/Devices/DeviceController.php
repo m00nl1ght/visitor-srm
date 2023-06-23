@@ -25,7 +25,7 @@ class DeviceController extends Controller
   {
     try {
       $networkName = $this->deviceService->getNetworkName();
-      return response()->success($networkName);
+      return response()->success('Device list received', $networkName);
     } catch (\Exception $exception) {
       return response()->error($exception);
     }
@@ -35,7 +35,7 @@ class DeviceController extends Controller
   {
     try {
       $networkNameData = $this->deviceService->getNetworkNameData();
-      return response()->success($networkNameData);
+      return response()->success('Device list received', $networkNameData);
     } catch (\Exception $exception) {
       return response()->error($exception);
     }

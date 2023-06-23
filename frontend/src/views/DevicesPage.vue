@@ -20,7 +20,7 @@ export default {
 
   methods: {
     openModal() {
-      this.$store.commit('incomeDevice/openAddModal')
+      this.$store.commit('incomeDevice/openModal')
     }
   }
 }

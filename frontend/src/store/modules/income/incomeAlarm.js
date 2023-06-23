@@ -21,6 +21,7 @@ const getters = {}
 
 const mutations = {
   storeOpenAlarmList(state, payload) {
+    console.log('check', payload)
     state.openAlarmList = payload
   },
 
