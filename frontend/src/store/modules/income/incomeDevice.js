@@ -2,14 +2,14 @@ import api from '@/services/income/incomeDeviceApi'
 
 const state = () => ({
   networkNameList: {},
-
+  employeeNameList: {},
   formValue: {
     device: {
-      networkName: '',
+      networkName: ''
     },
     employee: {
-      name: '',
       lastName: '',
+      name: '',
       middleName: ''
     }
   },
@@ -18,7 +18,7 @@ const state = () => ({
 
 const getters = {
   getOpenModal: (state) => state.openModal,
-  getFormValue: (state) => state.formValue
+  getFormValue: (state) => state.formValue,
 }
 
 const mutations = {
@@ -34,18 +34,29 @@ const mutations = {
 
   storeNetworkNameList(state, value) {
     state.networkNameList = value
-    console.log ('list NN2222', state.networkNameList)
+  },
+
+  storeNameEmployee(state, value) {
+    state.employeeNameList = value
+    console.log('employeeNameList', state.employeeNameList)
   }
-  
 }
 
 const actions = {
-  async getNetworkNameList ( { commit } ) {
+  async getNetworkNameList({ commit }) {
     try {
       const { data } = await api.getNetworkNameList()
-      console.log('action listNN', data)
       commit('storeNetworkNameList', data.data)
-      
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async getNameEmployee({ commit }) {
+    try {
+      const { data } = await api.getNameEmployee()
+
+      commit('storeNameEmployee', data.data)
     } catch (error) {
       console.log(error)
     }
