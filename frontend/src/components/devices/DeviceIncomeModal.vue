@@ -2,8 +2,14 @@
   <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="'Новое разрешение'">
     <v-form ref="form" v-model="valid" class="pt-5" lazy-validation>
       <v-autocomplete :items="listDeviceNetworkName" item-text="networkName" label="Сетевое имя"> </v-autocomplete>
-      <v-autocomplete :items="listEmployeeName" item-text="fullNameEmployee" label="ФИО сотрудника"> </v-autocomplete>
-      <v-btn @click="checkConsole()">ТЕСТ</v-btn>
+      <v-autocomplete :items="listEmployeeName" label="ФИО сотрудника" item-text="lastName" item-value="lastName">
+        <template v-slot:selection="data">
+          <span>{{ data.item.lastName }} {{ data.item.name }} {{ data.item.middleName }}</span>
+        </template>
+        <template v-slot:item="data">
+          <span>{{ data.item.lastName }} {{ data.item.name }} {{ data.item.middleName }}</span>
+        </template>
+      </v-autocomplete>
     </v-form>
   </MainModalLayout>
 </template>
@@ -59,11 +65,6 @@ export default {
         this.$store.dispatch('incomeDevice/registrateDevice')
       }
     }
-
-    // networkNameList() {
-    //   this.listName = this.$store.state.networkNameList
-    //   console.log('listName', this.listName)
-    // }
   }
 }
 </script>
