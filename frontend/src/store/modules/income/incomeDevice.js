@@ -1,24 +1,20 @@
 import api from '@/services/income/incomeDeviceApi'
+import api_employee from '@/services/employeeApi'
 
 const state = () => ({
   networkNameList: {},
   employeeNameList: {},
-  formValue: {
-    device: {
-      networkName: ''
-    },
-    employee: {
-      lastName: '',
-      name: '',
-      middleName: ''
-    }
-  },
+  openDeviceList: [],
+  // formValue: {
+  //   networkName: '',
+  //   id: ''
+  // },
   openModal: false
 })
 
 const getters = {
   getOpenModal: (state) => state.openModal,
-  getFormValue: (state) => state.formValue,
+  getFormValue: (state) => state.formValue
 }
 
 const mutations = {
@@ -39,6 +35,10 @@ const mutations = {
   storeNameEmployee(state, value) {
     state.employeeNameList = value
     console.log('employeeNameList', state.employeeNameList)
+  },
+
+  storeDeviceList(state, value) {
+    state.openDeviceList = value
   }
 }
 
@@ -54,11 +54,28 @@ const actions = {
 
   async getNameEmployee({ commit }) {
     try {
-      const { data } = await api.getNameEmployee()
+      const { data } = await api_employee.getNameEmployee()
 
       commit('storeNameEmployee', data.data)
     } catch (error) {
       console.log(error)
+    }
+  },
+
+  async registrateDevice(_, regDevice) {
+    try {
+      await api.addDevice(regDevice)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async getDeviceList({ commit }) {
+    try {
+      const { data } = await api.getDeviceList()
+      commit('storeDeviceList', data.data)
+    } catch (error) {
+      console.log (error)
     }
   }
 }

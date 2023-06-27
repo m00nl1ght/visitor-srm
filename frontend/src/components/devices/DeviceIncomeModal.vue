@@ -1,8 +1,16 @@
 <template>
   <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="'Новое разрешение'">
     <v-form ref="form" v-model="valid" class="pt-5" lazy-validation>
-      <v-autocomplete :items="listDeviceNetworkName" item-text="networkName" label="Сетевое имя"> </v-autocomplete>
-      <v-autocomplete :items="listEmployeeName" label="ФИО сотрудника" item-text="lastName" item-value="lastName">
+      <v-autocomplete v-model="regDevice.device" :items="listDeviceNetworkName" item-text="networkName" :rules="rules" label="Сетевое имя">
+      </v-autocomplete>
+      <v-autocomplete
+        v-model="regDevice.employeeId"
+        :items="listEmployeeName"
+        :rules="rules"
+        label="ФИО сотрудника"
+        item-text="lastName"
+        item-value="id"
+      >
         <template v-slot:selection="data">
           <span>{{ data.item.lastName }} {{ data.item.name }} {{ data.item.middleName }}</span>
         </template>
@@ -25,18 +33,22 @@ export default {
   data() {
     return {
       valid: true,
-      rules: [(v) => !!v || 'Поле обязательно для заполнения']
+      rules: [(v) => !!v || 'Поле обязательно для заполнения'],
+      regDevice: {
+        employeeId: '',
+        device: ''
+      }
     }
   },
 
   computed: {
     isOpen() {
-      return this.$store.getters['incomeDevice/getOpenModal']
+      return this.$store.state.incomeDevice.openModal
     },
 
-    formValue() {
-      return this.$store.getters['incomeDevice/getFormValue']
-    },
+    // formValue() {
+    //   return this.$store.state.incomeDevice.formValue
+    // },
 
     listDeviceNetworkName() {
       return this.$store.state.incomeDevice.networkNameList
@@ -62,8 +74,11 @@ export default {
 
     onConfirm() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('incomeDevice/registrateDevice')
+        this.$store.dispatch('incomeDevice/registrateDevice', this.regDevice)
       }
+      this.$store.commit('incomeDevice/closeModal')
+      this.regDevice.device = '',
+      this.regDevice.employeeId = ''
     }
   }
 }
