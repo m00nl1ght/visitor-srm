@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Devices;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\Device\DeviceService;
 
 use App\Services\Device\DevicePermissionService;
 
@@ -114,6 +115,16 @@ class DevicePermissionController extends Controller
     try {
       $list = $this->devicePermissionService->getListByStatuses($request->statuses);
       return response()->success('Device list received', $list);
+    } catch (\Exception $exception) {
+      return response()->error($exception);
+    }
+  }
+
+  public function getNetworkNameData()
+  {
+    try {
+      $networkNameData = $this->deviceService->getNetworkNameData();
+      return response()->success('Device list received', $networkNameData);
     } catch (\Exception $exception) {
       return response()->error($exception);
     }

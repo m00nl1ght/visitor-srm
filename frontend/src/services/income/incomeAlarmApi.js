@@ -11,7 +11,7 @@ export default {
   },
 
   addAlarm(payload) {
-    return axios.post(urls.ALARM, payload)
+    console.log ('ALARM PAYLOAD',axios.post(urls.ALARM, payload))
   },
 
   editAlarm(payload) {

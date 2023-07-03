@@ -1,20 +1,12 @@
 <template>
-  <v-dialog
-    v-model="modal"
-    persistent
-    max-width="600px"
-  >
+  <v-dialog v-model="modal" persistent max-width="600px">
     <v-card>
       <v-card-title>
         <span class="text-h5">{{ title }}</span>
 
         <v-spacer />
 
-        <v-btn
-          icon
-          large
-          @click="onClose"
-        >
+        <v-btn icon large @click="onClose">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
@@ -27,17 +19,10 @@
 
       <v-card-actions>
         <v-spacer />
-        <v-btn
-          text
-          @click="onClose"
-        >
+        <v-btn text @click="onClose">
           {{ closeBtnTitle }}
         </v-btn>
-        <v-btn
-          color="primary"
-          text
-          @click="onConfirm"
-        >
+        <v-btn color="primary" text @click="onConfirm">
           {{ confirmBtnTitle }}
         </v-btn>
       </v-card-actions>

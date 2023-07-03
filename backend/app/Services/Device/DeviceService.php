@@ -27,7 +27,7 @@ class DeviceService
       $networkNameData = DB::connection('sqlsrv')->table('Units')
         ->leftJoin('Models', 'Units.ModelID', '=', 'Models.ModelID')
         ->select('Units.NetworkName', 'Units.InventoryNumber', 'Units.SerialNumber', 'Models.Name')
-        ->where('NetworkName', 'LIKE', 'N%')
+        ->where('NetworkName', 'LIKE', '%%')
         ->get();
 
       return $networkNameData;

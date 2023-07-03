@@ -1,13 +1,23 @@
 <template>
-  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm">
+  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="'Новое разрешение'">
     <v-form ref="form" v-model="valid" class="pt-5" lazy-validation>
-      <v-text-field outlined label="Сетевое имя" dense />
-
-      <v-text-field outlined label="Фамилия" dense />
-
-      <v-text-field outlined label="Имя" dense />
-
-      <v-text-field outlined label="Отчество" dense :rules="rules" />
+      <v-autocomplete v-model="regDevice.device" :items="listDeviceNetworkName" item-text="networkName" :rules="rules" label="Сетевое имя">
+      </v-autocomplete>
+      <v-autocomplete
+        v-model="regDevice.employeeId"
+        :items="listEmployeeName"
+        :rules="rules"
+        label="ФИО сотрудника"
+        item-text="lastName"
+        item-value="id"
+      >
+        <template v-slot:selection="data">
+          <span>{{ data.item.lastName }} {{ data.item.name }} {{ data.item.middleName }}</span>
+        </template>
+        <template v-slot:item="data">
+          <span>{{ data.item.lastName }} {{ data.item.name }} {{ data.item.middleName }}</span>
+        </template>
+      </v-autocomplete>
     </v-form>
   </MainModalLayout>
 </template>
@@ -23,7 +33,11 @@ export default {
   data() {
     return {
       valid: true,
-      rules: [(v) => !!v || 'Поле обязательно для заполнения']
+      rules: [(v) => !!v || 'Поле обязательно для заполнения'],
+      regDevice: {
+        employeeId: '',
+        device: ''
+      }
     }
   },
 
@@ -32,13 +46,25 @@ export default {
       return this.$store.state.incomeDevice.openModal
     },
 
-    formValue() {
-      return this.$store.state.incomeDevice.formValue
+    // formValue() {
+    //   return this.$store.state.incomeDevice.formValue
+    // },
+
+    listDeviceNetworkName() {
+      return this.$store.state.incomeDevice.networkNameList
+    },
+    listEmployeeName() {
+      return this.$store.state.incomeDevice.employeeNameList
     }
 
     // title() {
     //     return this.$store.state.incomeDevice.formValue.id ? 'Редактировать запись' : 'Создать запись'
-    // }
+    // },
+  },
+
+  mounted() {
+    this.$store.dispatch('incomeDevice/getNetworkNameList')
+    this.$store.dispatch('incomeDevice/getNameEmployee')
   },
 
   methods: {
@@ -48,8 +74,11 @@ export default {
 
     onConfirm() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('incomeDevice/registrateDevice')
+        this.$store.dispatch('incomeDevice/registrateDevice', this.regDevice)
       }
+      this.$store.commit('incomeDevice/closeModal')
+      this.regDevice.device = '',
+      this.regDevice.employeeId = ''
     }
   }
 }
