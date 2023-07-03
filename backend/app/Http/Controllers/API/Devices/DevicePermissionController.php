@@ -130,21 +130,3 @@ class DevicePermissionController extends Controller
     }
   }
 }
-
-// $list = DevicePermissionModel::whereIn('status', $statuses)
-            //     ->with(['employee'])
-            //     ->get();
-                
-            // $listDevice = array();
-            // for($i = 0; $i < count($list); $i++) {
-            //   array_push($listDevice, $list[$i]->device);
-            // }
-            // $test = 'N1701161';
-            // $listDevice = implode(';', $listDevice);
-            // $networkNameData = DB::connection('sqlsrv')->table('Units')
-            //     ->leftJoin('Models', 'Units.ModelID', '=', 'Models.ModelID')
-            //     ->select('Units.NetworkName', 'Units.InventoryNumber', 'Units.SerialNumber', 'Models.Name')
-            //     ->where('NetworkName', 'LIKE', 'CLK5080N')
-            //     ->get();
-                // $test2 = implode(',', $networkNameData);
-          // return $networkNameData;
