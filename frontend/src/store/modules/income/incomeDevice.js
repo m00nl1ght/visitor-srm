@@ -4,7 +4,8 @@ import api_employee from '@/services/employeeApi'
 const state = () => ({
   networkNameList: {},
   employeeNameList: {},
-  openDeviceList: [],
+  listDeviceStatus: {},
+  fullListdevice: {},
   // formValue: {
   //   networkName: '',
   //   id: ''
@@ -37,9 +38,14 @@ const mutations = {
     console.log('employeeNameList', state.employeeNameList)
   },
 
-  storeDeviceList(state, value) {
-    state.openDeviceList = value
+  listDeviceStatus(state, value) {
+    state.listDeviceStatus = value
+  },
+
+  storeFullInfoDevice(state, value) {
+    state.fullListdevice = value
   }
+
 }
 
 const actions = {
@@ -70,14 +76,24 @@ const actions = {
     }
   },
 
-  async getDeviceList({ commit }) {
+  async getListDeviceStatus({ commit }, statuses) {
     try {
-      const { data } = await api.getDeviceList()
-      commit('storeDeviceList', data.data)
+      const { data } = await api.getListDeviceStatus(statuses)
+      commit('listDeviceStatus', data.data)
     } catch (error) {
-      console.log (error)
+      console.log(error)
+    }
+  },
+
+  async getNetworkNameDataList({ commit }, list) {
+    try {
+      const { data } = await api.getNetworkNameDataList(list)
+      commit('storeFullInfoDevice', data.data)
+    } catch (error) {
+      console.log(error)
     }
   }
+
 }
 
 export default {

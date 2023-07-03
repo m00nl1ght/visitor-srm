@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Devices;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\Device\DeviceService;
 
 use App\Services\Device\DevicePermissionService;
 
@@ -118,4 +119,32 @@ class DevicePermissionController extends Controller
       return response()->error($exception);
     }
   }
+
+  public function getNetworkNameData()
+  {
+    try {
+      $networkNameData = $this->deviceService->getNetworkNameData();
+      return response()->success('Device list received', $networkNameData);
+    } catch (\Exception $exception) {
+      return response()->error($exception);
+    }
+  }
 }
+
+// $list = DevicePermissionModel::whereIn('status', $statuses)
+            //     ->with(['employee'])
+            //     ->get();
+                
+            // $listDevice = array();
+            // for($i = 0; $i < count($list); $i++) {
+            //   array_push($listDevice, $list[$i]->device);
+            // }
+            // $test = 'N1701161';
+            // $listDevice = implode(';', $listDevice);
+            // $networkNameData = DB::connection('sqlsrv')->table('Units')
+            //     ->leftJoin('Models', 'Units.ModelID', '=', 'Models.ModelID')
+            //     ->select('Units.NetworkName', 'Units.InventoryNumber', 'Units.SerialNumber', 'Models.Name')
+            //     ->where('NetworkName', 'LIKE', 'CLK5080N')
+            //     ->get();
+                // $test2 = implode(',', $networkNameData);
+          // return $networkNameData;

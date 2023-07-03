@@ -8,7 +8,7 @@
     </v-toolbar>
     <DeviceIncomeModal />
     <v-card-text>
-      <DeviceOpenTable :items="openDeviceList"/>
+      <DeviceOpenTable :items="openDeviceList" :itemsDevice="listDeviceNetworkNameData"/>
     </v-card-text>
   </v-card>
 </template>
@@ -26,12 +26,16 @@ export default {
   computed: {
     openDeviceList() {
       return this.$store.state.incomeDevice.openDeviceList
+    },
+
+    listDeviceNetworkNameData() {
+      return this.$store.state.incomeDevice.networkNameDataList
     }
   },
 
-  mounted() {
-    this.$store.dispatch('incomeDevice/getDeviceList')
-  },
+  // mounted() {
+  //   this.$store.dispatch('incomeDevice/getDeviceList')
+  // },
 
   methods: {
     openModal() {
