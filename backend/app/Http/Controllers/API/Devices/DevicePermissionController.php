@@ -4,18 +4,21 @@ namespace App\Http\Controllers\API\Devices;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\Device\DeviceService;
 
+use App\Services\Device\DeviceService;
 use App\Services\Device\DevicePermissionService;
 
 class DevicePermissionController extends Controller
 {
   private $devicePermissionService;
+  private $deviceService;
 
   public function __construct(
+    DeviceService $deviceService,
     DevicePermissionService $devicePermissionService
   ) {
     $this->devicePermissionService = $devicePermissionService;
+    $this->deviceService = $deviceService;
   }
 
   /**
@@ -90,7 +93,9 @@ class DevicePermissionController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //
+    $item = $this->devicePermissionService->updateOne($id, $request);
+
+    return response()->success('Status changed', $item);
   }
 
   /**
@@ -107,24 +112,40 @@ class DevicePermissionController extends Controller
   /**
    * Remove the specified resource from storage.
    *
-   * @param  int  $id
+   * @param array $request->statuses
    * @return \Illuminate\Http\Response
    */
   public function getListByStatuses(Request $request)
   {
     try {
       $list = $this->devicePermissionService->getListByStatuses($request->statuses);
-      return response()->success('Device list received', $list);
+
+      $networkNames  = array();
+      for ($i = 0; $i < count($list); $i++) {
+        array_push($networkNames, $list[$i]->device);
+      }
+
+      $listByDetails = $this->deviceService->getDeviceDetails($networkNames);
+
+      return response()->success('Device list received', $listByDetails);
     } catch (\Exception $exception) {
       return response()->error($exception);
     }
   }
 
-  public function getNetworkNameData()
+  /**
+   * Change status of item.
+   *
+   * @param  int  $request->id
+   * @param  string  $request->status
+   * @return \Illuminate\Http\Response
+   */
+  public function changeStatus(Request $request)
   {
     try {
-      $networkNameData = $this->deviceService->getNetworkNameData();
-      return response()->success('Device list received', $networkNameData);
+      $item = $this->devicePermissionService->changeStatus($request->id, $request->status);
+
+      return response()->success('Status changed', $item);
     } catch (\Exception $exception) {
       return response()->error($exception);
     }

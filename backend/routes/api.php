@@ -104,4 +104,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::get('/device/getNetworkNameData', [DeviceController::class, 'getNetworkNameData']);
   Route::resource('/device-permission', DevicePermissionController::class);
   Route::post('/device-permission/get-by-statuses', [DevicePermissionController::class, 'getListByStatuses']);
+  Route::post('/device-permission/change-status', [DevicePermissionController::class, 'changeStatus']);
 });
