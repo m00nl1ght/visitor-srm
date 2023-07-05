@@ -38,7 +38,7 @@ class DevicePermissionService
             $list = DevicePermissionModel::whereIn('status', $statuses)
                 ->with(['employee'])
                 ->get();
-          return $list;
+            return $list;
         } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());
         };
