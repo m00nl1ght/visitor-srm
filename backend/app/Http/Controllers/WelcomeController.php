@@ -29,8 +29,8 @@ class WelcomeController extends Controller
       array_push($networkNames, $list[$i]->device);
     }
     
-    // $listByDetails = $this->deviceService->getDeviceDetails($networkNames);
-    dd($list);
+    $listByDetails = $this->deviceService->getDeviceDetails($networkNames);
+    dd($listByDetails);
 
     return view('welcome', ['data' => $list]);
   }

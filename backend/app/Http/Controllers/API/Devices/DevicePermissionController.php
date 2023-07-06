@@ -124,19 +124,19 @@ class DevicePermissionController extends Controller
                 array_push($networkNames, $list[$i]->device);
             }
 
-            $listByDetails = $this->deviceService->getDeviceDetails($networkNames)->toArray();
+            $listByDetails = $this->deviceService->getDeviceDetails($networkNames);
             // $listByDetails->toArray();
             //объединение данных
             foreach ($list as $value) {
                 foreach ($listByDetails as $detail) {
+
+                    if ($value->device === $detail->NetworkName) {
+                        $value->details = $detail;
+                    }
                     
-                //     if ($value->device === $detail->networkName) {
-                        
-                // }
-                $value->details = $detail;
+                }
             }
-        }
-            return response()->success('Device list received', $list[0]->details['networkName']);
+            return response()->success('Device list received', $list);
         } catch (\Exception $exception) {
             return response()->error($exception);
         }
