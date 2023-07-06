@@ -35,4 +35,21 @@ class DeviceService
       throw new \Exception($exception->getMessage());
     }
   }
+
+  public function getDeviceDetails($networkNames)
+  {
+    try {
+      $listDevice = implode(';', $networkNames);
+
+      $details = DB::connection('sqlsrv')->table('Units')
+        ->leftJoin('Models', 'Units.ModelID', '=', 'Models.ModelID')
+        ->select('Units.NetworkName', 'Units.InventoryNumber', 'Units.SerialNumber', 'Models.Name')
+        ->whereIn('NetworkName', $listDevice)
+        ->get();
+
+      return $details;
+    } catch (\Exception $exception) {
+      throw new \Exception($exception->getMessage());
+    }
+  }
 }
