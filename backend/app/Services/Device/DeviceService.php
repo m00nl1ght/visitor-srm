@@ -24,10 +24,11 @@ class DeviceService
   public function getNetworkNameData()
   {
     try {
+      $test = array("N1701161", "N1701161", "N1701614", "N1701144", "N1701637");
       $networkNameData = DB::connection('sqlsrv')->table('Units')
         ->leftJoin('Models', 'Units.ModelID', '=', 'Models.ModelID')
         ->select('Units.NetworkName', 'Units.InventoryNumber', 'Units.SerialNumber', 'Models.Name')
-        ->where('NetworkName', 'LIKE', '%%')
+        ->whereIn('NetworkName', $test)
         ->get();
 
       return $networkNameData;
@@ -39,12 +40,12 @@ class DeviceService
   public function getDeviceDetails($networkNames)
   {
     try {
-      $listDevice = implode(';', $networkNames);
+      // $listDevice = implode(',', $networkNames);
 
       $details = DB::connection('sqlsrv')->table('Units')
         ->leftJoin('Models', 'Units.ModelID', '=', 'Models.ModelID')
         ->select('Units.NetworkName', 'Units.InventoryNumber', 'Units.SerialNumber', 'Models.Name')
-        ->whereIn('NetworkName', $listDevice)
+        ->whereIn('NetworkName', $networkNames)
         ->get();
 
       return $details;
