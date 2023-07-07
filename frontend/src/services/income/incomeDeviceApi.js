@@ -7,7 +7,8 @@ const urls = {
   GET_NAME_EMPLOYEE: BASE_URL + '/api/employee',
   REG_DEVICE: BASE_URL + '/api/device-permission',
   GET_DEVICE_LIST: BASE_URL + '/api/device-permission',
-  GET_LIST_DEVICE_STATUS: BASE_URL +'/api/device-permission/get-by-statuses'
+  GET_LIST_DEVICE_STATUS: BASE_URL + '/api/device-permission/get-by-statuses',
+  CHANGE_STATUS: BASE_URL + '/api/device-permission/change-status'
 }
 
 export default {
@@ -17,7 +18,7 @@ export default {
   },
 
   getNetworkNameDataList(list) {
-    return axios.get(urls.GET_DEVICE_DATA, {list})
+    return axios.get(urls.GET_DEVICE_DATA, { list })
   },
   //получение списка сотрудников для регистрации
   getNameEmployee() {
@@ -29,9 +30,11 @@ export default {
   },
 
   getListDeviceStatus(statuses) {
-    return axios.post(urls.GET_LIST_DEVICE_STATUS, {statuses})
+    return axios.post(urls.GET_LIST_DEVICE_STATUS, { statuses })
     //{statuses: statuses}
-  }
+  },
 
-  
+  changeStatus(id, status) {
+    return axios.post(urls.CHANGE_STATUS, id, status)
+  }
 }

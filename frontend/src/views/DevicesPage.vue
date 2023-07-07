@@ -8,7 +8,7 @@
     </v-toolbar>
     <DeviceIncomeModal />
     <v-card-text>
-      <DeviceOpenTable :items="showFullListDevice"/>
+      <DeviceOpenTable />
     </v-card-text>
   </v-card>
 </template>

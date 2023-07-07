@@ -8,14 +8,34 @@
       </v-row>
     </v-container>
     <v-col class="d-flex" cols="12" sm="6">
-      <v-select :items="listStatus" v-model="statuses" multiple @change="getListDeviceStatus(statuses)" label="Standard"></v-select>
+      <v-select :items="listStatus" v-model="statuses" multiple @change="getListDeviceStatus(statuses)" label="Статус"></v-select>
     </v-col>
-    <!-- <v-btn @click="getListDeviceStatus(statuses)">TEST</v-btn>
-    <v-btn @click="getNetworkNameDataList(showListDeviceStatus)">TEST</v-btn> -->
+    <v-btn @click="setTrue()">TRUE</v-btn>
+    <v-btn @click="setFalse()">FALSE</v-btn>
     <v-data-table :headers="headers" :items="showListDeviceStatus">
       <template #[`item.employee.lastName`]="{ item }">
         <span>{{ item.employee.lastName }} {{ item.employee.name }} {{ item.employee.middleName }}</span>
       </template>
+      <template #[`item.actions`]="{ item }">
+        <v-btn icon @click="onEdit(item)">
+          <v-icon>mdi-pencil-outline</v-icon>
+        </v-btn>
+
+        <v-btn icon @click="onDelete(item.id)">
+          <v-icon>mdi-trash-can-outline</v-icon>
+        </v-btn>
+      </template>
+
+      <template #[`item.approves`]="{ item }">
+        <v-btn icon color="green" @click="onApproved(item.id, approved)">
+          <v-icon>mdi-thumb-up</v-icon>
+        </v-btn>
+
+        <v-btn icon color="red" @click="onRejected(item.id, rejected)">
+          <v-icon>mdi-thumb-down</v-icon>
+        </v-btn>
+      </template>
+
       <template #no-data>
         <p>Разрешения отсутсвуют...</p>
       </template>
@@ -26,28 +46,36 @@
 <script>
 export default {
   data: () => ({
-    statuses: [],
-    listStatus: ['new', 'approved', 'no_data'],
-
-    headers: [
-      { text: 'ФИО', value: 'employee.lastName' }, //тут надо вывести ФИО, сейчас только фамилия
-      { text: 'Модель', value: 'details.name' },
-      { text: 'Сетевое имя', value: 'details.networkName' },
-      { text: 'Инвентарный номер', value: 'details.inventoryNumber' },
-      { text: 'Серийный номер', value: 'details.serialNumber' },
-      { text: 'Статус', value: 'status' }
-    ]
+    statuses: ['new'],
+    listStatus: ['new', 'approved'],
+    edit: true,
+    approved: 'approved',
+    rejected: 'rejected'
   }),
-  watch: {},
-
+  //<v-icon>mdi-thumb-up</v-icon>
   computed: {
     showListDeviceStatus() {
       return this.$store.state.incomeDevice.listDeviceStatus
     },
-
-    showFullListDevice() {
-      return this.$store.state.incomeDevice.fullListdevice
+    headers() {
+      let head = [
+        { text: 'ФИО', value: 'employee.lastName', sortable: false },
+        { text: 'Модель', value: 'details.name', sortable: false },
+        { text: 'Сетевое имя', value: 'details.networkName', sortable: false },
+        { text: 'Инвентарный номер', value: 'details.inventoryNumber', sortable: false },
+        { text: 'Серийный номер', value: 'details.serialNumber', sortable: false },
+        { text: 'Статус', value: 'status', sortable: false }
+      ]
+      if (this.edit === true) {
+        head.push({ text: 'Действия', value: 'actions', sortable: false })
+        head.push({ text: 'Подтверждение', value: 'approves', sortable: false })
+      }
+      return head
     }
+  },
+
+  mounted() {
+    this.$store.dispatch('incomeDevice/getListDeviceStatus', this.statuses)
   },
 
   methods: {
@@ -59,6 +87,25 @@ export default {
     getNetworkNameDataList(list) {
       // console.log('showList', list)
       this.$store.dispatch('incomeDevice/getNetworkNameDataList', list)
+    },
+
+    setTrue() {
+      this.edit = true
+      console.log(this.edit)
+    },
+    setFalse() {
+      this.edit = false
+      console.log(this.edit)
+    },
+
+    onApproved(id, approved) {
+      this.$store.dispatch('incomeDevice/changeStatus', { id: id, status: approved }, () =>
+      this.$store.dispatch('incomeDevice/getListDeviceStatus', this.statuses)
+      )
+    },
+
+    onRejected(id, rejected) {
+      this.$store.dispatch('incomeDevice/changeStatus', { id: id, status: rejected })
     }
   }
 }

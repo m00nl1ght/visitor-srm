@@ -4,7 +4,7 @@ import api_employee from '@/services/employeeApi'
 const state = () => ({
   networkNameList: {},
   employeeNameList: {},
-  listDeviceStatus: {},
+  listDeviceStatus: [],
   fullListdevice: {},
   // formValue: {
   //   networkName: '',
@@ -92,7 +92,16 @@ const actions = {
     } catch (error) {
       console.log(error)
     }
-  }
+  },
+
+  async changeStatus(_, {id, status}, callback) {
+    try {
+      await api.changeStatus(id, status)
+      callback()
+    } catch (error) {
+      console.log(error)
+    }
+  } 
 
 }
 
