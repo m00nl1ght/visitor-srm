@@ -8,7 +8,7 @@
     </v-toolbar>
     <DeviceIncomeModal />
     <v-card-text>
-      <DeviceOpenTable :items="openDeviceList" :itemsDevice="listDeviceNetworkNameData"/>
+      <DeviceOpenTable />
     </v-card-text>
   </v-card>
 </template>
