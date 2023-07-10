@@ -2,17 +2,20 @@ import api from '@/services/income/incomeDeviceApi'
 import api_employee from '@/services/employeeApi'
 import { cloneDeep } from 'lodash'
 
+function defaultFormValue() {
+  return {
+    employeeId: '',
+    device: ''
+  }
+}
+
 const state = () => ({
   networkNameList: [],
   employeeNameList: [],
   listDeviceStatus: [],
-  formValue: {
-    device: '',
-    employee: {
-      id: ''
-    }
-  },
-  openModal: false
+
+  openModal: false,
+  formValue: defaultFormValue()
 })
 
 const getters = {}
@@ -25,11 +28,11 @@ const mutations = {
   openEditModal(state, id) {
     state.formValue = cloneDeep(state.listDeviceStatus.find((item) => item.id === id))
     state.openModal = true
-    console.log('formValue', state.formValue)
   },
 
   closeModal(state) {
     state.openModal = false
+    state.formValue = defaultFormValue()
   },
 
   storeNetworkNameList(state, value) {
@@ -66,14 +69,13 @@ const actions = {
     }
   },
 
-  async registrateDevice(_, regDevice) {
+  async registrateDevice({ state }) {
     try {
-      // if (state.formValue.id) {
-      //   const { data } = await api.editDevice()
-      // } else 
-        const { data } = await api.addDevice(regDevice)
-        console.log ('data', data.data)
-      
+      if (state.formValue.id) {
+        await api.editDevice(state.formValue)
+      } else {
+        await api.addDevice(state.formValue)
+      }
     } catch (error) {
       console.log(error)
     }

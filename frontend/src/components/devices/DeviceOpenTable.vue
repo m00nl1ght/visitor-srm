@@ -106,7 +106,6 @@ export default {
 
     onEdit(item) {
       this.$store.commit('incomeDevice/openEditModal', item.id)
-
     },
 
     onDelete(id) {

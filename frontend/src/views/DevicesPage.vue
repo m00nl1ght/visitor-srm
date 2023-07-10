@@ -26,8 +26,6 @@ export default {
 
   computed: {},
 
-  
-
   methods: {
     openModal() {
       this.$store.commit('incomeDevice/openModal')

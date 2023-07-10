@@ -1,10 +1,10 @@
 <template>
   <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="'Новое разрешение'">
     <v-form ref="form" v-model="valid" class="pt-5" lazy-validation>
-      <v-autocomplete v-model="regDevice.device" :items="listDeviceNetworkName" item-text="networkName" :rules="rules" label="Сетевое имя">
+      <v-autocomplete v-model="formValue.device" :items="listDeviceNetworkName" item-text="networkName" :rules="rules" label="Сетевое имя">
       </v-autocomplete>
       <v-autocomplete
-        v-model="regDevice.employeeId"
+        v-model="formValue.employeeId"
         :items="listEmployeeName"
         :rules="rules"
         label="ФИО сотрудника"
@@ -46,9 +46,9 @@ export default {
       return this.$store.state.incomeDevice.openModal
     },
 
-    // formValue() {
-    //   return this.$store.state.incomeDevice.formValue
-    // },
+    formValue() {
+      return this.$store.state.incomeDevice.formValue
+    },
 
     listDeviceNetworkName() {
       return this.$store.state.incomeDevice.networkNameList
@@ -70,14 +70,13 @@ export default {
   methods: {
     onClose() {
       this.$store.commit('incomeDevice/closeModal')
-      ;(this.regDevice.device = ''), (this.regDevice.employeeId = '')
     },
 
     onConfirm() {
       if (this.$refs.form.validate()) {
         this.$store.dispatch('incomeDevice/registrateDevice', this.regDevice)
+        this.$store.commit('incomeDevice/closeModal')
       }
-      this.$store.commit('incomeDevice/closeModal')((this.regDevice.device = ''))((this.regDevice.employeeId = ''))
     }
   }
 }

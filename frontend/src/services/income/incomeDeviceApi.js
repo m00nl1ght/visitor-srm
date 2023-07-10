@@ -22,8 +22,12 @@ export default {
     return axios.get(urls.GET_NAME_EMPLOYEE)
   },
   //регистрация разрешения
-  addDevice(regDevice) {
-    return axios.post(urls.REG_DEVICE, regDevice)
+  addDevice(payload) {
+    return axios.post(urls.REG_DEVICE, payload)
+  },
+
+  editDevice(payload) {
+    return axios.put(urls.REG_DEVICE + '/' + payload.id, payload)
   },
 
   getListDeviceStatus(statuses) {
