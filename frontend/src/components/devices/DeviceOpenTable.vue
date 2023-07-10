@@ -2,13 +2,13 @@
   <v-card-text>
     <v-container>
       <v-row>
-        <v-col cols="1" md="4">
-          <v-text-field label="Введите сетевое имя устройства"> </v-text-field>
+        <v-col md="3">
+          <v-text-field label="Введите имя устройства или фамилию"> </v-text-field>
         </v-col>
       </v-row>
     </v-container>
 
-    <v-col class="d-flex" cols="12" sm="6">
+    <v-col class="d-flex" cols="12" md="3">
       <v-select :items="listStatus" v-model="statuses" multiple @change="getDeviceList" label="Статус"></v-select>
     </v-col>
 
@@ -105,7 +105,8 @@ export default {
     },
 
     onEdit(item) {
-      console.log(item)
+      this.$store.commit('incomeDevice/openEditModal', item.id)
+
     },
 
     onDelete(id) {

@@ -1,29 +1,32 @@
 import api from '@/services/income/incomeDeviceApi'
 import api_employee from '@/services/employeeApi'
+import { cloneDeep } from 'lodash'
 
 const state = () => ({
-  networkNameList: {},
-  employeeNameList: {},
+  networkNameList: [],
+  employeeNameList: [],
   listDeviceStatus: [],
-  fullListdevice: {},
-  // formValue: {
-  //   networkName: '',
-  //   id: ''
-  // },
+  formValue: {
+    device: '',
+    employee: {
+      id: ''
+    }
+  },
   openModal: false
 })
 
-const getters = {
-  getOpenModal: (state) => state.openModal,
-  getFormValue: (state) => state.formValue
-}
+const getters = {}
 
 const mutations = {
   openModal(state) {
     state.openModal = true
   },
 
-  openEditModal() {},
+  openEditModal(state, id) {
+    state.formValue = cloneDeep(state.listDeviceStatus.find((item) => item.id === id))
+    state.openModal = true
+    console.log('formValue', state.formValue)
+  },
 
   closeModal(state) {
     state.openModal = false
@@ -40,10 +43,6 @@ const mutations = {
 
   listDeviceStatus(state, value) {
     state.listDeviceStatus = value
-  },
-
-  storeFullInfoDevice(state, value) {
-    state.fullListdevice = value
   }
 }
 
@@ -69,7 +68,12 @@ const actions = {
 
   async registrateDevice(_, regDevice) {
     try {
-      await api.addDevice(regDevice)
+      // if (state.formValue.id) {
+      //   const { data } = await api.editDevice()
+      // } else 
+        const { data } = await api.addDevice(regDevice)
+        console.log ('data', data.data)
+      
     } catch (error) {
       console.log(error)
     }
@@ -79,15 +83,6 @@ const actions = {
     try {
       const { data } = await api.getListDeviceStatus(statuses)
       commit('listDeviceStatus', data.data)
-    } catch (error) {
-      console.log(error)
-    }
-  },
-
-  async getNetworkNameDataList({ commit }, list) {
-    try {
-      const { data } = await api.getNetworkNameDataList(list)
-      commit('storeFullInfoDevice', data.data)
     } catch (error) {
       console.log(error)
     }

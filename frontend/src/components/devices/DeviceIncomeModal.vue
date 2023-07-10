@@ -70,15 +70,14 @@ export default {
   methods: {
     onClose() {
       this.$store.commit('incomeDevice/closeModal')
+      ;(this.regDevice.device = ''), (this.regDevice.employeeId = '')
     },
 
     onConfirm() {
       if (this.$refs.form.validate()) {
         this.$store.dispatch('incomeDevice/registrateDevice', this.regDevice)
       }
-      this.$store.commit('incomeDevice/closeModal')
-      this.regDevice.device = '',
-      this.regDevice.employeeId = ''
+      this.$store.commit('incomeDevice/closeModal')((this.regDevice.device = ''))((this.regDevice.employeeId = ''))
     }
   }
 }

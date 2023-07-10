@@ -17,10 +17,6 @@ export default {
   getNetworkNameList() {
     return axios.get(urls.GET_DEVICE)
   },
-
-  getNetworkNameDataList(list) {
-    return axios.get(urls.GET_DEVICE_DATA, { list })
-  },
   //получение списка сотрудников для регистрации
   getNameEmployee() {
     return axios.get(urls.GET_NAME_EMPLOYEE)
@@ -31,8 +27,6 @@ export default {
   },
 
   getListDeviceStatus(statuses) {
-    // console.log(statuses)
-    // return { data: { data: deviceList } }
     return axios.post(urls.GET_LIST_DEVICE_STATUS, { statuses })
   },
 
