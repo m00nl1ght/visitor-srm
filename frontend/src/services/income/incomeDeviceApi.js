@@ -1,12 +1,13 @@
 import { BASE_URL } from '@/config'
 import axios from 'axios'
 
+// import { deviceList } from './mockDevice.js'
+
 const urls = {
   GET_DEVICE: BASE_URL + '/api/device/getNetworkName',
   GET_DEVICE_DATA: BASE_URL + '/api/device/getNetworkNameData',
   GET_NAME_EMPLOYEE: BASE_URL + '/api/employee',
   REG_DEVICE: BASE_URL + '/api/device-permission',
-  GET_DEVICE_LIST: BASE_URL + '/api/device-permission',
   GET_LIST_DEVICE_STATUS: BASE_URL + '/api/device-permission/get-by-statuses',
   CHANGE_STATUS: BASE_URL + '/api/device-permission/change-status'
 }
@@ -30,11 +31,12 @@ export default {
   },
 
   getListDeviceStatus(statuses) {
+    // console.log(statuses)
+    // return { data: { data: deviceList } }
     return axios.post(urls.GET_LIST_DEVICE_STATUS, { statuses })
-    //{statuses: statuses}
   },
 
-  changeStatus(id, status) {
-    return axios.post(urls.CHANGE_STATUS, id, status)
+  changeStatus(payload) {
+    return axios.post(urls.CHANGE_STATUS, payload)
   }
 }

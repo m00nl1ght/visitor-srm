@@ -45,7 +45,6 @@ const mutations = {
   storeFullInfoDevice(state, value) {
     state.fullListdevice = value
   }
-
 }
 
 const actions = {
@@ -94,15 +93,14 @@ const actions = {
     }
   },
 
-  async changeStatus(_, {id, status}, callback) {
+  async changeStatus(_, { id, status, callback }) {
     try {
-      await api.changeStatus(id, status)
+      await api.changeStatus({ id, status })
       callback()
     } catch (error) {
       console.log(error)
     }
-  } 
-
+  }
 }
 
 export default {

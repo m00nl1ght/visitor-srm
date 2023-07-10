@@ -6,7 +6,9 @@
       <v-btn @click="openModal" outlined x-large color="success">Новое разрешение</v-btn>
       <v-btn x-large color="primary">Все разрешения</v-btn>
     </v-toolbar>
+
     <DeviceIncomeModal />
+    
     <v-card-text>
       <DeviceOpenTable />
     </v-card-text>
@@ -15,7 +17,7 @@
 
 <script>
 import DeviceIncomeModal from '@/components/devices/DeviceIncomeModal.vue'
-import DeviceOpenTable from '@/components/devices/DeviceOpenTable.vue';
+import DeviceOpenTable from '@/components/devices/DeviceOpenTable.vue'
 
 export default {
   components: {
