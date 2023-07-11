@@ -13,7 +13,6 @@ const state = () => ({
   networkNameList: [],
   employeeNameList: [],
   listDeviceStatus: [],
-
   openModal: false,
   formValue: defaultFormValue()
 })
@@ -69,13 +68,17 @@ const actions = {
     }
   },
 
-  async registrateDevice({ state }) {
+  async addDevice({ state }) {
     try {
-      if (state.formValue.id) {
-        await api.editDevice(state.formValue)
-      } else {
-        await api.addDevice(state.formValue)
-      }
+      await api.addDevice(state.formValue)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async editDevice({ state }) {
+    try {
+      await api.editDevice(state.formValue)
     } catch (error) {
       console.log(error)
     }

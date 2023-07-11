@@ -16,6 +16,12 @@
     <v-btn @click="setFalse()">FALSE</v-btn>
 
     <v-data-table :headers="headers" :items="showListDeviceStatus">
+      <template #[`item.access`]="{ item }">
+        <v-chip class="ma-2" :color="item.status === 'approved' ? 'green' : 'red'" text-color="black" outlined>
+          {{ item.status === 'approved' ? 'Разрешено' : 'Не разрешено' }}
+        </v-chip>
+      </template>
+
       <template #[`item.employee.lastName`]="{ item }">
         <span>{{ item.employee.lastName }} {{ item.employee.name }} {{ item.employee.middleName }}</span>
       </template>
@@ -68,15 +74,16 @@ export default {
 
     headers() {
       let head = [
+        { text: 'Разрешение', value: 'access', sortable: false },
         { text: 'ФИО', value: 'employee.lastName', sortable: false },
         { text: 'Модель', value: 'details.name', sortable: false },
         { text: 'Сетевое имя', value: 'details.networkName', sortable: false },
         { text: 'Инвентарный номер', value: 'details.inventoryNumber', sortable: false },
-        { text: 'Серийный номер', value: 'details.serialNumber', sortable: false },
-        { text: 'Статус', value: 'status', sortable: false }
+        { text: 'Серийный номер', value: 'details.serialNumber', sortable: false }
       ]
 
       if (this.edit === true) {
+        head.push({ text: 'Статус', value: 'status', sortable: false })
         head.push({ text: 'Действия', value: 'actions', sortable: false })
         head.push({ text: 'Подтверждение', value: 'approves', sortable: false })
       }
