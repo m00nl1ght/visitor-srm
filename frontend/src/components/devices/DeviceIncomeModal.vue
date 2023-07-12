@@ -79,4 +79,5 @@ export default {
     }
   }
 }
+//{callback: () => this.$store.dispatch('incomeDevice/getListDeviceStatus')}
 </script>

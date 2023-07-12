@@ -9,7 +9,7 @@
     </v-container>
 
     <v-col class="d-flex" cols="12" md="3">
-      <v-select :items="listStatus" v-model="statuses" multiple @change="getDeviceList" label="Статус"></v-select>
+      <v-select :items="listStatus" v-model="statuses" @change="getDeviceList" multiple label="Статус"></v-select>
     </v-col>
 
     <v-btn @click="setTrue()">TRUE</v-btn>
@@ -62,8 +62,7 @@ const STATUSES = {
 
 export default {
   data: () => ({
-    statuses: [STATUSES.NEW],
-    listStatus: [STATUSES.NEW, STATUSES.APPROVED],
+    listStatus: [STATUSES.NEW, STATUSES.APPROVED, STATUSES.REJECTED],
     edit: true
   }),
 
@@ -89,6 +88,16 @@ export default {
       }
 
       return head
+    },
+
+    statuses: {
+      get() {
+        return this.$store.state.incomeDevice.statuses
+      },
+      set(newValue) {
+        this.$store.commit('incomeDevice/changeStatuses', newValue)
+        console.log(newValue)
+      }
     }
   },
 

@@ -14,7 +14,9 @@ const state = () => ({
   employeeNameList: [],
   listDeviceStatus: [],
   openModal: false,
-  formValue: defaultFormValue()
+  formValue: defaultFormValue(),
+  statuses: ['new']
+
 })
 
 const getters = {}
@@ -45,6 +47,10 @@ const mutations = {
 
   listDeviceStatus(state, value) {
     state.listDeviceStatus = value
+  },
+
+  changeStatuses (state, value) {
+    state.statuses = value
   }
 }
 
@@ -68,17 +74,19 @@ const actions = {
     }
   },
 
-  async addDevice({ state }) {
+  async addDevice({ state, dispatch }) {
     try {
       await api.addDevice(state.formValue)
+      dispatch('getListDeviceStatus', state.statuses)
     } catch (error) {
       console.log(error)
     }
   },
 
-  async editDevice({ state }) {
+  async editDevice({ dispatch, state }) {
     try {
       await api.editDevice(state.formValue)
+      dispatch('getListDeviceStatus', state.statuses)
     } catch (error) {
       console.log(error)
     }
