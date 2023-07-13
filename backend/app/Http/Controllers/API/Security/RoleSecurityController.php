@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Security\RoleSecurityService;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class RoleSecurityController extends Controller
 {
     private $roleSecurityService;
 

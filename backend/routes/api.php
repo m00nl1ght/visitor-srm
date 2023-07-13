@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\Security\SecurityController;
-use App\Http\Controllers\API\Security\RoleController;
+use App\Http\Controllers\API\Security\RoleSecurityController;
 use App\Http\Controllers\API\WorkingSecurityTeam\WorkingSecurityTeamController;
 use App\Http\Controllers\API\Settings\WorkingSecurityTeamSettingController;
 // use App\Http\Controllers\API\Visitor\RegistrationVisitorController;
@@ -28,6 +28,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\Devices\DeviceController;
 use App\Http\Controllers\API\Devices\DevicePermissionController;
+use App\Http\Controllers\API\Roles\RoleController;
 
 
 /*
@@ -48,12 +49,13 @@ Route::post('registration', [RegistrationController::class, 'registration']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::post('logout', [LoginController::class, 'logout']);
 
-  Route::get('get-current-user', [UserController::class, 'getCurrentUser']);
-  Route::get('/user/list', [UserController::class, 'getUserList']);
+  Route::get('/users/get-current', [UserController::class, 'getCurrentUser']);
+  Route::post('/users/add-user-roles', [UserController::class, 'addUserRoles']);
+  Route::resource('/users', UserController::class); //users
 
   // Роуты категорий
   Route::resource('/positions', PositionController::class); //должности
-  Route::resource('/security/roles', RoleController::class); // Роуты ролей сотрудников охраны
+  Route::resource('/security/roles', RoleSecurityController::class); // Роуты ролей сотрудников охраны
 
   // Роуты сотрудников охраны
   Route::resource('/securities', SecurityController::class);
@@ -105,4 +107,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::resource('/device-permission', DevicePermissionController::class);
   Route::post('/device-permission/get-by-statuses', [DevicePermissionController::class, 'getListByStatuses']);
   Route::post('/device-permission/change-status', [DevicePermissionController::class, 'changeStatus']);
+
+  //User roles
+  Route::resource('/roles', RoleController::class);
 });
