@@ -15,7 +15,7 @@ const state = () => ({
   listDeviceStatus: [],
   openModal: false,
   formValue: defaultFormValue(),
-  statuses: ['new']
+  statuses: ['approved', 'rejected']
 
 })
 

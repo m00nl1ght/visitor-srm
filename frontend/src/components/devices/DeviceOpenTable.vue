@@ -1,21 +1,16 @@
 <template>
   <v-card-text>
-    <v-container>
-      <v-row>
-        <v-col md="3">
-          <v-text-field label="Введите имя устройства или фамилию"> </v-text-field>
-        </v-col>
-      </v-row>
-    </v-container>
-
-    <v-col class="d-flex" cols="12" md="3">
-      <v-select :items="listStatus" v-model="statuses" @change="getDeviceList" multiple label="Статус"></v-select>
-    </v-col>
-
     <v-btn @click="setTrue()">TRUE</v-btn>
     <v-btn @click="setFalse()">FALSE</v-btn>
 
-    <v-data-table :headers="headers" :items="showListDeviceStatus">
+    <v-col class="d-flex" cols="12" md="3">
+      <v-select v-if="edit" :items="listStatus" v-model="statuses" @change="getDeviceList" multiple label="Статус"></v-select>
+    </v-col>
+
+    <v-col cols="12" sm="6" md="3">
+      <v-text-field v-model="search" append-icon="mdi-magnify" label="Поиск" single-line hide-details> </v-text-field>
+    </v-col>
+    <v-data-table :headers="headers" :items="showListDeviceStatus" :search="search">
       <template #[`item.access`]="{ item }">
         <v-chip class="ma-2" :color="item.status === 'approved' ? 'green' : 'red'" text-color="black" outlined>
           {{ item.status === 'approved' ? 'Разрешено' : 'Не разрешено' }}
@@ -31,9 +26,9 @@
           <v-icon>mdi-pencil-outline</v-icon>
         </v-btn>
 
-        <v-btn icon @click="onDelete(item.id)">
+        <!-- <v-btn icon @click="onDelete(item.id)">
           <v-icon>mdi-trash-can-outline</v-icon>
-        </v-btn>
+        </v-btn> -->
       </template>
 
       <template #[`item.approves`]="{ item }">
@@ -63,7 +58,8 @@ const STATUSES = {
 export default {
   data: () => ({
     listStatus: [STATUSES.NEW, STATUSES.APPROVED, STATUSES.REJECTED],
-    edit: true
+    edit: true,
+    search: ''
   }),
 
   computed: {
