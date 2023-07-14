@@ -84,10 +84,18 @@ class ReportController extends Controller
   public function bySecurityTeam(Request $request)
   {
       try {
-          $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam(new Carbon($request->get('date')));
+        $reportDay = Carbon::create($request->get('date'));
+        $reportDay->addDay();
+
+          $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam($reportDay);
+          
           $startDay = $startEndTimeByWorkingTeam[0];
           $endDay = $startEndTimeByWorkingTeam[1];
       
+          // При регистрации новой смены не пропадают происшествия от предыдущей смены. 
+
+          // надо еще апишки ролей сделать (админ, Ширяев, охрана), чтобы шаблоны разные были и возможности для устройств
+
           $reportData = $this->getReportData($startDay, $endDay);
           return response()->success('Отчет успешно получен', $reportData);
       } catch (\Exception $exception) {
