@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\Security\SecurityController;
+use App\Http\Controllers\API\Security\SecurityTeamController;
 use App\Http\Controllers\API\Security\RoleSecurityController;
 use App\Http\Controllers\API\WorkingSecurityTeam\WorkingSecurityTeamController;
 use App\Http\Controllers\API\Settings\WorkingSecurityTeamSettingController;
@@ -58,12 +59,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::resource('/security/roles', RoleSecurityController::class); // Роуты ролей сотрудников охраны
 
   // Роуты сотрудников охраны
-  Route::resource('/securities', SecurityController::class);
-
-  // Роуты создания рабочей смены охраны
-  Route::get('/workingSecurityTeams/active', [WorkingSecurityTeamController::class, 'active']);
-  Route::get('/workingSecurityTeams/last', [WorkingSecurityTeamController::class, 'last']);
-  Route::resource('/workingSecurityTeams', WorkingSecurityTeamController::class);
+  Route::resource('/securities', SecurityController::class); //список сотрудников
+  Route::get('/security-team/active', [SecurityTeamController::class, 'active']); //активная смена
+  Route::resource('/security-team', SecurityTeamController::class); //рабочая группа
 
   //Роуты настроек рабочей смены охраны
   Route::resource('/workingSecurityTeam/settings', WorkingSecurityTeamSettingController::class);

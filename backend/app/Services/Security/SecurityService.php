@@ -96,7 +96,6 @@ class SecurityService
             $securities = SecurityModel::find($securitiesId);
           
             return $this->getAllCollections($securities);
-
         } catch (\Exception $exception){
             throw new \Exception($exception->getMessage());
         }
