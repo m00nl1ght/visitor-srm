@@ -35,4 +35,24 @@ class SecurityTeam extends Model
   {
     return $this->belongsToMany(IncomeAlarm::class);
   }
+
+  public function income_cars()
+  {
+    return $this->belongsToMany(IncomeAlarm::class);
+  }
+
+  public function income_visitors()
+  {
+    return $this->belongsToMany(IncomeAlarm::class);
+  }
+
+  public function income_events()
+  {
+    return $this->belongsToMany(IncomeAlarm::class);
+  }
+
+  public function income_foggoten_cards()
+  {
+    return $this->belongsToMany(IncomeAlarm::class, 'income_card_security_team');
+  }
 }

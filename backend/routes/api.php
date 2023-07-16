@@ -69,25 +69,25 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   // Роуты регистрации поситителей
   // Route::resource('/registrationVisitors', RegistrationVisitorController::class);
   Route::resource('/visitor/categories', VisitorCategoryController::class);
-  Route::post('/incomeVisitor/in', [IncomeVisitorController::class, 'in']);
-  Route::post('/incomeVisitor/out', [IncomeVisitorController::class, 'out']);
-  Route::get('/incomeVisitor/onTerritory', [IncomeVisitorController::class, 'onTerritory']);
   Route::post('/visitor/searchBySurname', [VisitorController::class, 'searchBySurname']);
+  Route::post('/income-visitor/enter-territory', [IncomeVisitorController::class, 'enterTerritory']);
+  Route::post('/income-visitor/leave-territory', [IncomeVisitorController::class, 'leaveTerritory']);
+  Route::get('/income-visitor/onTerritory', [IncomeVisitorController::class, 'onTerritory']);
 
   // Регистрация автомобилей
-  Route::post('/incomeCar/in', [IncomeCarController::class, 'in']);
-  Route::post('/incomeCar/out', [IncomeCarController::class, 'out']);
-  Route::get('/incomeCar/onTerritory', [IncomeCarController::class, 'onTerritory']);
+  Route::post('/income-car/enter-territory', [IncomeCarController::class, 'enterTerritory']);
+  Route::post('/income-car/leave-territory', [IncomeCarController::class, 'leaveTerritory']);
+  Route::get('/income-car/onTerritory', [IncomeCarController::class, 'onTerritory']);
 
   //Карты доступа
   Route::get('/card/index', [CardController::class, 'index']);
-  Route::resource('/incomeFoggotenCard', IncomeFoggotenCardController::class);
+  Route::resource('/income-foggoten-card', IncomeFoggotenCardController::class);
 
   //Неисправности
   Route::get('/systemAlarmList', [SystemAlarmListController::class, 'index']);
-  Route::resource('/incomeAlarm', IncomeAlarmController::class);
-  Route::resource('/incomeEvent', IncomeEventController::class);
-  Route::post('/incomeAlarm/close', [IncomeAlarmController::class, 'closeAlarm']);
+  Route::resource('/income-alarm', IncomeAlarmController::class);
+  Route::resource('/income-event', IncomeEventController::class);
+  Route::post('/income-alarm/close', [IncomeAlarmController::class, 'closeAlarm']);
 
   //Сотрудники
   Route::get('/employee', [EmployeeController::class, 'index']);

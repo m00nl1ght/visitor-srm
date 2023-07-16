@@ -55,7 +55,7 @@ class IncomeAlarmController extends Controller
   {
     try {
       $securityTeam = $this->securityTeamService->getActive();
-      $incomeAlarm = $this->incomeAlarmService->storeAlarm($request, $securityTeam);
+      $incomeAlarm = $this->incomeAlarmService->storeAlarm($request, $securityTeam->id);
       return response()->success('Событие добавлено успешно', $incomeAlarm);
       // return response()->success('Событие добавлено успешно', $securityTeam->id);
     } catch (\Exception $exception) {

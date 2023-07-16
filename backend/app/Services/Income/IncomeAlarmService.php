@@ -21,7 +21,7 @@ class IncomeAlarmService
     }
   }
 
-  public function storeAlarm($data, $securityTeam)
+  public function storeAlarm($data, $securityTeamId)
   {
     try {
       $alarm = new IncomeAlarm();
@@ -33,7 +33,7 @@ class IncomeAlarmService
 
       $alarm->save();
 
-      $alarm->security_teams()->sync($securityTeam->id);
+      $alarm->security_teams()->sync($securityTeamId);
 
       return $alarm->where('out_time', null)->with('system_alarm_list')->get();
     } catch (\Exception $exception) {
