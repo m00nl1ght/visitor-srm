@@ -44,6 +44,15 @@ const actions = {
     } catch (error) {
       commit('storeError', error)
     }
+  },
+
+  async deleteUser ({dispatch}, id) {
+    try {
+      await api.deleteUser(id)
+      dispatch('getUserList')
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 

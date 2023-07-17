@@ -48,7 +48,9 @@ export default {
 
   methods: {
     onEdit() {},
-    onDelete() {}
+    onDelete(id) {
+      this.$store.dispatch('user/deleteUser', id)
+    }
   }
 }
 </script>

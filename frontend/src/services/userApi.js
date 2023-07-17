@@ -22,5 +22,9 @@ export default {
 
   getUserList() {
     return axios.get(urls.GET_USERS_LIST)
+  },
+
+  deleteUser(id) {
+    return axios.delete(urls.GET_USERS_LIST + '/' + id)
   }
 }
