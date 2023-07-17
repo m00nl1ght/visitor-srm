@@ -4,10 +4,9 @@ import axios from 'axios'
 const urls = {
   LOGIN: BASE_URL + '/api/login',
   REQISTRATION: BASE_URL + '/api/registration',
-  GET_CURRENT_USER: BASE_URL + '/api/get-current-user',
-  GET_USERS_LIST: BASE_URL + '/api/user/list'
+  GET_CURRENT_USER: BASE_URL + '/api/users/get-current',
+  GET_USERS_LIST: BASE_URL + '/api/users'
 }
-
 export default {
   login(payload) {
     return axios.post(urls.LOGIN, payload)
