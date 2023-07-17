@@ -15,7 +15,6 @@ use App\Services\Income\IncomeAlarmService;
 use App\Services\Income\IncomeEventService;
 use App\Services\Income\IncomeFoggotenCardService;
 
-use App\Services\WorkingSecurityTeam\WorkingSecurityTeamService;
 
 class ReportController extends Controller
 {
@@ -26,25 +25,22 @@ class ReportController extends Controller
   private $incomeEventService;
   private $incomeFoggotenCardService;
 
-  public function __construct
-  (
-    WorkingSecurityTeamService $workingSecurityTeamService,
+  public function __construct(
     IncomeVisitorService $incomeVisitorService,
     IncomeCarService $incomeCarService,
     IncomeAlarmService $incomeAlarmService,
     IncomeEventService $incomeEventService,
     IncomeFoggotenCardService $incomeFoggotenCardService
-  )
-  {
-      $this->workingSecurityTeamService = $workingSecurityTeamService;
-      $this->incomeVisitorService = $incomeVisitorService;
-      $this->incomeCarService = $incomeCarService;
-      $this->incomeAlarmService = $incomeAlarmService;
-      $this->incomeEventService = $incomeEventService;
-      $this->incomeFoggotenCardService = $incomeFoggotenCardService;
+  ) {
+    $this->incomeVisitorService = $incomeVisitorService;
+    $this->incomeCarService = $incomeCarService;
+    $this->incomeAlarmService = $incomeAlarmService;
+    $this->incomeEventService = $incomeEventService;
+    $this->incomeFoggotenCardService = $incomeFoggotenCardService;
   }
 
-  public function getReportData($startDay, $endDay) {
+  public function getReportData($startDay, $endDay)
+  {
     try {
       $visitors = $this->incomeVisitorService->visitorBetweenDays($startDay, $endDay);
       $cars = $this->incomeCarService->carBetweenDays($startDay, $endDay);
@@ -61,95 +57,99 @@ class ReportController extends Controller
       ];
 
       return $reportData;
-    } catch (\Exception $exception){
-        throw new \Exception($exception->getMessage());
+    } catch (\Exception $exception) {
+      throw new \Exception($exception->getMessage());
     }
   }
 
   public function byDay(Request $request)
   {
-      try {
-          $startDay = new Carbon($request->get('date'));
-          $endDay = new Carbon($request->date);
-          $endDay->addDays(1);
+    try {
+      $startDay = new Carbon($request->get('date'));
+      $endDay = new Carbon($request->date);
+      $endDay->addDays(1);
 
-          $reportData = $this->getReportData($startDay, $endDay);
+      $reportData = $this->getReportData($startDay, $endDay);
 
-          return response()->success('Отчет успешно получен', $reportData);
-      } catch (\Exception $exception) {
-          return response()->error('Ошибка получения отчета', $exception->getMessage());
-      }
+      return response()->success('Отчет успешно получен', $reportData);
+    } catch (\Exception $exception) {
+      return response()->error('Ошибка получения отчета', $exception->getMessage());
+    }
   }
 
   public function bySecurityTeam(Request $request)
   {
-      try {
-        $reportDay = Carbon::create($request->get('date'));
-        $reportDay->addDay();
+    try {
+      $reportDay = Carbon::create($request->get('date'));
+      $reportDay->addDay();
 
-          $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam($reportDay);
-          
-          $startDay = $startEndTimeByWorkingTeam[0];
-          $endDay = $startEndTimeByWorkingTeam[1];
-      
-          // При регистрации новой смены не пропадают происшествия от предыдущей смены. 
+      $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam($reportDay);
 
-          // надо еще апишки ролей сделать (админ, Ширяев, охрана), чтобы шаблоны разные были и возможности для устройств
+      $startDay = $startEndTimeByWorkingTeam[0];
+      $endDay = $startEndTimeByWorkingTeam[1];
 
-          $reportData = $this->getReportData($startDay, $endDay);
-          return response()->success('Отчет успешно получен', $reportData);
-      } catch (\Exception $exception) {
-          return response()->error('Ошибка получения отчета', $exception->getMessage());
-      }
+      // При регистрации новой смены не пропадают происшествия от предыдущей смены. 
+
+      // надо еще апишки ролей сделать (админ, Ширяев, охрана), чтобы шаблоны разные были и возможности для устройств
+
+      $reportData = $this->getReportData($startDay, $endDay);
+      return response()->success('Отчет успешно получен', $reportData);
+    } catch (\Exception $exception) {
+      return response()->error('Ошибка получения отчета', $exception->getMessage());
+    }
   }
 
   public function byDuration(Request $request)
   {
-      try {
-          $startDay = $request->input('start');
-          $endDay = $request->input('end');
+    try {
+      $startDay = $request->input('start');
+      $endDay = $request->input('end');
 
-          $reportData = $this->getReportData($startDay, $endDay);
-          return response()->success('Отчет успешно получен', $reportData);
-      } catch (\Exception $exception) {
-          return response()->error('Ошибка получения отчета', $exception->getMessage());
-      }
+      $reportData = $this->getReportData($startDay, $endDay);
+      return response()->success('Отчет успешно получен', $reportData);
+    } catch (\Exception $exception) {
+      return response()->error('Ошибка получения отчета', $exception->getMessage());
+    }
   }
 
-  private function countCategories($report) {
+  private function countCategories($report)
+  {
     $result = [];
     $result['Всего'] = $report->count();
 
-    foreach($report as $arr) {
+    foreach ($report as $arr) {
       $key = $arr->visitor_category->title;
-   
-      if(isset($result[$key])) {
-          $result[$arr->visitor_category->title]++;
+
+      if (isset($result[$key])) {
+        $result[$arr->visitor_category->title]++;
       } else {
-          $result[$arr->visitor_category->title] = 1;
+        $result[$arr->visitor_category->title] = 1;
       }
     }
 
     return $result;
   }
 
-  private function flatSecurities($securities) {
-    function getName($arr) {
+  private function flatSecurities($securities)
+  {
+    function getName($arr)
+    {
       return $arr['last_name'] . ' ' .  $arr['name'] . ' ' . $arr['middle_name'];
     }
-    
+
     $result = [];
     $result[] = getName($securities['operator']);
     $result[] = getName($securities['chief']);
 
-    foreach($securities['securities'] as $arr) {
+    foreach ($securities['securities'] as $arr) {
       $result[] = getName($arr);
     }
 
     return $result;
   }
 
-  public function sendSecurityTeamReport() {
+  public function sendSecurityTeamReport()
+  {
     try {
       $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam(new Carbon());
       $startDay = $startEndTimeByWorkingTeam[0];
@@ -161,7 +161,7 @@ class ReportController extends Controller
       $countPeopleArr = $this->countCategories($reportData['visitors']);
       $countCarArr = $this->countCategories($reportData['cars']);
 
-      $reportData['securities'] =$this->flatSecurities($securities);
+      $reportData['securities'] = $this->flatSecurities($securities);
       $reportData['reportDay'] = $startDay;
       $reportData['reportDayTomorrow'] = $endDay;
       $reportData['securityGuys'] = [];
@@ -174,7 +174,7 @@ class ReportController extends Controller
       // return view('emails.reportSecurity', compact('reportData'));
       return response()->success('Отчет успешно отправлен', $reportData);
     } catch (\Exception $exception) {
-        return response()->error('Ошибка отправки отчета', $exception->getMessage());
+      return response()->error('Ошибка отправки отчета', $exception->getMessage());
     }
   }
 }

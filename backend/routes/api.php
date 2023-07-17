@@ -23,6 +23,7 @@ use App\Http\Controllers\API\People\EmployeeController;
 use App\Http\Controllers\API\People\PositionController;
 use App\Http\Controllers\API\Card\CardController;
 use App\Http\Controllers\API\Report\ReportController;
+use App\Http\Controllers\API\Report\SecurityTeamReportController;
 
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\LoginController;
@@ -77,7 +78,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   // Регистрация автомобилей
   Route::post('/income-car/enter-territory', [IncomeCarController::class, 'enterTerritory']);
   Route::post('/income-car/leave-territory', [IncomeCarController::class, 'leaveTerritory']);
-  Route::get('/income-car/onTerritory', [IncomeCarController::class, 'onTerritory']);
+  Route::get('/income-car/on-territory', [IncomeCarController::class, 'onTerritory']);
 
   //Карты доступа
   Route::get('/card/index', [CardController::class, 'index']);
@@ -94,6 +95,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::post('/employee/searchBySurname', [EmployeeController::class, 'searchBySurname']);
 
   //Отчеты
+  Route::get('/security-team-report/by-team', [SecurityTeamReportController::class, 'bySecurityTeam']);
+  //old
   Route::get('/report/byDay', [ReportController::class, 'byDay']);
   Route::get('/report/bySecurityTeam', [ReportController::class, 'bySecurityTeam']);
   Route::post('/report/byDuration', [ReportController::class, 'byDuration']);

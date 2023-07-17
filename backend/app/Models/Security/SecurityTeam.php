@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Security\Security;
 use App\Models\Income\IncomeAlarm;
+use App\Models\Income\IncomeVisitor;
+use App\Models\Income\IncomeCar;
+use App\Models\Income\IncomeEvent;
+use App\Models\Income\IncomeFoggotenCard;
 
 class SecurityTeam extends Model
 {
@@ -38,21 +42,21 @@ class SecurityTeam extends Model
 
   public function income_cars()
   {
-    return $this->belongsToMany(IncomeAlarm::class);
+    return $this->belongsToMany(IncomeCar::class);
   }
 
   public function income_visitors()
   {
-    return $this->belongsToMany(IncomeAlarm::class);
+    return $this->belongsToMany(IncomeVisitor::class);
   }
 
   public function income_events()
   {
-    return $this->belongsToMany(IncomeAlarm::class);
+    return $this->belongsToMany(IncomeEvent::class);
   }
 
   public function income_foggoten_cards()
   {
-    return $this->belongsToMany(IncomeAlarm::class, 'income_card_security_team');
+    return $this->belongsToMany(IncomeFoggotenCard::class, 'income_card_security_team');
   }
 }

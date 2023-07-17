@@ -101,6 +101,19 @@ class SecurityTeamService
     }
   }
 
+  //получение посетителей за смену охраны
+  public function reportDataById($securityTeamId)
+  {
+    try {
+      $data = SecurityTeamModel::where('id', $securityTeamId)
+        ->with(['income_visitors', 'income_cars', 'income_events', 'income_alarms'])
+        ->first();
+      return $data;
+    } catch (\Exception $exception) {
+      throw new \Exception($exception->getMessage());
+    }
+  }
+
 
   // // Получение рабочей группы по id
   // public function getWorkingSecurityTeamById($id)

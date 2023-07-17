@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Http\Controllers\API\Report;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+use Carbon\Carbon;
+
+use App\Services\Security\SecurityTeamService;
+use App\Services\Income\IncomeVisitorService;
+use App\Services\Income\IncomeCarService;
+use App\Services\Income\IncomeAlarmService;
+use App\Services\Income\IncomeEventService;
+use App\Services\Income\IncomeFoggotenCardService;
+
+class SecurityTeamReportController extends Controller
+{
+  private $securityTeamService;
+  private $incomeVisitorService;
+  private $incomeCarService;
+  private $incomeAlarmService;
+  private $incomeEventService;
+  private $incomeFoggotenCardService;
+
+  public function __construct(
+    SecurityTeamService $securityTeamService,
+    IncomeVisitorService $incomeVisitorService,
+    IncomeCarService $incomeCarService,
+    IncomeAlarmService $incomeAlarmService,
+    IncomeEventService $incomeEventService,
+    IncomeFoggotenCardService $incomeFoggotenCardService
+  ) {
+    $this->securityTeamService = $securityTeamService;
+    $this->incomeVisitorService = $incomeVisitorService;
+    $this->incomeCarService = $incomeCarService;
+    $this->incomeAlarmService = $incomeAlarmService;
+    $this->incomeEventService = $incomeEventService;
+    $this->incomeFoggotenCardService = $incomeFoggotenCardService;
+  }
+
+
+  public function getReportData($teamId)
+  {
+    try {
+      $data = $this->securityTeamService->reportDataById($teamId);
+      
+      $reportData = [
+        'visitors' => $data->income_visitors,
+        'cars' => $data->income_cars,
+        'alarms' => $data->income_alarms,
+        'events' => $data->income_events,
+        'foggotenCard' => $data->income_foggoten_cards
+      ];
+
+      return $reportData;
+    } catch (\Exception $exception) {
+      throw new \Exception($exception->getMessage());
+    }
+  }
+
+
+  public function bySecurityTeam(Request $request)
+  {
+    try {
+      $teamId = $request->query('id');
+      if (!$teamId) {
+        $teamId =  $this->securityTeamService->getActive()->id;
+      }
+      // $reportDay = Carbon::create($request->get('date'));
+      // $reportDay->addDay();
+
+      // $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam($reportDay);
+
+      // $startDay = $startEndTimeByWorkingTeam[0];
+      // $endDay = $startEndTimeByWorkingTeam[1];
+
+      // // При регистрации новой смены не пропадают происшествия от предыдущей смены. 
+      // // надо еще апишки ролей сделать (админ, Ширяев, охрана), чтобы шаблоны разные были и возможности для устройств
+
+      $reportData = $this->getReportData($teamId);
+      return response()->success('Отчет успешно получен', $reportData);
+    } catch (\Exception $exception) {
+      return response()->error('Ошибка получения отчета', $exception->getMessage());
+    }
+  }
+}
