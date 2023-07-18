@@ -1,9 +1,19 @@
 import api from '@/services/userApi.js'
 
+function defaultFormValue() {
+  return {
+    name: '',
+    email: '',
+    password: '',
+  }
+}
+
 const state = () => ({
   error: undefined,
   userList: [],
-  currentUser: undefined
+  currentUser: undefined,
+  openModal: false,
+  formValue: defaultFormValue()
 })
 
 const getters = {
@@ -24,6 +34,16 @@ const mutations = {
   },
   storeCurrentUser(state, payload) {
     state.currentUser = payload
+  },
+  openAddModal(state) {
+    state.openModal = true
+  },
+  openEditModal(state) {
+    state.openModal = true
+  },
+  closeModal(state) {
+    state.openModal = false
+    state.formValue = defaultFormValue()
   }
 }
 

@@ -47,7 +47,10 @@ export default {
   },
 
   methods: {
-    onEdit() {},
+    onEdit() {
+      this.$store.commit('user/openEditModal')
+    },
+
     onDelete(id) {
       this.$store.dispatch('user/deleteUser', id)
     }
