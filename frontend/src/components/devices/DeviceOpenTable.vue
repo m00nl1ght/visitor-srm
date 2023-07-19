@@ -1,8 +1,5 @@
 <template>
   <v-card-text>
-    <v-btn @click="setTrue()">TRUE</v-btn>
-    <v-btn @click="setFalse()">FALSE</v-btn>
-
     <v-col class="d-flex" cols="12" md="3">
       <v-select v-if="edit" :items="listStatus" v-model="statuses" @change="getDeviceList" multiple label="Статус"></v-select>
     </v-col>
@@ -99,7 +96,6 @@ export default {
 
   mounted() {
     this.getDeviceList()
-    // this.$store.dispatch('incomeDevice/getListDeviceStatus', this.statuses)
   },
 
   methods: {

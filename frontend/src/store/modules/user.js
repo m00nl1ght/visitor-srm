@@ -11,6 +11,7 @@ function defaultFormValue() {
 const state = () => ({
   error: undefined,
   userList: [],
+  rolesList: [],
   currentUser: undefined,
   openModal: false,
   formValue: defaultFormValue()
@@ -44,6 +45,9 @@ const mutations = {
   closeModal(state) {
     state.openModal = false
     state.formValue = defaultFormValue()
+  },
+  showRolesList(state, roles) {
+    state.rolesList = roles 
   }
 }
 
@@ -70,6 +74,15 @@ const actions = {
     try {
       await api.deleteUser(id)
       dispatch('getUserList')
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async getRolesList ({ commit }) {
+    try {
+      const { data } = await api.getRolesList()
+      commit('showRolesList', data.data)
     } catch (error) {
       console.log(error)
     }

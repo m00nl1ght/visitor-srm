@@ -1,8 +1,10 @@
 <template>
-  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm">
+  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="title">
     <v-form ref="form" v-model="valid" class="pt-5" lazy-validation>
       <v-text-field label="Имя пользователя" :rules="[rules.required]"></v-text-field>
       <v-text-field label="Почта" placeholder="test@test.com" v-model="mail" :rules="[rules.required, rules.email]"></v-text-field>
+      <v-autocomplete :items="showRoleList" item-text="title" label="Роль" multiple> </v-autocomplete>
+
       <v-text-field
         v-model="password"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -37,6 +39,7 @@ export default {
 
   data() {
     return {
+      title: 'Форма пользователя',
       password: '',
       repeatPassword: '',
       showPassword: false,
@@ -44,13 +47,13 @@ export default {
       valid: true,
       mail: '',
       rules: {
-        required: (value) => !!value || 'Required.',
+        required: (value) => !!value || 'Обязятельное поле',
         email: (value) => {
           const pattern =
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          return pattern.test(value) || 'Invalid e-mail.'
+          return pattern.test(value) || 'Неверный e-mail.'
         },
-        passwordMatch: () => this.password === this.repeatPassword || `The email and password you entered don't match`
+        passwordMatch: () => this.repeatPassword === this.password || `Пароли не совпадают`
       }
     }
   },
@@ -58,14 +61,21 @@ export default {
   computed: {
     isOpen() {
       return this.$store.state.user.openModal
+    },
+    showRoleList() {
+      return this.$store.state.user.rolesList
     }
   },
-
+  mounted() {
+    this.$store.dispatch('user/getRolesList')
+  },
   methods: {
     onClose() {
       this.$store.commit('user/closeModal')
     },
-    onConfirm() {}
+    onConfirm() {
+      // if (this.$refs.form.validate()) {}
+    }
   }
 }
 </script>
