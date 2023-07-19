@@ -90,10 +90,15 @@ class IncomeAlarmService
     }
   }
 
-  public function alarmBetweenDays($startDay, $endDay)
+  public function getBySecurityTeam($teamId)
   {
     try {
-      $alarm = IncomeAlarm::whereBetween('in_time', array($startDay, $endDay))->orWhere('out_time', null)->with(['system_alarm_list'])->get();
+      $alarm = IncomeAlarm::whereRelation(
+        'security_teams',
+        'security_team_id',
+        '=',
+        $teamId
+      )->get();
       return $alarm;
     } catch (\Exception $exception) {
       throw new \Exception($exception->getMessage());

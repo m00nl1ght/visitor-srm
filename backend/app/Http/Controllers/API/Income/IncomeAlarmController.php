@@ -132,4 +132,14 @@ class IncomeAlarmController extends Controller
       return response()->error($exception);
     }
   }
+
+  public function getBySecurityTeam(Request $request)
+  {
+    try {
+      $alarm = $this->incomeAlarmService->getBySecurityTeam($request->query('id'));
+      return response()->success('Событие обновлено успешно', $alarm);
+    } catch (\Exception $exception) {
+      return response()->error($exception);
+    }
+  }
 }

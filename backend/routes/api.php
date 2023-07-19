@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Security\SecurityController;
 use App\Http\Controllers\API\Security\SecurityTeamController;
 use App\Http\Controllers\API\Security\RoleSecurityController;
-use App\Http\Controllers\API\WorkingSecurityTeam\WorkingSecurityTeamController;
 use App\Http\Controllers\API\Settings\WorkingSecurityTeamSettingController;
-// use App\Http\Controllers\API\Visitor\RegistrationVisitorController;
 use App\Http\Controllers\API\Visitor\VisitorCategoryController;
 use App\Http\Controllers\API\Visitor\VisitorController;
 
@@ -18,11 +16,9 @@ use App\Http\Controllers\API\Income\IncomeAlarmController;
 use App\Http\Controllers\API\Income\IncomeEventController;
 use App\Http\Controllers\API\Income\IncomeFoggotenCardController;
 
-use App\Http\Controllers\API\Income\SystemAlarmListController;
 use App\Http\Controllers\API\People\EmployeeController;
 use App\Http\Controllers\API\People\PositionController;
 use App\Http\Controllers\API\Card\CardController;
-use App\Http\Controllers\API\Report\ReportController;
 use App\Http\Controllers\API\Report\SecurityTeamReportController;
 
 use App\Http\Controllers\Auth\RegistrationController;
@@ -85,10 +81,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::resource('/income-foggoten-card', IncomeFoggotenCardController::class);
 
   //Неисправности
-  Route::get('/systemAlarmList', [SystemAlarmListController::class, 'index']);
+  Route::get('/income-alarm/get-by-security-team', [IncomeAlarmController::class, 'getBySecurityTeam']);
+  Route::post('/income-alarm/close', [IncomeAlarmController::class, 'closeAlarm']);
   Route::resource('/income-alarm', IncomeAlarmController::class);
   Route::resource('/income-event', IncomeEventController::class);
-  Route::post('/income-alarm/close', [IncomeAlarmController::class, 'closeAlarm']);
 
   //Сотрудники
   Route::get('/employee', [EmployeeController::class, 'index']);
@@ -97,10 +93,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   //Отчеты
   Route::get('/security-team-report/by-team', [SecurityTeamReportController::class, 'bySecurityTeam']);
   //old
-  Route::get('/report/byDay', [ReportController::class, 'byDay']);
-  Route::get('/report/bySecurityTeam', [ReportController::class, 'bySecurityTeam']);
-  Route::post('/report/byDuration', [ReportController::class, 'byDuration']);
-  Route::get('/report/send-security-team-report', [ReportController::class, 'sendSecurityTeamReport']);
+  // Route::get('/report/byDay', [ReportController::class, 'byDay']);
+  // Route::get('/report/bySecurityTeam', [ReportController::class, 'bySecurityTeam']);
+  // Route::post('/report/byDuration', [ReportController::class, 'byDuration']);
+  // Route::get('/report/send-security-team-report', [ReportController::class, 'sendSecurityTeamReport']);
 
   //устройства
   Route::get('/device/getNetworkName', [DeviceController::class, 'getNetworkName']);
