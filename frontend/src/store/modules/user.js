@@ -1,9 +1,21 @@
 import api from '@/services/userApi.js'
 
+function defaultFormValue() {
+  return {
+    name: '',
+    email: '',
+    password: '',
+  }
+}
+
 const state = () => ({
   error: undefined,
   userList: [],
-  currentUser: undefined
+  rolesList: [],
+  currentUser: undefined,
+  openModal: false,
+  openModalRoles: false,
+  formValue: defaultFormValue()
 })
 
 const getters = {
@@ -24,10 +36,36 @@ const mutations = {
   },
   storeCurrentUser(state, payload) {
     state.currentUser = payload
+  },
+  openAddModal(state) {
+    state.openModal = true
+  },
+  openEditModal(state) {
+    state.openModal = true
+  },
+  openEditModalRoles(state) {
+    state.openModalRoles = true
+  },
+  closeModal(state) {
+    state.openModal = false
+    // state.formValue = defaultFormValue()
+  },
+  showRolesList(state, roles) {
+    state.rolesList = roles 
   }
 }
 
 const actions = {
+
+  async registration({ dispatch }, payload) {
+    try {
+      await api.registration(payload)
+      dispatch('getUserList')
+    } catch (error) {
+      console.log (error)
+    }
+  },
+
   async getUserList({ commit }) {
     try {
       const { data } = await api.getUserList()
@@ -43,6 +81,24 @@ const actions = {
       commit('storeCurrentUser', data.data)
     } catch (error) {
       commit('storeError', error)
+    }
+  },
+
+  async deleteUser ({dispatch}, id) {
+    try {
+      await api.deleteUser(id)
+      dispatch('getUserList')
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async getRolesList ({ commit }) {
+    try {
+      const { data } = await api.getRolesList()
+      commit('showRolesList', data.data)
+    } catch (error) {
+      console.log(error)
     }
   }
 }

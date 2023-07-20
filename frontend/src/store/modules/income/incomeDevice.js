@@ -1,32 +1,39 @@
 import api from '@/services/income/incomeDeviceApi'
 import api_employee from '@/services/employeeApi'
+import { cloneDeep } from 'lodash'
+
+function defaultFormValue() {
+  return {
+    employeeId: '',
+    device: ''
+  }
+}
 
 const state = () => ({
-  networkNameList: {},
-  employeeNameList: {},
+  networkNameList: [],
+  employeeNameList: [],
   listDeviceStatus: [],
-  fullListdevice: {},
-  // formValue: {
-  //   networkName: '',
-  //   id: ''
-  // },
-  openModal: false
+  openModal: false,
+  formValue: defaultFormValue(),
+  statuses: ['approved', 'rejected']
+
 })
 
-const getters = {
-  getOpenModal: (state) => state.openModal,
-  getFormValue: (state) => state.formValue
-}
+const getters = {}
 
 const mutations = {
   openModal(state) {
     state.openModal = true
   },
 
-  openEditModal() {},
+  openEditModal(state, id) {
+    state.formValue = cloneDeep(state.listDeviceStatus.find((item) => item.id === id))
+    state.openModal = true
+  },
 
   closeModal(state) {
     state.openModal = false
+    state.formValue = defaultFormValue()
   },
 
   storeNetworkNameList(state, value) {
@@ -42,8 +49,8 @@ const mutations = {
     state.listDeviceStatus = value
   },
 
-  storeFullInfoDevice(state, value) {
-    state.fullListdevice = value
+  changeStatuses (state, value) {
+    state.statuses = value
   }
 }
 
@@ -67,9 +74,19 @@ const actions = {
     }
   },
 
-  async registrateDevice(_, regDevice) {
+  async addDevice({ state, dispatch }) {
     try {
-      await api.addDevice(regDevice)
+      await api.addDevice(state.formValue)
+      dispatch('getListDeviceStatus', state.statuses)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async editDevice({ dispatch, state }) {
+    try {
+      await api.editDevice(state.formValue)
+      dispatch('getListDeviceStatus', state.statuses)
     } catch (error) {
       console.log(error)
     }
@@ -79,15 +96,6 @@ const actions = {
     try {
       const { data } = await api.getListDeviceStatus(statuses)
       commit('listDeviceStatus', data.data)
-    } catch (error) {
-      console.log(error)
-    }
-  },
-
-  async getNetworkNameDataList({ commit }, list) {
-    try {
-      const { data } = await api.getNetworkNameDataList(list)
-      commit('storeFullInfoDevice', data.data)
     } catch (error) {
       console.log(error)
     }

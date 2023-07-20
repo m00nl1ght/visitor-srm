@@ -7,10 +7,19 @@ use App\Models\User;
 
 class UsersService
 {
+  // public function getList()
+  // {
+  //   try {
+  //     $users = User::where('id', '!=', 1)->get();
+  //     return $users;
+  //   } catch (\Exception $exception) {
+  //     throw new \Exception($exception->getMessage());
+  //   }
+  // }
   public function getList()
   {
     try {
-      $users = User::where('id', '!=', 1)->get();
+      $users = User::where('id', '!=', 1)->with(['role'])->get();
       return $users;
     } catch (\Exception $exception) {
       throw new \Exception($exception->getMessage());

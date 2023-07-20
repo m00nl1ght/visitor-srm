@@ -18,6 +18,7 @@ import Reports from '@/views/ReportsPage.vue'
 import ReportOverview from '@/components/reports/ReportOverviewConnect.js'
 import ReportAnalitics from '@/components/reports/ReportAnalitics.vue'
 import Devices from '@/views/DevicesPage.vue'
+import Admins from '@/views/AdminsPage.vue'
 
 Vue.use(VueRouter)
 
@@ -124,6 +125,12 @@ const routes = [
     name: 'Devices',
     meta: { layout: 'main' },
     component: Devices
+  },
+  {
+    path: '/admins',
+    name: 'Admins',
+    meta: { layout: 'main' },
+    component: Admins
   },
 ]
 
