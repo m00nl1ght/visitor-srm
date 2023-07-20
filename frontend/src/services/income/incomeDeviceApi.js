@@ -17,22 +17,20 @@ export default {
   getNetworkNameList() {
     return axios.get(urls.GET_DEVICE)
   },
-
-  getNetworkNameDataList(list) {
-    return axios.get(urls.GET_DEVICE_DATA, { list })
-  },
   //получение списка сотрудников для регистрации
   getNameEmployee() {
     return axios.get(urls.GET_NAME_EMPLOYEE)
   },
   //регистрация разрешения
-  addDevice(regDevice) {
-    return axios.post(urls.REG_DEVICE, regDevice)
+  addDevice(payload) {
+    return axios.post(urls.REG_DEVICE, payload)
+  },
+
+  editDevice(payload) {
+    return axios.put(urls.REG_DEVICE + '/' + payload.id, payload)
   },
 
   getListDeviceStatus(statuses) {
-    // console.log(statuses)
-    // return { data: { data: deviceList } }
     return axios.post(urls.GET_LIST_DEVICE_STATUS, { statuses })
   },
 

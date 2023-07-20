@@ -1,21 +1,19 @@
 <template>
   <v-card-text>
-    <v-container>
-      <v-row>
-        <v-col cols="1" md="4">
-          <v-text-field label="Введите сетевое имя устройства"> </v-text-field>
-        </v-col>
-      </v-row>
-    </v-container>
-
-    <v-col class="d-flex" cols="12" sm="6">
-      <v-select :items="listStatus" v-model="statuses" multiple @change="getDeviceList" label="Статус"></v-select>
+    <v-col class="d-flex" cols="12" md="3">
+      <v-select v-if="edit" :items="listStatus" v-model="statuses" @change="getDeviceList" multiple label="Статус"></v-select>
     </v-col>
 
-    <v-btn @click="setTrue()">TRUE</v-btn>
-    <v-btn @click="setFalse()">FALSE</v-btn>
+    <v-col cols="12" sm="6" md="3">
+      <v-text-field v-model="search" append-icon="mdi-magnify" label="Поиск" single-line hide-details> </v-text-field>
+    </v-col>
+    <v-data-table :headers="headers" :items="showListDeviceStatus" :search="search">
+      <template #[`item.access`]="{ item }">
+        <v-chip class="ma-2" :color="item.status === 'approved' ? 'green' : 'red'" text-color="black" outlined>
+          {{ item.status === 'approved' ? 'Разрешено' : 'Не разрешено' }}
+        </v-chip>
+      </template>
 
-    <v-data-table :headers="headers" :items="showListDeviceStatus">
       <template #[`item.employee.lastName`]="{ item }">
         <span>{{ item.employee.lastName }} {{ item.employee.name }} {{ item.employee.middleName }}</span>
       </template>
@@ -25,9 +23,9 @@
           <v-icon>mdi-pencil-outline</v-icon>
         </v-btn>
 
-        <v-btn icon @click="onDelete(item.id)">
+        <!-- <v-btn icon @click="onDelete(item.id)">
           <v-icon>mdi-trash-can-outline</v-icon>
-        </v-btn>
+        </v-btn> -->
       </template>
 
       <template #[`item.approves`]="{ item }">
@@ -56,9 +54,9 @@ const STATUSES = {
 
 export default {
   data: () => ({
-    statuses: [STATUSES.NEW],
-    listStatus: [STATUSES.NEW, STATUSES.APPROVED],
-    edit: true
+    listStatus: [STATUSES.NEW, STATUSES.APPROVED, STATUSES.REJECTED],
+    edit: true,
+    search: ''
   }),
 
   computed: {
@@ -68,26 +66,36 @@ export default {
 
     headers() {
       let head = [
+        { text: 'Разрешение', value: 'access', sortable: false },
         { text: 'ФИО', value: 'employee.lastName', sortable: false },
         { text: 'Модель', value: 'details.name', sortable: false },
         { text: 'Сетевое имя', value: 'details.networkName', sortable: false },
         { text: 'Инвентарный номер', value: 'details.inventoryNumber', sortable: false },
-        { text: 'Серийный номер', value: 'details.serialNumber', sortable: false },
-        { text: 'Статус', value: 'status', sortable: false }
+        { text: 'Серийный номер', value: 'details.serialNumber', sortable: false }
       ]
 
       if (this.edit === true) {
+        head.push({ text: 'Статус', value: 'status', sortable: false })
         head.push({ text: 'Действия', value: 'actions', sortable: false })
         head.push({ text: 'Подтверждение', value: 'approves', sortable: false })
       }
 
       return head
+    },
+
+    statuses: {
+      get() {
+        return this.$store.state.incomeDevice.statuses
+      },
+      set(newValue) {
+        this.$store.commit('incomeDevice/changeStatuses', newValue)
+        console.log(newValue)
+      }
     }
   },
 
   mounted() {
     this.getDeviceList()
-    // this.$store.dispatch('incomeDevice/getListDeviceStatus', this.statuses)
   },
 
   methods: {
@@ -105,7 +113,7 @@ export default {
     },
 
     onEdit(item) {
-      console.log(item)
+      this.$store.commit('incomeDevice/openEditModal', item.id)
     },
 
     onDelete(id) {
