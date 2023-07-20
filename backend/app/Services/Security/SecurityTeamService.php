@@ -31,10 +31,15 @@ class SecurityTeamService
   }
 
   // Получение списка рабочих смен охраны
-  public function getList()
+  public function getList($limit)
   {
     try {
+      $per_page = 10;
+      if ($limit && $limit <= 100)  $per_page = $limit;
+
       $teams = SecurityTeamModel::get();
+      $teams = SecurityTeamModel::with(['operator', 'chief', 'securities'])->paginate($per_page);
+      return $teams;
       return $this->getAllCollections($teams);
     } catch (\Exception $exception) {
       throw new \Exception($exception->getMessage());

@@ -48,10 +48,10 @@ class SecurityTeamController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
     try {
-      $securityTeam = $this->securityTeamService->getList();
+      $securityTeam = $this->securityTeamService->getList($request->query('limit'));
       return response()->success('Список рабочих смен охраны успешно получен', $securityTeam);
     } catch (\Exception $exception) {
       return response()->error('Ошибка получения рабочих смен охраны', $exception);
