@@ -69,7 +69,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::post('/visitor/searchBySurname', [VisitorController::class, 'searchBySurname']);
   Route::post('/income-visitor/enter-territory', [IncomeVisitorController::class, 'enterTerritory']);
   Route::post('/income-visitor/leave-territory', [IncomeVisitorController::class, 'leaveTerritory']);
-  Route::get('/income-visitor/onTerritory', [IncomeVisitorController::class, 'onTerritory']);
+  Route::get('/income-visitor/on-territory', [IncomeVisitorController::class, 'onTerritory']);
 
   // Регистрация автомобилей
   Route::post('/income-car/enter-territory', [IncomeCarController::class, 'enterTerritory']);

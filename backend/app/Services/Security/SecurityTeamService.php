@@ -37,8 +37,7 @@ class SecurityTeamService
       $per_page = 10;
       if ($limit && $limit <= 100)  $per_page = $limit;
 
-      $teams = SecurityTeamModel::get();
-      $teams = SecurityTeamModel::with(['operator', 'chief', 'securities'])->paginate($per_page);
+      $teams = SecurityTeamModel::with(['operator', 'chief', 'securities'])->orderByDesc('id')->paginate($per_page);
       return $teams;
       return $this->getAllCollections($teams);
     } catch (\Exception $exception) {
