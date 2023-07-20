@@ -14,6 +14,7 @@ const state = () => ({
   rolesList: [],
   currentUser: undefined,
   openModal: false,
+  openModalRoles: false,
   formValue: defaultFormValue()
 })
 
@@ -42,9 +43,12 @@ const mutations = {
   openEditModal(state) {
     state.openModal = true
   },
+  openEditModalRoles(state) {
+    state.openModalRoles = true
+  },
   closeModal(state) {
     state.openModal = false
-    state.formValue = defaultFormValue()
+    // state.formValue = defaultFormValue()
   },
   showRolesList(state, roles) {
     state.rolesList = roles 
@@ -52,6 +56,16 @@ const mutations = {
 }
 
 const actions = {
+
+  async registration({ dispatch }, payload) {
+    try {
+      await api.registration(payload)
+      dispatch('getUserList')
+    } catch (error) {
+      console.log (error)
+    }
+  },
+
   async getUserList({ commit }) {
     try {
       const { data } = await api.getUserList()

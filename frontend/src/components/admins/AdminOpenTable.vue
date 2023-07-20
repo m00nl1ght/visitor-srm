@@ -8,23 +8,45 @@
       </template>
 
       <template #[`item.actions`]="{ item }">
-        <v-btn icon @click="onEdit(item)">
-          <v-icon>mdi-pencil-outline</v-icon>
-        </v-btn>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn v-bind="attrs" v-on="on" icon @click="onEdit(item)">
+              <v-icon>mdi-pencil-outline</v-icon>
+            </v-btn>
+          </template>
+          <span>Редактировать</span>
+        </v-tooltip>
 
-        <v-btn icon @click="onDelete(item.id)">
-          <v-icon>mdi-trash-can-outline</v-icon>
-        </v-btn>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn v-bind="attrs" v-on="on" icon @click="onDelete(item)">
+              <v-icon>mdi-trash-can-outline</v-icon>
+            </v-btn>
+          </template>
+          <span>Удалить</span>
+        </v-tooltip>
+
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn v-bind="attrs" v-on="on" icon @click="onEditRole(item.id)">
+              <v-icon>mdi-account-plus</v-icon>
+            </v-btn>
+          </template>
+          <span>Добавить роль</span>
+        </v-tooltip>
       </template>
 
       <template #no-data>
         <p>Пользователи отсутсвуют...</p>
       </template>
     </v-data-table>
+    <AdminIncomeModalRoles />
   </v-card-text>
 </template>
 
 <script>
+import AdminIncomeModalRoles from '@/components/admins/AdminIncomeModalRoles.vue'
+
 export default {
   data: () => ({
     headers: [
@@ -35,6 +57,10 @@ export default {
       { text: 'Действия', value: 'actions', sortable: false }
     ]
   }),
+
+  components: {
+    AdminIncomeModalRoles
+  },
 
   computed: {
     showUserList() {
@@ -53,6 +79,10 @@ export default {
 
     onDelete(id) {
       this.$store.dispatch('user/deleteUser', id)
+    },
+
+    onEditRole() {
+      this.$store.commit('user/openEditModalRoles')
     }
   }
 }
