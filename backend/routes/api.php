@@ -4,10 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\Security\SecurityController;
+use App\Http\Controllers\API\Security\SecurityTeamController;
 use App\Http\Controllers\API\Security\RoleSecurityController;
-use App\Http\Controllers\API\WorkingSecurityTeam\WorkingSecurityTeamController;
 use App\Http\Controllers\API\Settings\WorkingSecurityTeamSettingController;
-// use App\Http\Controllers\API\Visitor\RegistrationVisitorController;
 use App\Http\Controllers\API\Visitor\VisitorCategoryController;
 use App\Http\Controllers\API\Visitor\VisitorController;
 
@@ -17,11 +16,10 @@ use App\Http\Controllers\API\Income\IncomeAlarmController;
 use App\Http\Controllers\API\Income\IncomeEventController;
 use App\Http\Controllers\API\Income\IncomeFoggotenCardController;
 
-use App\Http\Controllers\API\Income\SystemAlarmListController;
 use App\Http\Controllers\API\People\EmployeeController;
 use App\Http\Controllers\API\People\PositionController;
 use App\Http\Controllers\API\Card\CardController;
-use App\Http\Controllers\API\Report\ReportController;
+use App\Http\Controllers\API\Report\SecurityTeamReportController;
 
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\LoginController;
@@ -58,12 +56,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::resource('/security/roles', RoleSecurityController::class); // Роуты ролей сотрудников охраны
 
   // Роуты сотрудников охраны
-  Route::resource('/securities', SecurityController::class);
-
-  // Роуты создания рабочей смены охраны
-  Route::get('/workingSecurityTeams/active', [WorkingSecurityTeamController::class, 'active']);
-  Route::get('/workingSecurityTeams/last', [WorkingSecurityTeamController::class, 'last']);
-  Route::resource('/workingSecurityTeams', WorkingSecurityTeamController::class);
+  Route::resource('/securities', SecurityController::class); //список сотрудников
+  Route::get('/security-team/active', [SecurityTeamController::class, 'active']); //активная смена
+  Route::resource('/security-team', SecurityTeamController::class); //рабочая группа
 
   //Роуты настроек рабочей смены охраны
   Route::resource('/workingSecurityTeam/settings', WorkingSecurityTeamSettingController::class);
@@ -71,35 +66,37 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   // Роуты регистрации поситителей
   // Route::resource('/registrationVisitors', RegistrationVisitorController::class);
   Route::resource('/visitor/categories', VisitorCategoryController::class);
-  Route::post('/incomeVisitor/in', [IncomeVisitorController::class, 'in']);
-  Route::post('/incomeVisitor/out', [IncomeVisitorController::class, 'out']);
-  Route::get('/incomeVisitor/onTerritory', [IncomeVisitorController::class, 'onTerritory']);
   Route::post('/visitor/searchBySurname', [VisitorController::class, 'searchBySurname']);
+  Route::post('/income-visitor/enter-territory', [IncomeVisitorController::class, 'enterTerritory']);
+  Route::post('/income-visitor/leave-territory', [IncomeVisitorController::class, 'leaveTerritory']);
+  Route::get('/income-visitor/on-territory', [IncomeVisitorController::class, 'onTerritory']);
 
   // Регистрация автомобилей
-  Route::post('/incomeCar/in', [IncomeCarController::class, 'in']);
-  Route::post('/incomeCar/out', [IncomeCarController::class, 'out']);
-  Route::get('/incomeCar/onTerritory', [IncomeCarController::class, 'onTerritory']);
+  Route::post('/income-car/enter-territory', [IncomeCarController::class, 'enterTerritory']);
+  Route::post('/income-car/leave-territory', [IncomeCarController::class, 'leaveTerritory']);
+  Route::get('/income-car/on-territory', [IncomeCarController::class, 'onTerritory']);
 
   //Карты доступа
   Route::get('/card/index', [CardController::class, 'index']);
-  Route::resource('/incomeFoggotenCard', IncomeFoggotenCardController::class);
+  Route::resource('/income-foggoten-card', IncomeFoggotenCardController::class);
 
   //Неисправности
-  Route::get('/systemAlarmList', [SystemAlarmListController::class, 'index']);
-  Route::resource('/incomeAlarm', IncomeAlarmController::class);
-  Route::resource('/incomeEvent', IncomeEventController::class);
-  Route::post('/incomeAlarm/close', [IncomeAlarmController::class, 'closeAlarm']);
+  Route::get('/income-alarm/get-by-security-team', [IncomeAlarmController::class, 'getBySecurityTeam']);
+  Route::post('/income-alarm/close', [IncomeAlarmController::class, 'closeAlarm']);
+  Route::resource('/income-alarm', IncomeAlarmController::class);
+  Route::resource('/income-event', IncomeEventController::class);
 
   //Сотрудники
   Route::get('/employee', [EmployeeController::class, 'index']);
   Route::post('/employee/searchBySurname', [EmployeeController::class, 'searchBySurname']);
 
   //Отчеты
-  Route::get('/report/byDay', [ReportController::class, 'byDay']);
-  Route::get('/report/bySecurityTeam', [ReportController::class, 'bySecurityTeam']);
-  Route::post('/report/byDuration', [ReportController::class, 'byDuration']);
-  Route::get('/report/send-security-team-report', [ReportController::class, 'sendSecurityTeamReport']);
+  Route::get('/security-team-report/by-team', [SecurityTeamReportController::class, 'bySecurityTeam']);
+  //old
+  // Route::get('/report/byDay', [ReportController::class, 'byDay']);
+  // Route::get('/report/bySecurityTeam', [ReportController::class, 'bySecurityTeam']);
+  // Route::post('/report/byDuration', [ReportController::class, 'byDuration']);
+  // Route::get('/report/send-security-team-report', [ReportController::class, 'sendSecurityTeamReport']);
 
   //устройства
   Route::get('/device/getNetworkName', [DeviceController::class, 'getNetworkName']);

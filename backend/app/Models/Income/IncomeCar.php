@@ -9,30 +9,36 @@ use App\Models\Visitor\Visitor;
 use App\Models\People\Employee;
 use App\Models\Security\Security;
 use App\Models\Visitor\VisitorCategory;
+use App\Models\Security\SecurityTeam;
 
 class IncomeCar extends Model
 {
-    public $timestamps = false;
-    
-    use HasFactory;
+  public $timestamps = false;
 
-    public function visitor()
-    {
-        return $this->belongsTo(Visitor::class);
-    }
+  use HasFactory;
 
-    public function employee()
-    {
-        return $this->belongsTo(Employee::class);
-    }
+  public function visitor()
+  {
+    return $this->belongsTo(Visitor::class);
+  }
 
-    public function security()
-    {
-        return $this->belongsTo(Security::class);
-    }
+  public function employee()
+  {
+    return $this->belongsTo(Employee::class);
+  }
 
-    public function visitor_category()
-    {
-        return $this->belongsTo(VisitorCategory::class);
-    }
+  public function security()
+  {
+    return $this->belongsTo(Security::class);
+  }
+
+  public function visitor_category()
+  {
+    return $this->belongsTo(VisitorCategory::class);
+  }
+
+  public function security_teams()
+  {
+    return $this->belongsToMany(SecurityTeam::class);
+  }
 }
