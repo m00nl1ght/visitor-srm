@@ -27,6 +27,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\Devices\DeviceController;
 use App\Http\Controllers\API\Devices\DevicePermissionController;
 use App\Http\Controllers\API\Roles\RoleController;
+use App\Http\Controllers\API\References\SystemAlarmController;
 
 
 /*
@@ -54,6 +55,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   // Роуты категорий
   Route::resource('/positions', PositionController::class); //должности
   Route::resource('/security/roles', RoleSecurityController::class); // Роуты ролей сотрудников охраны
+  Route::get('/references/system-alarm', [SystemAlarmController::class, 'index']);
 
   // Роуты сотрудников охраны
   Route::resource('/securities', SecurityController::class); //список сотрудников

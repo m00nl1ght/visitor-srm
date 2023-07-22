@@ -1,11 +1,7 @@
 <template>
   <div>
     <v-tabs>
-      <v-tab
-        v-for="item in tabs"
-        :key="item.text"
-        :to="item.to"
-      >
+      <v-tab v-for="item in tabs" :key="item.text" :to="item.to">
         {{ item.text }}
       </v-tab>
     </v-tabs>
@@ -15,12 +11,14 @@
 </template>
 
 <script>
+import * as routeNames from '@/router/names/index.js'
+
 export default {
   data() {
     return {
       tabs: [
-        {text: "Сводный", to: { name: 'ReportOverview'}},
-        {text: "Аналитика", to: { name: "ReportAnalitics"}}
+        { text: 'Сводный', to: { name: routeNames.reportOverviewPage } },
+        { text: 'Аналитика', to: { name: routeNames.reportAnaliticsPage } }
       ]
     }
   }

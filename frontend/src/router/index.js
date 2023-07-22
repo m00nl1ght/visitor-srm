@@ -1,13 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+import adminRoutes from './routes/adminRoutes.js'
+import * as names from './names/index.js'
+import * as paths from './paths/index.js'
+
 import Home from '@/views/HomePage.vue'
 import LoginPage from '@/views/auth/LoginPage.vue'
 import LogoutPage from '@/views/auth/LogoutPage.vue'
 
-import Security from '@/views/SecurityPage.vue'
-import SecurityCurrentGroup from '@/components/security/CurrentGroup.vue'
-import SecurityList from '@/components/security/SecurityList.vue'
-import SecurityMainReport from '@/components/reports/SecurityMainReportConnect.js'
+import Security from '@/views/security/SecurityPage.vue'
+import SecurityCurrentGroup from '@/views/security/components/CurrentGroup.vue'
+import SecurityList from '@/views/security/components/SecurityList.vue'
+import SecurityMainReport from '@/components/reports/SecurityMainReport.vue'
 
 import Cars from '@/views/CarsPage.vue'
 import Visitors from '@/views/VisitorsPage.vue'
@@ -15,123 +20,117 @@ import Alarms from '@/views/AlarmsPage.vue'
 import Events from '@/views/EventsPage.vue'
 import Cards from '@/views/CardsPage.vue'
 import Reports from '@/views/ReportsPage.vue'
-import ReportOverview from '@/components/reports/ReportOverviewConnect.js'
+import ReportOverview from '@/components/reports/ReportOverview.vue'
 import ReportAnalitics from '@/components/reports/ReportAnalitics.vue'
 import Devices from '@/views/DevicesPage.vue'
-import Admins from '@/views/AdminsPage.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  ...adminRoutes,
   {
-    path: '/',
-    name: 'Home',
+    path: paths.homePage,
+    name: names.homePage,
     meta: { layout: 'main' },
     // meta: { layout: 'main', auth: true, accessRoles: ['security'] }, пример защиты
     component: Home
   },
   {
-    path: '/login',
-    name: 'Login',
+    path: paths.loginPage,
+    name: names.loginPage,
     meta: { layout: 'empty' },
     component: LoginPage
   },
   {
-    path: '/logout',
-    name: 'Logout',
+    path: paths.logoutPage,
+    name: names.logoutPage,
     meta: { layout: 'empty' },
     component: LogoutPage
   },
   {
-    name: 'Security',
-    path: '/security',
-    redirect: { name: 'SecurityCurrentGroup' },
+    name: names.securityPage,
+    path: paths.securityPage,
+    redirect: { name: names.securityCurrentGroup },
     meta: { layout: 'main' },
     component: Security,
     children: [
       {
-        name: 'SecurityCurrentGroup',
-        path: 'group',
+        name: names.securityCurrentGroup,
+        path: paths.securityCurrentGroup,
         meta: { layout: 'main' },
         component: SecurityCurrentGroup
       },
       {
-        name: 'SecurityList',
-        path: 'list',
+        name: names.securityList,
+        path: paths.securityList,
         component: SecurityList,
         meta: { layout: 'main' }
       },
       {
-        name: 'SecurityMainReport',
-        path: 'report',
+        name: names.securityMainReport,
+        path: paths.securityMainReport,
         component: SecurityMainReport,
         meta: { layout: 'main' }
       }
     ]
   },
   {
-    path: '/cars',
-    name: 'Cars',
+    path: paths.carsPage,
+    name: names.carsPage,
     meta: { layout: 'main' },
     component: Cars
   },
   {
-    path: '/visitors',
-    name: 'Visitors',
+    path: paths.visitorsPage,
+    name: names.visitorsPage,
     meta: { layout: 'main' },
     component: Visitors
   },
   {
-    path: '/alarms',
-    name: 'Alarms',
+    path: paths.alarmsPage,
+    name: names.alarmsPage,
     meta: { layout: 'main' },
     component: Alarms
   },
   {
-    path: '/events',
-    name: 'Events',
+    path: paths.eventsPage,
+    name: names.eventsPage,
     meta: { layout: 'main' },
     component: Events
   },
   {
-    path: '/cards',
-    name: 'Cards',
+    path: paths.cardsPage,
+    name: names.cardsPage,
     meta: { layout: 'main' },
     component: Cards
   },
   {
-    path: '/reports',
-    name: 'Reports',
+    path: paths.reportsPage,
+    name: names.reportsPage,
     meta: { layout: 'main' },
     component: Reports,
-    redirect: { name: 'ReportOverview' },
+    redirect: { name: names.reportOverviewPage },
     children: [
       {
-        name: 'ReportOverview',
-        path: 'overview',
+        name: names.reportOverviewPage,
+        path: paths.reportOverviewPage,
         meta: { layout: 'main' },
         component: ReportOverview
       },
       {
-        name: 'ReportAnalitics',
-        path: 'analitics',
+        name: names.reportAnaliticsPage,
+        path: paths.reportAnaliticsPage,
         component: ReportAnalitics,
         meta: { layout: 'main' }
       }
     ]
   },
   {
-    path: '/devices',
-    name: 'Devices',
+    path: paths.devicesPage,
+    name: names.devicesPage,
     meta: { layout: 'main' },
     component: Devices
-  },
-  {
-    path: '/admins',
-    name: 'Admins',
-    meta: { layout: 'main' },
-    component: Admins
-  },
+  }
 ]
 
 const router = new VueRouter({

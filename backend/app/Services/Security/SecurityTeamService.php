@@ -39,7 +39,6 @@ class SecurityTeamService
 
       $teams = SecurityTeamModel::with(['operator', 'chief', 'securities'])->orderByDesc('id')->paginate($per_page);
       return $teams;
-      return $this->getAllCollections($teams);
     } catch (\Exception $exception) {
       throw new \Exception($exception->getMessage());
     }
@@ -99,7 +98,7 @@ class SecurityTeamService
   {
     try {
       $active = SecurityTeamModel::get()->last();
-      return $active;
+      return $this->getAllCollections($active);
     } catch (\Exception $exception) {
       throw new \Exception($exception->getMessage());
     }

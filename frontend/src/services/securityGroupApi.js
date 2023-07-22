@@ -2,19 +2,21 @@ import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  SECURITY_GROUP: BASE_URL + '/api/workingSecurityTeams'
+  ACTIVE_GROUP: BASE_URL + '/api/security-team/active',
+  ADD_GROUP: BASE_URL + '/api/security-team',
+  EDIT_GROUP: BASE_URL + '/api/security-team'
 }
 
 export default {
   getCurrentGroup() {
-    return axios.get(urls.SECURITY_GROUP + '/last')
+    return axios.get(urls.ACTIVE_GROUP)
   },
 
   addGroup(payload) {
-    return axios.post(urls.SECURITY_GROUP, payload)
+    return axios.post(urls.ADD_GROUP, payload)
   },
 
   editGroup({ data, id }) {
-    return axios.put(urls.SECURITY_GROUP + `/${id}`, data)
+    return axios.put(urls.EDIT_GROUP + `/${id}`, data)
   }
 }

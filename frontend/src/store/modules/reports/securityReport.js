@@ -27,9 +27,9 @@ const actions = {
     }
   },
 
-  async getReportBySecurityTeam({ commit }, date) {
+  async getReportBySecurityTeam({ commit }, id) {
     try {
-      const { data } = await api.getReportBySecurityTeam(date)
+      const { data } = await api.getReportBySecurityTeam(id)
       commit('storeReportBySecurityTeam', data.data)
     } catch (error) {
       console.log(error)

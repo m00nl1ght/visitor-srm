@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import SecurityAddModal from '@/components/security/SecurityAddModal.vue'
+import SecurityAddModal from './SecurityAddModal.vue'
 import ConfirmModal from '@/components/app/modals/ConfirmModal.vue'
 import peopleHelper from '@/services/helpers/people.js'
 
