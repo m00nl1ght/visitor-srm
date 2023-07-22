@@ -1,8 +1,7 @@
-import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  CARD: BASE_URL + '/api/incomeFoggotenCard'
+  CARD: '/api/incomeFoggotenCard'
 }
 
 export default {

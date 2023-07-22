@@ -1,10 +1,9 @@
-import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  ACTIVE_GROUP: BASE_URL + '/api/security-team/active',
-  ADD_GROUP: BASE_URL + '/api/security-team',
-  EDIT_GROUP: BASE_URL + '/api/security-team'
+  ACTIVE_GROUP: '/api/security-team/active',
+  ADD_GROUP: '/api/security-team',
+  EDIT_GROUP: '/api/security-team'
 }
 
 export default {

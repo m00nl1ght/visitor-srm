@@ -1,4 +1,4 @@
-import api from '@/services/income/incomeVisitorApi'
+import api from '@/services/income/incomeVisitorApi.js'
 
 const state = () => ({
   error: null,

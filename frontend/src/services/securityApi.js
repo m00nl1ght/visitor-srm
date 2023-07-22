@@ -1,9 +1,8 @@
-import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  SECURITY_ROLES: BASE_URL + '/api/security/roles',
-  SECURITIES: BASE_URL + '/api/securities'
+  SECURITY_ROLES: '/api/security/roles',
+  SECURITIES: '/api/securities'
 }
 
 export default {

@@ -1,9 +1,8 @@
-import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  EMPLOYEE: BASE_URL + '/api/employee',
-  GET_NAME_EMPLOYEE: BASE_URL + '/api/employee',
+  EMPLOYEE: '/api/employee',
+  GET_NAME_EMPLOYEE: '/api/employee'
 }
 
 export default {
@@ -13,5 +12,5 @@ export default {
 
   getNameEmployee() {
     return axios.get(urls.GET_NAME_EMPLOYEE)
-  },
+  }
 }

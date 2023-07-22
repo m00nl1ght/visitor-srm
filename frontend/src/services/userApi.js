@@ -1,12 +1,11 @@
-import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  LOGIN: BASE_URL + '/api/login',
-  REQISTRATION: BASE_URL + '/api/registration',
-  GET_CURRENT_USER: BASE_URL + '/api/users/get-current',
-  GET_USERS_LIST: BASE_URL + '/api/users',
-  GET_ROLES_LIST: BASE_URL + '/api/roles'
+  LOGIN: '/api/login',
+  REQISTRATION: '/api/registration',
+  GET_CURRENT_USER: '/api/users/get-current',
+  GET_USERS_LIST: '/api/users',
+  GET_ROLES_LIST: '/api/roles'
 }
 export default {
   login(payload) {
@@ -29,7 +28,7 @@ export default {
     return axios.delete(urls.GET_USERS_LIST + '/' + id)
   },
 
-  getRolesList () {
+  getRolesList() {
     return axios.get(urls.GET_ROLES_LIST)
   }
 }

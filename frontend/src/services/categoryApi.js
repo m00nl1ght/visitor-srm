@@ -1,9 +1,8 @@
-import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  GET_VISITOR_CATEGORY: BASE_URL + '/api/visitor/categories',
-  GET_SYSTEM_ALARM_CATEGORY: BASE_URL + '/api/systemAlarmList'
+  GET_VISITOR_CATEGORY: '/api/visitor/categories',
+  GET_SYSTEM_ALARM_CATEGORY: '/api/systemAlarmList'
 }
 
 export default {

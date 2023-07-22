@@ -31,6 +31,12 @@ async function createApp() {
   // await Promise.all(reqs)
 
   // const AUTH_TOKEN = '8|ZFhptoKtKH4xfRzFFwnl7YuMFApJdJhpEpz1XSES'
+
+  if (process.env.NODE_ENV !== 'production') {
+    //   axios.defaults.withCredentials = true
+    axios.defaults.baseURL = process.env.VUE_APP_DEV_BACKEND_URL
+  }
+
   const AUTH_TOKEN = localStorage.getItem('token')
   if (AUTH_TOKEN) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${AUTH_TOKEN}`

@@ -1,9 +1,8 @@
-import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  REPORT_BY_DAY: BASE_URL + '/api/report/byDay',
-  REPORT_BY_SECURITY_TEAM: BASE_URL + '/api/security-team-report/by-team'
+  REPORT_BY_DAY: '/api/report/byDay',
+  REPORT_BY_SECURITY_TEAM: '/api/security-team-report/by-team'
 }
 
 export default {

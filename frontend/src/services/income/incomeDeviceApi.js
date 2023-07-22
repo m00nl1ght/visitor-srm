@@ -1,15 +1,14 @@
-import { BASE_URL } from '@/config'
 import axios from 'axios'
 
 // import { deviceList } from './mockDevice.js'
 
 const urls = {
-  GET_DEVICE: BASE_URL + '/api/device/getNetworkName',
-  GET_DEVICE_DATA: BASE_URL + '/api/device/getNetworkNameData',
-  GET_NAME_EMPLOYEE: BASE_URL + '/api/employee',
-  REG_DEVICE: BASE_URL + '/api/device-permission',
-  GET_LIST_DEVICE_STATUS: BASE_URL + '/api/device-permission/get-by-statuses',
-  CHANGE_STATUS: BASE_URL + '/api/device-permission/change-status'
+  GET_DEVICE: '/api/device/getNetworkName',
+  GET_DEVICE_DATA: '/api/device/getNetworkNameData',
+  GET_NAME_EMPLOYEE: '/api/employee',
+  REG_DEVICE: '/api/device-permission',
+  GET_LIST_DEVICE_STATUS: '/api/device-permission/get-by-statuses',
+  CHANGE_STATUS: '/api/device-permission/change-status'
 }
 
 export default {
