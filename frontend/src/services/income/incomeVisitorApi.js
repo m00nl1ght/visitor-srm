@@ -1,10 +1,9 @@
-import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  ON_TERRITORY: BASE_URL + '/api/income-visitor/on-territory',
-  OUT: BASE_URL + '/api/incomeVisitor/out',
-  IN: BASE_URL + '/api/incomeVisitor/in'
+  ON_TERRITORY: '/api/income-visitor/on-territory',
+  OUT: '/api/income-visitor/leave-territory',
+  IN: '/api/income-visitor/enter-territory'
 }
 
 export default {
