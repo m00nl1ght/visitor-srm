@@ -44,7 +44,7 @@ class SecurityTeamReportController extends Controller
   {
     try {
       $data = $this->securityTeamService->reportDataById($teamId);
-      
+
       $reportData = [
         'visitors' => $data->income_visitors,
         'cars' => $data->income_cars,
@@ -79,9 +79,9 @@ class SecurityTeamReportController extends Controller
       // // надо еще апишки ролей сделать (админ, Ширяев, охрана), чтобы шаблоны разные были и возможности для устройств
 
       $reportData = $this->getReportData($teamId);
-      return response()->success('Отчет успешно получен', $reportData);
+      return response($reportData);
     } catch (\Exception $exception) {
-      return response()->error('Ошибка получения отчета', $exception->getMessage());
+      return response($exception);
     }
   }
 }

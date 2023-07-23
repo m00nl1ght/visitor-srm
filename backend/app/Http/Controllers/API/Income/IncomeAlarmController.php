@@ -29,9 +29,9 @@ class IncomeAlarmController extends Controller
   {
     try {
       $openAlarms = $this->incomeAlarmService->getOpenAlarms();
-      return response()->success('Список открытых неисправностей получен', $openAlarms);
+      return response($openAlarms);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -56,10 +56,10 @@ class IncomeAlarmController extends Controller
     try {
       $securityTeam = $this->securityTeamService->getActive();
       $incomeAlarm = $this->incomeAlarmService->storeAlarm($request, $securityTeam->id);
-      return response()->success('Событие добавлено успешно', $incomeAlarm);
+      return response($incomeAlarm);
       // return response()->success('Событие добавлено успешно', $securityTeam->id);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -73,9 +73,9 @@ class IncomeAlarmController extends Controller
   {
     try {
       $incomeAlarm = $this->incomeAlarmService->showEvent($id);
-      return response()->success('Событие получено успешно', $incomeAlarm);
+      return response($incomeAlarm);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -101,9 +101,9 @@ class IncomeAlarmController extends Controller
   {
     try {
       $alarm = $this->incomeAlarmService->updateAlarm($id, $request);
-      return response()->success('Событие обновлено успешно', $alarm);
+      return response($alarm);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -117,9 +117,9 @@ class IncomeAlarmController extends Controller
   {
     try {
       $alarm = $this->incomeAlarmService->deleteAlarm($id);
-      return response()->success('Событие обновлено удалено', $alarm);
+      return response($alarm);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -127,9 +127,9 @@ class IncomeAlarmController extends Controller
   {
     try {
       $alarm = $this->incomeAlarmService->closeAlarm($request);
-      return response()->success('Событие обновлено успешно', $alarm);
+      return response($alarm);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -137,9 +137,9 @@ class IncomeAlarmController extends Controller
   {
     try {
       $alarm = $this->incomeAlarmService->getBySecurityTeam($request->query('id'));
-      return response()->success('Событие обновлено успешно', $alarm);
+      return response($alarm);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 }

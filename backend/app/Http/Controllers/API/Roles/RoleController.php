@@ -25,8 +25,12 @@ class RoleController extends Controller
    */
   public function index()
   {
-    $list = $this->rolesService->getList();
-    return response()->success('Roles list received', $list);
+    try {
+      $list = $this->rolesService->getList();
+      return response($list);
+    } catch (\Exception $exception) {
+      return response($exception);
+    }
   }
 
   /**

@@ -91,9 +91,9 @@ class IncomeVisitorController extends Controller
       ];
       $incomeVisitor = $this->incomeVisitorService->enterVisitor($data);
 
-      return response()->success('Посетитель успешно зарегистрирован', $incomeVisitor);
+      return response($incomeVisitor);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -110,9 +110,9 @@ class IncomeVisitorController extends Controller
       $this->cardService->changeStatus($cardId, 0);
 
       $outVisitor = $this->incomeVisitorService->leaveVisitor($request);
-      return response()->success('Посетитель вышел', $outVisitor);
+      return response($outVisitor);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -125,9 +125,9 @@ class IncomeVisitorController extends Controller
   {
     try {
       $onTerrytory = $this->incomeVisitorService->getVisitorsOnTerrytory();
-      return response()->success('Список посетителей получен успешно', $onTerrytory);
+      return response($onTerrytory);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 }

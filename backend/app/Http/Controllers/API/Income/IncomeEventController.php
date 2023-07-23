@@ -29,9 +29,9 @@ class IncomeEventController extends Controller
   {
     try {
       $incomeEvent = $this->incomeEventService->getEvent();
-      return response()->success('Список успешно получен', $incomeEvent);
+      return response($incomeEvent);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -56,9 +56,9 @@ class IncomeEventController extends Controller
     try {
       $securityTeam = $this->securityTeamService->getActive();
       $incomeEvent = $this->incomeEventService->storeEvent($request, $securityTeam->id);
-      return response()->success('Событие добавлено успешно', $incomeEvent);
+      return response($incomeEvent);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -72,9 +72,9 @@ class IncomeEventController extends Controller
   {
     try {
       $incomeEvent = $this->incomeEventService->showEvent($id);
-      return response()->success('Событие получено успешно', $incomeEvent);
+      return response($incomeEvent);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -99,9 +99,9 @@ class IncomeEventController extends Controller
   {
     try {
       $incomeEvent = $this->incomeEventService->updateEvent($id, $request);
-      return response()->success('Событие успешно обновлено', $incomeEvent);
+      return response($incomeEvent);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -115,9 +115,9 @@ class IncomeEventController extends Controller
   {
     try {
       $event = $this->incomeEventService->deleteEvent($id);
-      return response()->success('Событие обновлено удалено', $event);
+      return response($event);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 }

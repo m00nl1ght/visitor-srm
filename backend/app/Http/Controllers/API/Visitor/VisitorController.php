@@ -13,23 +13,22 @@ class VisitorController extends Controller
 
   public function __construct(VisitorService $visitorService)
   {
-      $this->visitorService = $visitorService;
+    $this->visitorService = $visitorService;
   }
 
-    /**
-     * Search by part of surname
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function searchBySurname(Request $request)
-    {
-      try {
-        $visitorList = $this->visitorService->searchBySurname($request->last_name);
-        return response()->success('Список для поиска получен', $visitorList);
-      } catch (\Exception $exception) {
-        return response()->error($exception);
-      }
-        
+  /**
+   * Search by part of surname
+   * @param  \Illuminate\Http\Request  $request
+   * 
+   * @return \Illuminate\Http\Response
+   */
+  public function searchBySurname(Request $request)
+  {
+    try {
+      $visitorList = $this->visitorService->searchBySurname($request->last_name);
+      return response($visitorList);
+    } catch (\Exception $exception) {
+      return response($exception);
     }
+  }
 }

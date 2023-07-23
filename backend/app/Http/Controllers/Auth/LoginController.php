@@ -30,7 +30,7 @@ class LoginController extends Controller
       }
 
       $token = $request->user()->createToken('api', $rights);
-      return response()->success([], $token->plainTextToken);
+      return response($token->plainTextToken);
     }
 
     return response()->json([], Response::HTTP_UNAUTHORIZED);
@@ -39,10 +39,10 @@ class LoginController extends Controller
   public function logout(Request $request)
   {
     // $user = Auth::user();
-    
-    return response()->success('Отчет успешно полученdd', Auth::user());
+
+    // return response()->success('Отчет успешно полученdd', Auth::user());
 
     $request->user()->currentAccessToken()->delete();
-    return response()->success('Отчет успешно получен', Response::HTTP_OK);
+    return response()->json([], Response::HTTP_OK);
   }
 }

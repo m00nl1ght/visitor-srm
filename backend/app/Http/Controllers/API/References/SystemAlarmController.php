@@ -24,10 +24,11 @@ class SystemAlarmController extends Controller
    */
   public function index()
   {
-    $list = $this->systemAlarmService->getList();
-    return response()->success('Список категорий получен', $list);
-
-    // $users = User::all();
-    // return response()->success('Список пользователе получен', $users);
+    try {
+      $list = $this->systemAlarmService->getList();
+      return response($list);
+    } catch (\Exception $exception) {
+      return response($exception);
+    }
   }
 }

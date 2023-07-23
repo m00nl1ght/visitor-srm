@@ -32,7 +32,7 @@ class UserController extends Controller
       $roles[] = $role->slug;
     }
 
-    return response()->success('Текущий пользователь получен', array(
+    return response(array(
       "id" => $user->id,
       "name" => $user->name,
       "email" => $user->email,
@@ -48,7 +48,7 @@ class UserController extends Controller
   public function index()
   {
     $list = $this->usersService->getList();
-    return response()->success('Список пользователе получен', $list);
+    return response($list);
 
     // $users = User::all();
     // return response()->success('Список пользователе получен', $users);
@@ -63,7 +63,7 @@ class UserController extends Controller
   public function show($id)
   {
     $user = $this->usersService->getUserById($id);
-    return response()->success('User is received', $user);
+    return response($user);
   }
 
 
@@ -76,13 +76,13 @@ class UserController extends Controller
   public function destroy($id)
   {
     $user = $this->usersService->deleteUser($id);
-    return response()->success('User is deleted', $user);
+    return response($user);
   }
 
 
   public function addUserRoles(Request $request)
   {
     $result = $this->usersService->addUserRoles($request->query('id'), $request->roles);
-    return response()->success('Roles is addited', $result);
+    return response($result);
   }
 }

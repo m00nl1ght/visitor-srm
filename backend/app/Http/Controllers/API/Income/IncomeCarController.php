@@ -94,9 +94,9 @@ class IncomeCarController extends Controller
       ];
       $incomeCar = $this->incomeCarService->enterCar($data);
 
-      return response()->success('Автомобиль успешно зарегистрирован', $incomeCar);
+      return response($incomeCar);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -110,9 +110,9 @@ class IncomeCarController extends Controller
   {
     try {
       $outCar = $this->incomeCarService->leaveCar($request);
-      return response()->success('Автомобиль покинул территорию', $outCar);
+      return response($outCar);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -125,9 +125,9 @@ class IncomeCarController extends Controller
   {
     try {
       $onTerrytory = $this->incomeCarService->getCarsOnTerrytory();
-      return response()->success('Список автомобилей получен успешно', $onTerrytory);
+      return response($onTerrytory);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 }

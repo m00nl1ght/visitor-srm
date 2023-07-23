@@ -11,18 +11,17 @@ class CardController extends Controller
 {
   private $cardService;
 
-  public function __construct
-  (
+  public function __construct(
     CardService $cardService
-  )
-  {
-      $this->cardService = $cardService;
+  ) {
+    $this->cardService = $cardService;
   }
 
-  public function index() {
+  public function index()
+  {
     try {
       $cards = $this->cardService->getList();
-      return response()->success('Список карт получен', $cards);
+      return response($cards);
     } catch (\Exception $exception) {
       return response($exception);
     }

@@ -63,12 +63,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::resource('/security-team', SecurityTeamController::class); //рабочая группа
 
   //Роуты настроек рабочей смены охраны
-  Route::resource('/workingSecurityTeam/settings', WorkingSecurityTeamSettingController::class);
+  Route::resource('/workingSecurityTeam/settings', WorkingSecurityTeamSettingController::class); //TODO delete
 
   // Роуты регистрации поситителей
-  // Route::resource('/registrationVisitors', RegistrationVisitorController::class);
   Route::resource('/visitor/categories', VisitorCategoryController::class);
-  Route::post('/visitor/searchBySurname', [VisitorController::class, 'searchBySurname']);
+  Route::post('/visitor/search-by-surname', [VisitorController::class, 'searchBySurname']);
   Route::post('/income-visitor/enter-territory', [IncomeVisitorController::class, 'enterTerritory']);
   Route::post('/income-visitor/leave-territory', [IncomeVisitorController::class, 'leaveTerritory']);
   Route::get('/income-visitor/on-territory', [IncomeVisitorController::class, 'onTerritory']);

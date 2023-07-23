@@ -41,9 +41,9 @@ class IncomeFoggotenCardController extends Controller
   {
     try {
       $list = $this->incomeFoggotenCardService->getIssuedCardList();
-      return response()->success('Список успешно получен', $list);
+      return response($list);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -98,9 +98,9 @@ class IncomeFoggotenCardController extends Controller
       ];
       $resp = $this->incomeFoggotenCardService->setIssuedCard($data);
 
-      return response()->success('Карта успешно выдана', $resp);
+      return response($resp);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -138,9 +138,9 @@ class IncomeFoggotenCardController extends Controller
     try {
       $incomeFoggotenCard = $this->incomeFoggotenCardService->returnIssuedCard($id, $request->out_time);
       $this->cardService->changeStatus($incomeFoggotenCard->card_id, false);
-      return response()->success('Карта успешно вернута');
+      return response(null);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 
@@ -155,9 +155,9 @@ class IncomeFoggotenCardController extends Controller
     try {
       $incomeFoggotenCard = $this->incomeFoggotenCardService->deleteIncomeCard($id);
       $this->cardService->changeStatus($incomeFoggotenCard->card_id, false);
-      return response()->success('Карта успешно удалена');
+      return response(null);
     } catch (\Exception $exception) {
-      return response()->error($exception);
+      return response($exception);
     }
   }
 }
