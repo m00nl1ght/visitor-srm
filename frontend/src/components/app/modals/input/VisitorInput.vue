@@ -5,6 +5,8 @@
       :callback="callback"
     />
 
+    <slot name="autoinsert"></slot>
+
     <v-text-field
       label="Телефон"
       :value="data.phone"

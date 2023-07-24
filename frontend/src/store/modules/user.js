@@ -69,7 +69,7 @@ const actions = {
   async getUserList({ commit }) {
     try {
       const { data } = await api.getUserList()
-      commit('storeUserList', data.data)
+      commit('storeUserList', data)
     } catch (error) {
       commit('storeError', error)
     }
@@ -78,7 +78,7 @@ const actions = {
   async getCurrentUser({ commit }) {
     try {
       const { data } = await api.getCurrentUser()
-      commit('storeCurrentUser', data.data)
+      commit('storeCurrentUser', data)
     } catch (error) {
       commit('storeError', error)
     }
@@ -96,7 +96,7 @@ const actions = {
   async getRolesList ({ commit }) {
     try {
       const { data } = await api.getRolesList()
-      commit('showRolesList', data.data)
+      commit('showRolesList', data)
     } catch (error) {
       console.log(error)
     }

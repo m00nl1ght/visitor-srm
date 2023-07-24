@@ -1,13 +1,13 @@
 import axios from 'axios'
 
 const urls = {
-  EMPLOYEE: '/api/employee',
+  SEARCH_BY_NAME: '/api/employee/search-by-surname',
   GET_NAME_EMPLOYEE: '/api/employee'
 }
 
 export default {
   searchBySurname(payload) {
-    return axios.post(urls.EMPLOYEE + '/searchBySurname', payload)
+    return axios.post(urls.SEARCH_BY_NAME, payload)
   },
 
   getNameEmployee() {

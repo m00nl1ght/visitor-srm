@@ -7,6 +7,7 @@ import VueHtmlToPaper from 'vue-html-to-paper'
 import moment from 'moment'
 import axios from 'axios'
 import { logoutPage } from '@/router/names/index.js'
+import { withLoadingIndicator, withNotifier } from '@/store/helpers/requestHelpers.js'
 
 import '@/globalRouterHooks'
 
@@ -22,6 +23,8 @@ const VueHtmlToPaperOptions = {
 Vue.use(VueHtmlToPaper, VueHtmlToPaperOptions)
 Vue.config.productionTip = false
 Vue.prototype.$moment = moment
+Vue.prototype.$withLoadingIndicator = withLoadingIndicator
+Vue.prototype.$withNotifier = withNotifier
 
 async function createApp() {
   // const AUTH_TOKEN = '8|ZFhptoKtKH4xfRzFFwnl7YuMFApJdJhpEpz1XSES'

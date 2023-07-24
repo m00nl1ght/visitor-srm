@@ -1,40 +1,26 @@
 <template>
-  <MainModalLayout
-    :is-open="isOpen"
-    :on-close="onClose"
-    :on-confirm="onConfirm"
-    :title="'Добавить нового посетителя'"
-  >
-    <v-form
-      ref="form"
-      v-model="valid"
-      class="pt-5"
-      lazy-validation
-    >
+  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="'Добавить нового посетителя'" :isLoading="isLoading">
+    <v-form ref="form" v-model="valid" class="pt-5" lazy-validation>
       <h2>Данные посетителя</h2>
+
       <v-divider class="my-2" />
-      <VisitorInput
-        :data="formValue.visitor"
-        :callback="setVisitor"
-      />
-      <AutoinsertPerson
-        :active="showAutoinsertVisitor"
-        :items="autoinsertVisitorList"
-        :on-click="autoinsertVisitor"
-        :on-close="() => (showAutoinsertVisitor = false)"
-      />
-      <CategoryInput
-        :value="formValue.categoryId"
-        :items="categoryList"
-        :on-change="setCategory"
-      />
+
+      <VisitorInput :data="formValue.visitor" :callback="setVisitor">
+        <template #autoinsert>
+          <AutoinsertPerson
+            :active="showAutoinsertVisitor"
+            :items="autoinsertVisitorList"
+            :on-click="autoinsertVisitor"
+            :on-close="() => (showAutoinsertVisitor = false)"
+          />
+        </template>
+      </VisitorInput>
+
+      <CategoryInput :value="formValue.categoryId" :items="categoryList" :on-change="setCategory" />
 
       <h2>Данные принимающей стороны</h2>
       <v-divider class="my-2" />
-      <EmployeeInput
-        :data="formValue.employee"
-        :callback="setEmployee"
-      />
+      <EmployeeInput :data="formValue.employee" :callback="setEmployee" />
       <AutoinsertPerson
         :active="showAutoinsertEmployee"
         :items="autoinsertEmployeeList"
@@ -54,11 +40,7 @@
         @change="setCard"
       />
 
-      <SecurityOperatorInput
-        :value="formValue.securityId"
-        :items="currentGroupMembers"
-        :on-change="setSecurity"
-      />
+      <SecurityOperatorInput :value="formValue.securityId" :items="currentGroupMembers" :on-change="setSecurity" />
     </v-form>
   </MainModalLayout>
 </template>
@@ -70,6 +52,7 @@ import EmployeeInput from '@/components/app/modals/input/EmployeeInput.vue'
 import CategoryInput from '@/components/app/modals/input/CategoryInput.vue'
 import SecurityOperatorInput from '@/components/app/modals/input/SecurityOperatorInput.vue'
 import AutoinsertPerson from '@/components/app/autoinsert/AutoinsertPerson.vue'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   components: {
@@ -91,43 +74,26 @@ export default {
   },
 
   computed: {
-    isOpen() {
-      return this.$store.getters['incomeVisitor/getOpenModal']
-    },
-    formValue() {
-      return this.$store.getters['incomeVisitor/getFormValue']
-    },
-    currentGroupMembers() {
-      return this.$store.getters['securityGroup/getCurrentGroupMembers'] || []
-    },
-    operator() {
-      return this.$store.getters['securityGroup/getCurrentGroupOperator']
-    },
-    cardList() {
-      return this.$store.getters['accessCard/getFreeVisitorCard']
-    },
-    categoryList() {
-      return this.$store.state.visitorCategory.categoryList
-    },
-    autoinsertEmployeeList() {
-      return this.$store.state.autoinsert.autoinsertEmployeeList
-    },
-    autoinsertVisitorList() {
-      return this.$store.state.autoinsert.autoinsertVisitorList
-    }
-  },
+    ...mapState('incomeVisitor', {
+      isOpen: 'openModal',
+      formValue: 'formValue'
+    }),
 
-  watch: {
-    operator() {
-      if (this.currentGroupMembers) {
-        this.setSecurity(this.operator.id)
-      }
-    }
-  },
+    ...mapState({
+      categoryList: (state) => state.visitorCategory.categoryList,
+      autoinsertEmployeeList: (state) => state.autoinsert.autoinsertEmployeeList,
+      autoinsertVisitorList: (state) => state.autoinsert.autoinsertVisitorList
+    }),
 
-  mounted() {
-    this.$store.dispatch('accessCard/getCardList')
-    this.$store.dispatch('visitorCategory/getCategoryList')
+    ...mapGetters({
+      currentGroupMembers: 'securityGroup/getCurrentGroupMembers',
+      operator: 'securityGroup/getCurrentGroupOperator',
+      cardList: 'accessCard/getFreeVisitorCard'
+    }),
+
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('registrateNewVisitor')
+    }
   },
 
   methods: {
@@ -135,9 +101,9 @@ export default {
       this.$store.commit('incomeVisitor/closeModal')
     },
 
-    onConfirm() {
+    async onConfirm() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('incomeVisitor/registrateNewVisitor')
+        await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeVisitor/registrateNewVisitor'), ['registrateNewVisitor'])
       }
     },
 
@@ -178,6 +144,19 @@ export default {
     setCategory(value) {
       this.$store.commit('incomeVisitor/storeFormCategory', value)
     }
+  },
+
+  watch: {
+    operator() {
+      if (this.currentGroupMembers) {
+        this.setSecurity(this.operator.id)
+      }
+    }
+  },
+
+  mounted() {
+    this.$store.dispatch('accessCard/getCardList')
+    this.$store.dispatch('visitorCategory/getCategoryList')
   }
 }
 </script>

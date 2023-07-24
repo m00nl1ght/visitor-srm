@@ -16,7 +16,7 @@ const actions = {
   async getSystemAlarmList({ commit }) {
     try {
       const { data } = await api.getSystemAlarmList()
-      commit('storeSystemAlarmList', data.data)
+      commit('storeSystemAlarmList', data)
     } catch (error) {
       console.log(error)
     }

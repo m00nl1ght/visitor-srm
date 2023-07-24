@@ -25,11 +25,7 @@ const state = () => ({
   }
 })
 
-const getters = {
-  getIncomeVisitorList: (state) => state.incomeVisitorList,
-  getOpenModal: (state) => state.openModal,
-  getFormValue: (state) => state.formValue
-}
+const getters = {}
 
 const mutations = {
   storeError(state, payload) {
@@ -115,7 +111,7 @@ const actions = {
   async getIncomeVisitorList({ commit }) {
     try {
       const { data } = await api.getIncomeVisitorList()
-      commit('storeImcomeVisitorList', data.data)
+      commit('storeImcomeVisitorList', data)
     } catch (error) {
       commit('storeError', error)
     }
@@ -124,7 +120,7 @@ const actions = {
   async registrateNewVisitor({ state, dispatch, commit }) {
     try {
       const { data } = await api.registrateNewVisitor(state.formValue)
-      commit('addIncomeVisitor', data.data)
+      commit('addIncomeVisitor', data)
       commit('closeModal')
       dispatch('accessCard/getCardList', null, { root: true })
     } catch (error) {

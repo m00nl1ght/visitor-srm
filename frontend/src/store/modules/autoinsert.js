@@ -21,7 +21,7 @@ const actions = {
   async getEmployeeForAutoinsert({ commit }, payload) {
     try {
       const { data } = await employeeApi.searchBySurname({ lastName: payload })
-      commit('setAutoinsertEmployeeList', data.data)
+      commit('setAutoinsertEmployeeList', data)
     } catch (error) {
       console.log(error)
     }
@@ -30,7 +30,7 @@ const actions = {
   async getVisitorForAutoinsert({ commit }, payload) {
     try {
       const { data } = await visitorApi.searchBySurname({ lastName: payload })
-      commit('setAutoinsertVisitorList', data.data)
+      commit('setAutoinsertVisitorList', data)
     } catch (error) {
       console.log(error)
     }

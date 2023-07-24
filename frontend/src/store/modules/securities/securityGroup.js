@@ -24,7 +24,7 @@ const getters = {
       group.push(state.currentGroup.operator)
       return group
     } else {
-      return null
+      return []
     }
   },
   getCurrentGroupOperator: (state) => (state.currentGroup && state.currentGroup.length !== 0 ? state.currentGroup.operator : null)
@@ -66,7 +66,7 @@ const actions = {
   async getCurrentGroup({ commit }, payload) {
     try {
       const { data } = await api.getCurrentGroup(payload)
-      commit('addGroup', data.data)
+      commit('addGroup', data)
     } catch (error) {
       commit('storeError', payload)
     }
@@ -75,7 +75,7 @@ const actions = {
   async addGroup({ commit }, payload) {
     try {
       const { data } = await api.addGroup(payload)
-      commit('addGroup', data.data)
+      commit('addGroup', data)
       commit('securityGroupModalClose')
     } catch (error) {
       commit('storeError', error)
@@ -85,7 +85,7 @@ const actions = {
   async editGroup({ commit }, payload) {
     try {
       const { data } = await api.editGroup(payload)
-      commit('addGroup', data.data)
+      commit('addGroup', data)
       commit('securityGroupModalClose')
     } catch (error) {
       commit('storeError', error)

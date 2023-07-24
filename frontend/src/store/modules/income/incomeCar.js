@@ -122,7 +122,7 @@ const actions = {
   async getIncomeCarList({ commit }) {
     try {
       const { data } = await api.getIncomeCarList()
-      commit('storeImcomeCarList', data.data)
+      commit('storeImcomeCarList', data)
     } catch (error) {
       commit('storeError', error)
     }
@@ -131,7 +131,7 @@ const actions = {
   async registrateNewCar({ state, dispatch, commit }) {
     try {
       const { data } = await api.registrateNewCar(state.formValue)
-      commit('addIncomeCar', data.data)
+      commit('addIncomeCar', data)
       commit('closeModal')
       dispatch('accessCard/getCardList', null, { root: true })
     } catch (error) {

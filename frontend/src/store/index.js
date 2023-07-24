@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
+import appNotifications from '@/store/modules/app/appNotifications.js'
+import appProgressBanner from '@/store/modules/app/appProgressBanner.js'
+
 import user from '@/store/modules/user.js'
 import auth from '@/store/modules/auth.js'
 import globalSnackbar from '@/store/modules/globalSnackbar'
@@ -24,6 +28,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
+    appNotifications,
+    appProgressBanner,
     user,
     auth,
     globalSnackbar,

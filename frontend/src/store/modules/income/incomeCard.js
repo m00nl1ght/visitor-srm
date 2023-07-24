@@ -80,7 +80,7 @@ const actions = {
   async getIncomeCardList({ commit }) {
     try {
       const { data } = await api.getIncomeCardList()
-      commit('storeIncomeCardList', data.data)
+      commit('storeIncomeCardList', data)
     } catch (error) {
       console.log(error)
     }

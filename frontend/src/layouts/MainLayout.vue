@@ -1,12 +1,14 @@
 <template>
   <v-app>
-    <AppSnackbar />
+    <AppProgressBanner />
 
     <AppNavbar />
 
     <AppHeader />
 
     <v-main>
+      <AppNotificationBanner />
+      
       <v-container fluid>
         <router-view />
       </v-container>
@@ -17,15 +19,18 @@
 </template>
 
 <script>
+import AppProgressBanner from '@/components/app/AppProgressBanner.vue'
+import AppNotificationBanner from '@/components/app/AppNotificationBanner.vue'
+
 import AppNavbar from '@/components/app/AppNavbar.vue'
-import AppSnackbar from '@/components/app/AppSnackbar.vue'
 import AppHeader from '@/components/app/AppHeader.vue'
 import AppFooter from '@/components/app/AppFooter.vue'
 
 export default {
   components: {
+    AppProgressBanner,
+    AppNotificationBanner,
     AppNavbar,
-    AppSnackbar,
     AppHeader,
     AppFooter
   },

@@ -89,7 +89,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
   //Сотрудники
   Route::get('/employee', [EmployeeController::class, 'index']);
-  Route::post('/employee/searchBySurname', [EmployeeController::class, 'searchBySurname']);
+  Route::post('/employee/search-by-surname', [EmployeeController::class, 'searchBySurname']);
 
   //Отчеты
   Route::get('/security-team-report/by-team', [SecurityTeamReportController::class, 'bySecurityTeam']);

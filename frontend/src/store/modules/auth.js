@@ -19,7 +19,7 @@ const actions = {
   async login({ commit }, payload) {
     try {
       const { data } = await api.login(payload)
-      const token = data.data
+      const token = data
       localStorage.setItem('token', token)
       commit('setToken', token)
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`

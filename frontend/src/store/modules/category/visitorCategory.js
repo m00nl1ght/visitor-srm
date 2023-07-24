@@ -19,7 +19,7 @@ const actions = {
     try {
       if (state.categoryList.length == 0) {
         const { data } = await api.getCategoryList()
-        commit('storeCategoryList', data.data)
+        commit('storeCategoryList', data)
       }
     } catch (error) {
       console.log(error)

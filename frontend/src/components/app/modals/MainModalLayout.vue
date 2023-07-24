@@ -22,7 +22,7 @@
         <v-btn text @click="onClose">
           {{ closeBtnTitle }}
         </v-btn>
-        <v-btn color="primary" text @click="onConfirm">
+        <v-btn color="primary" text @click="onConfirm" :loading="isLoading">
           {{ confirmBtnTitle }}
         </v-btn>
       </v-card-actions>
@@ -48,6 +48,10 @@ export default {
     confirmBtnTitle: {
       type: String,
       default: 'Сохранить'
+    },
+    isLoading: {
+      type: Boolean,
+      default: false
     }
   },
 

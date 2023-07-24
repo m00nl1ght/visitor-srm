@@ -84,7 +84,7 @@ const actions = {
   async getSecurities({ commit }) {
     try {
       const { data } = await api.getSecurities()
-      commit('storeSecurities', data.data)
+      commit('storeSecurities', data)
     } catch (error) {
       commit('storeError', error)
     }
@@ -94,10 +94,10 @@ const actions = {
     try {
       if (state.addFormValue.id) {
         const { data } = await api.editSecurity(state.addFormValue)
-        commit('storeEditSecurities', data.data)
+        commit('storeEditSecurities', data)
       } else {
         const { data } = await api.addSecurity(state.addFormValue)
-        commit('storeAddSecurity', data.data)
+        commit('storeAddSecurity', data)
       }
 
       commit('setSecurityModalOpen', false)
@@ -120,7 +120,7 @@ const actions = {
   async getSecurityRoles({ commit }) {
     try {
       const { data } = await api.getSecurityRoles()
-      commit('storeSecurityRoles', data.data)
+      commit('storeSecurityRoles', data)
     } catch (error) {
       console.log(error)
       commit('storeError', error)

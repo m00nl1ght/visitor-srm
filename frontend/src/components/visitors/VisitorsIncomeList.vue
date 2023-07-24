@@ -1,14 +1,7 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="items"
-  >
+  <v-data-table :headers="headers" :items="items" :loading="isLoading">
     <template #[`item.printBtn`]="{ item }">
-      <v-btn
-        :disabled="disabled"
-        icon
-        @click="printCard({ id: item.id })"
-      >
+      <v-btn :disabled="disabled" icon @click="printCard({ id: item.id })">
         <v-icon>mdi-printer</v-icon>
       </v-btn>
     </template>
@@ -27,30 +20,18 @@
           v-if="!disabled"
           :value="exitTime[item.id] ? exitTime[item.id] : null"
           type="time"
-          @change="value => setExitTime({ id: item.id, value })"
+          @change="(value) => setExitTime({ id: item.id, value })"
         />
 
-        <v-btn
-          outlined
-          small
-          color="primary"
-          class="ml-5"
-          :disabled="disabled"
-          @click="exitVisitor({ id: item.id })"
-        >
-          <v-icon
-            small
-            class="mr-2"
-          >
-            mdi-exit-run
-          </v-icon>
+        <v-btn outlined small color="primary" class="ml-5" :disabled="disabled" @click="exitVisitor({ id: item.id })">
+          <v-icon small class="mr-2"> mdi-exit-run </v-icon>
           Вышел
         </v-btn>
       </div>
     </template>
 
     <template #no-data>
-      <p>Данные отсутствуют...</p>
+      <p>Территория пуста, все посетители дома...</p>
     </template>
   </v-data-table>
 </template>
@@ -64,6 +45,10 @@ export default {
       default: () => []
     },
     disabled: {
+      type: Boolean,
+      default: false
+    },
+    isLoading: {
       type: Boolean,
       default: false
     }

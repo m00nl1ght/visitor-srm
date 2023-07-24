@@ -53,7 +53,7 @@ const actions = {
   async getOpenEventList({ commit }) {
     try {
       const { data } = await api.getOpenEventList()
-      commit('storeOpenEventList', data.data)
+      commit('storeOpenEventList', data)
     } catch (error) {
       console.log(error)
     }
@@ -63,10 +63,10 @@ const actions = {
     try {
       if (state.formValue.id) {
         const { data } = await api.editEvent(state.formValue)
-        commit('storeEditEvent', data.data)
+        commit('storeEditEvent', data)
       } else {
         const { data } = await api.addEvent(state.formValue)
-        commit('storeNewEvent', data.data)
+        commit('storeNewEvent', data)
       }
 
       commit('closeModal')
@@ -78,7 +78,7 @@ const actions = {
   async deleteEvent({ commit }, id) {
     try {
       const { data } = await api.deleteEvent(id)
-      commit('storeOpenEventList', data.data)
+      commit('storeOpenEventList', data)
     } catch (error) {
       console.log(error)
     }

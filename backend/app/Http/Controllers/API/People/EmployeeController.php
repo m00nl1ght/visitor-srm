@@ -24,7 +24,7 @@ class EmployeeController extends Controller
   {
     try {
       $employee = $this->employeeService->getEmployee();
-      return response($employee)->success('Список открытых неисправностей получен', $employee);
+      return response($employee);
     } catch (\Exception $exception) {
       return response($exception);
     }

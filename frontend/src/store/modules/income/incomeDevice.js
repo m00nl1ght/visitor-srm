@@ -58,7 +58,7 @@ const actions = {
   async getNetworkNameList({ commit }) {
     try {
       const { data } = await api.getNetworkNameList()
-      commit('storeNetworkNameList', data.data)
+      commit('storeNetworkNameList', data)
     } catch (error) {
       console.log(error)
     }
@@ -68,7 +68,7 @@ const actions = {
     try {
       const { data } = await api_employee.getNameEmployee()
 
-      commit('storeNameEmployee', data.data)
+      commit('storeNameEmployee', data)
     } catch (error) {
       console.log(error)
     }
@@ -95,7 +95,7 @@ const actions = {
   async getListDeviceStatus({ commit }, statuses) {
     try {
       const { data } = await api.getListDeviceStatus(statuses)
-      commit('listDeviceStatus', data.data)
+      commit('listDeviceStatus', data)
     } catch (error) {
       console.log(error)
     }

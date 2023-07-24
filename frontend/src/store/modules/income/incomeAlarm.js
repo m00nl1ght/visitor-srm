@@ -48,7 +48,7 @@ const actions = {
   async getOpenAlarmList({ commit }) {
     try {
       const { data } = await api.getOpenAlarmList()
-      commit('storeOpenAlarmList', data.data)
+      commit('storeOpenAlarmList', data)
     } catch (error) {
       console.log(error)
     }
@@ -58,10 +58,10 @@ const actions = {
     try {
       if (state.formValue.id) {
         const { data } = await api.editAlarm(state.formValue)
-        commit('storeOpenAlarmList', data.data)
+        commit('storeOpenAlarmList', data)
       } else {
         const { data } = await api.addAlarm(state.formValue)
-        commit('storeOpenAlarmList', data.data)
+        commit('storeOpenAlarmList', data)
       }
 
       commit('closeModal')
@@ -73,7 +73,7 @@ const actions = {
   async deleteAlarm({ commit }, id) {
     try {
       const { data } = await api.deleteAlarm(id)
-      commit('storeOpenAlarmList', data.data)
+      commit('storeOpenAlarmList', data)
     } catch (error) {
       console.log(error)
     }
@@ -82,7 +82,7 @@ const actions = {
   async closeAlarm({ commit }, id) {
     try {
       const { data } = await api.closeAlarm(id)
-      commit('completedAlarm', data.data.id)
+      commit('completedAlarm', data.id)
     } catch (error) {
       console.log(error)
     }

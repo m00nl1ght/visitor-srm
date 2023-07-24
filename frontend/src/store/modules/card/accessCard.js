@@ -19,7 +19,7 @@ const actions = {
   async getCardList({ commit }) {
     try {
       const { data } = await api.getCardList()
-      commit('storeCardList', data.data)
+      commit('storeCardList', data)
     } catch (error) {
       console.log(error)
     }
