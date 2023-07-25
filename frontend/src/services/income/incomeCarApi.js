@@ -2,9 +2,9 @@ import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  ON_TERRITORY: BASE_URL + '/api/incomeCar/onTerritory',
-  OUT: BASE_URL + '/api/incomeCar/out',
-  IN: BASE_URL + '/api/incomeCar/in'
+  ON_TERRITORY: BASE_URL + '/api/income-car/on-territory',
+  OUT: BASE_URL + '/api/income-car/leave-territory',
+  IN: BASE_URL + '/api/income-car/enter-territory'
 }
 
 export default {

@@ -2,7 +2,7 @@ import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  SECURITY_GROUP: BASE_URL + '/api/workingSecurityTeams'
+  SECURITY_GROUP: BASE_URL + '/api/security-team'
 }
 
 export default {

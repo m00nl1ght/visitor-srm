@@ -2,7 +2,7 @@ import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  ALARM: BASE_URL + '/api/incomeAlarm'
+  ALARM: BASE_URL + '/api/income-alarm'
 }
 
 export default {

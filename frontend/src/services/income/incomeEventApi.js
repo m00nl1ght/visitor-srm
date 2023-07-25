@@ -2,7 +2,7 @@ import { BASE_URL } from '@/config.js'
 import axios from 'axios'
 
 const urls = {
-  EVENT: BASE_URL + '/api/incomeEvent'
+  EVENT: BASE_URL + '/api/income-event'
 }
 
 export default {
