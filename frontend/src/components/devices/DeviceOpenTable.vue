@@ -103,15 +103,6 @@ export default {
       this.$store.dispatch('incomeDevice/getListDeviceStatus', this.statuses)
     },
 
-    setTrue() {
-      this.edit = true
-      console.log(this.edit)
-    },
-    setFalse() {
-      this.edit = false
-      console.log(this.edit)
-    },
-
     onEdit(item) {
       this.$store.commit('incomeDevice/openEditModal', item.id)
     },

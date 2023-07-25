@@ -1,10 +1,23 @@
 import api from '@/services/userApi.js'
+import { cloneDeep } from 'lodash'
 
 function defaultFormValue() {
   return {
     name: '',
     email: '',
     password: '',
+  }
+}
+
+function defaultFormRoles() {
+  return {
+    role: [
+      {
+        title: ''
+      }
+    ]
+      
+    
   }
 }
 
@@ -15,7 +28,8 @@ const state = () => ({
   currentUser: undefined,
   openModal: false,
   openModalRoles: false,
-  formValue: defaultFormValue()
+  formValue: defaultFormValue(),
+  formRoles: defaultFormRoles(),
 })
 
 const getters = {
@@ -43,12 +57,17 @@ const mutations = {
   openEditModal(state) {
     state.openModal = true
   },
-  openEditModalRoles(state) {
+  openEditModalRoles(state, id) {
+    state.formRoles = cloneDeep(state.userList.find((item) => item.id === id))
     state.openModalRoles = true
+    console.log('state', state.formRoles)
   },
   closeModal(state) {
     state.openModal = false
     // state.formValue = defaultFormValue()
+  },
+  closeModalRoles(state) {
+    state.openModalRoles = false 
   },
   showRolesList(state, roles) {
     state.rolesList = roles 

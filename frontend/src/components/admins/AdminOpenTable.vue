@@ -32,7 +32,7 @@
               <v-icon>mdi-account-plus</v-icon>
             </v-btn>
           </template>
-          <span>Добавить роль</span>
+          <span>Изменить роль</span>
         </v-tooltip>
       </template>
 
@@ -81,8 +81,9 @@ export default {
       this.$store.dispatch('user/deleteUser', id)
     },
 
-    onEditRole() {
-      this.$store.commit('user/openEditModalRoles')
+    onEditRole(id) {
+      this.$store.commit('user/openEditModalRoles', id)
+      console.log('RoleITEM', id)
     }
   }
 }

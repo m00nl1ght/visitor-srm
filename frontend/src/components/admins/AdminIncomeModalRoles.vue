@@ -1,7 +1,10 @@
 <template>
   <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="title">
     <v-form ref="form" v-model="valid" class="pt-5" lazy-validation>
-    <v-text-field></v-text-field> </v-form>
+      <v-autocomplete v-model="formRoles.role.id" :items="showRolesList" item-text="title" outlined dense chips small-chips label="Роль" multiple deletable-chips>
+      
+      </v-autocomplete>
+    </v-form>
   </MainModalLayout>
 </template>
 
@@ -16,19 +19,32 @@ export default {
   data() {
     return {
       title: 'Добавить роль',
-      valid: true
+      valid: true,
+      currentRole: [],
     }
   },
 
   computed: {
     isOpen() {
-        return this.$store.state.openModalRoles
+      return this.$store.state.user.openModalRoles
+    },
+    showRolesList() {
+      return this.$store.state.user.rolesList
+    },
+    formRoles() {
+      return this.$store.state.user.formRoles
     }
   },
 
   methods: {
-    onClose() {},
+    onClose() {
+      this.$store.commit('user/closeModalRoles')
+    },
     onConfirm() {}
+  },
+
+  mounted() {
+    this.$store.dispatch('user/getRolesList')
   }
 }
 </script>
