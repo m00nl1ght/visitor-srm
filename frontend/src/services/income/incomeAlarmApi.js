@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const urls = {
-  ALARM: '/api/incomeAlarm'
+  ALARM: '/api/income-alarm'
 }
 
 export default {

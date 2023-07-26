@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const urls = {
-  CARD: '/api/incomeFoggotenCard'
+  CARD: '/api/income-foggoten-card'
 }
 
 export default {

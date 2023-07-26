@@ -75,7 +75,7 @@ export default {
     },
     onConfirm() {
       if (this.$refs.form.validate()) {
-        // this.$store.dispatch('user/registration', this.userForm)
+        this.$store.dispatch('user/registration', this.userForm)
         this.$store.commit('user/closeModal')
       }
       this.userForm.name = '',

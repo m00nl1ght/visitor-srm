@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 const urls = {
-  ON_TERRITORY: '/api/incomeCar/onTerritory',
-  OUT: '/api/incomeCar/out',
-  IN: '/api/incomeCar/in'
+  ON_TERRITORY: '/api/income-car/on-territory',
+  OUT: '/api/income-car/leave-territory',
+  IN: '/api/income-car/enter-territory'
 }
 
 export default {

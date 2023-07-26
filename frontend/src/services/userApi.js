@@ -5,7 +5,8 @@ const urls = {
   REQISTRATION: '/api/registration',
   GET_CURRENT_USER: '/api/users/get-current',
   GET_USERS_LIST: '/api/users',
-  GET_ROLES_LIST: '/api/roles'
+  GET_ROLES_LIST: '/api/roles',
+  ADD_ROLES: '/api/add-user-roles'
 }
 export default {
   login(payload) {
@@ -30,5 +31,10 @@ export default {
 
   getRolesList() {
     return axios.get(urls.GET_ROLES_LIST)
+  },
+
+  addRoles(id, roles) {
+    return axios.post(urls.ADD_ROLES, roles, { params: { id: id } })
   }
 }
+//axios.post(url, body, {params: { id: id }})
