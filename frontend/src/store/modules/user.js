@@ -1,23 +1,18 @@
 import api from '@/services/userApi.js'
-import { cloneDeep } from 'lodash'
+// import { cloneDeep } from 'lodash'
 
 function defaultFormValue() {
   return {
     name: '',
     email: '',
-    password: '',
+    password: ''
   }
 }
 
 function defaultFormRoles() {
   return {
-    role: [
-      {
-        title: ''
-      }
-    ]
-      
-    
+    userId: '',
+    roles: []
   }
 }
 
@@ -29,7 +24,8 @@ const state = () => ({
   openModal: false,
   openModalRoles: false,
   formValue: defaultFormValue(),
-  formRoles: defaultFormRoles(),
+  userId: '',
+  roles: [],
 })
 
 const getters = {
@@ -57,31 +53,34 @@ const mutations = {
   openEditModal(state) {
     state.openModal = true
   },
-  openEditModalRoles(state, id) {
-    state.formRoles = cloneDeep(state.userList.find((item) => item.id === id))
+  openEditModalRoles(state, item) {
     state.openModalRoles = true
-    console.log('state', state.formRoles)
+    state.roles = item.role
+    state.userId = item.id
   },
   closeModal(state) {
     state.openModal = false
     // state.formValue = defaultFormValue()
   },
   closeModalRoles(state) {
-    state.openModalRoles = false 
+    state.openModalRoles = false
+    state.openEditModalRoles = defaultFormRoles()
   },
   showRolesList(state, roles) {
-    state.rolesList = roles 
+    state.rolesList = roles
+  },
+  currentUserRoles(state, value) {
+    state.roles = value
   }
 }
 
 const actions = {
-
   async registration({ dispatch }, payload) {
     try {
       await api.registration(payload)
       dispatch('getUserList')
     } catch (error) {
-      console.log (error)
+      console.log(error)
     }
   },
 
@@ -103,7 +102,7 @@ const actions = {
     }
   },
 
-  async deleteUser ({dispatch}, id) {
+  async deleteUser({ dispatch }, id) {
     try {
       await api.deleteUser(id)
       dispatch('getUserList')
@@ -112,10 +111,25 @@ const actions = {
     }
   },
 
-  async getRolesList ({ commit }) {
+  async getRolesList({ commit }) {
     try {
       const { data } = await api.getRolesList()
       commit('showRolesList', data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async addRoles({ dispatch, state }) {
+    try {
+      let arrayRoles = []
+      for (let i = 0; i < state.roles.length; i++) {
+        arrayRoles.push(state.roles[i].id)
+      }
+      await api.addRoles(state.userId, arrayRoles)
+      dispatch('getUserList')
+      state.userId = ''
+      state.roles = []
     } catch (error) {
       console.log(error)
     }

@@ -6,7 +6,8 @@ const urls = {
   REQISTRATION: BASE_URL + '/api/registration',
   GET_CURRENT_USER: BASE_URL + '/api/users/get-current',
   GET_USERS_LIST: BASE_URL + '/api/users',
-  GET_ROLES_LIST: BASE_URL + '/api/roles'
+  GET_ROLES_LIST: BASE_URL + '/api/roles',
+  ADD_ROLES: BASE_URL + '/api/add-user-roles'
 }
 export default {
   login(payload) {
@@ -31,5 +32,12 @@ export default {
 
   getRolesList () {
     return axios.get(urls.GET_ROLES_LIST)
+  },
+
+  addRoles(id, roles) {
+    console.log('roles', roles)
+    console.log('id', id)
+    return axios.post(urls.ADD_ROLES, roles, {params: {id: id}})
   }
 }
+//axios.post(url, body, {params: { id: id }})

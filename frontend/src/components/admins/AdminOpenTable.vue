@@ -28,7 +28,7 @@
 
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn v-bind="attrs" v-on="on" icon @click="onEditRole(item.id)">
+            <v-btn v-bind="attrs" v-on="on" icon @click="onEditRole(item)">
               <v-icon>mdi-account-plus</v-icon>
             </v-btn>
           </template>
@@ -81,9 +81,9 @@ export default {
       this.$store.dispatch('user/deleteUser', id)
     },
 
-    onEditRole(id) {
-      this.$store.commit('user/openEditModalRoles', id)
-      console.log('RoleITEM', id)
+    onEditRole(item) {
+      this.$store.commit('user/openEditModalRoles', item)
+      console.log('RoleITEM', item)
     }
   }
 }
