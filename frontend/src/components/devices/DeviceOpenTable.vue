@@ -7,7 +7,7 @@
     <v-col cols="12" sm="6" md="3">
       <v-text-field v-model="search" append-icon="mdi-magnify" label="Поиск" single-line hide-details> </v-text-field>
     </v-col>
-    <v-data-table :headers="headers" :items="showListDeviceStatus" :search="search">
+    <v-data-table :headers="headers" :items="showListDeviceStatus" :search="search" :loading="isLoading">
       <template #[`item.access`]="{ item }">
         <v-chip class="ma-2" :color="item.status === 'approved' ? 'green' : 'red'" text-color="black" outlined>
           {{ item.status === 'approved' ? 'Разрешено' : 'Не разрешено' }}
@@ -53,6 +53,13 @@ const STATUSES = {
 }
 
 export default {
+  props: {
+    isLoading: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   data: () => ({
     listStatus: [STATUSES.NEW, STATUSES.APPROVED, STATUSES.REJECTED],
     edit: true,

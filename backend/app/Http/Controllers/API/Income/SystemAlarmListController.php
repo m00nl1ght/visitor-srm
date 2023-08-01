@@ -3,21 +3,17 @@
 namespace App\Http\Controllers\API\Income;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
 use App\Services\Income\SystemAlarmListService;
+use Illuminate\Http\Request;
 
 class SystemAlarmListController extends Controller
 {
-  private $SystemAlarmListService;
+    private $SystemAlarmListService;
 
-  public function __construct
-  (
-      SystemAlarmListService $systemAlarmListService
-  )
-  {
-      $this->systemAlarmListService = $systemAlarmListService;
-  }
+    public function __construct(SystemAlarmListService $systemAlarmListService)
+    {
+        $this->systemAlarmListService = $systemAlarmListService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,10 +22,10 @@ class SystemAlarmListController extends Controller
     public function index()
     {
         try {
-          $systemAlarmList = $this->systemAlarmListService->getSystemAlarmList();
-          return response()->success('Список получен успешно', $systemAlarmList);
+            $systemAlarmList = $this->systemAlarmListService->getSystemAlarmList();
+            return response()->success('Список получен успешно', $systemAlarmList);
         } catch (\Exception $exception) {
-          return response()->error($exception);
+            return response()->error($exception);
         }
     }
 

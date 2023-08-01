@@ -4,6 +4,7 @@
     :on-close="onClose"
     :on-confirm="onConfirm"
     :title="title"
+    :isLoading="isLoading"
   >
     <v-form
       ref="form"
@@ -104,6 +105,10 @@ export default {
       set(value) {
         this.setAddFormValue(value, 'roleSecurityId')
       }
+    },
+
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('addSecurity')
     }
   },
 
@@ -112,9 +117,9 @@ export default {
       this.$store.commit('security/setSecurityModalOpen', false)
     },
 
-    onConfirm() {
+    async onConfirm() {
       if(this.$refs.form.validate()) {
-        this.$store.dispatch('security/addSecurity')
+        await this.$withLoadingIndicator(async () => await this.$store.dispatch('security/addSecurity'), ['addSecurity'])
       }
     },
 

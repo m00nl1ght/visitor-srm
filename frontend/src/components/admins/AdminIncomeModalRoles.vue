@@ -1,8 +1,19 @@
 <template>
-  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="title">
+  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="title" :isLoading="isLoading">
     <v-form ref="form" v-model="valid" class="pt-5" lazy-validation>
-      <v-autocomplete v-model="roles" :items="showRolesList" item-text="title" outlined dense chips small-chips label="Роль" multiple deletable-chips return-object>
-      
+      <v-autocomplete
+        v-model="roles"
+        :items="showRolesList"
+        item-text="title"
+        outlined
+        dense
+        chips
+        small-chips
+        label="Роль"
+        multiple
+        deletable-chips
+        return-object
+      >
       </v-autocomplete>
     </v-form>
   </MainModalLayout>
@@ -19,7 +30,7 @@ export default {
   data() {
     return {
       title: 'Добавить роль',
-      valid: true,
+      valid: true
     }
   },
 
@@ -37,6 +48,9 @@ export default {
       set(newValue) {
         this.$store.commit('user/currentUserRoles', newValue)
       }
+    },
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('addRoles')
     }
   },
 
@@ -44,8 +58,8 @@ export default {
     onClose() {
       this.$store.commit('user/closeModalRoles')
     },
-    onConfirm() {
-      this.$store.dispatch('user/addRoles')
+    async onConfirm() {
+      await this.$withLoadingIndicator(async () => await this.$store.dispatch('user/addRoles'), ['addRoles'])
     }
   },
 

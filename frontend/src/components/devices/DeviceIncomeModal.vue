@@ -1,5 +1,5 @@
 <template>
-  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="title">
+  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="title" :isLoading="isLoading">
     <v-form ref="form" v-model="valid" class="pt-5" lazy-validation>
       <v-autocomplete v-model="formValue.device" :items="listDeviceNetworkName" item-text="networkName" :rules="rules" label="Сетевое имя">
       </v-autocomplete>
@@ -56,6 +56,10 @@ export default {
     title() {
         return this.$store.state.incomeDevice.formValue.id ? 'Редактировать запись' : 'Создать запись'
     },
+
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('isSaveDevice')
+    }
   },
 
   mounted() {
@@ -68,12 +72,13 @@ export default {
       this.$store.commit('incomeDevice/closeModal')
     },
 
-    onConfirm() {
+    async onConfirm() {
       if (this.$refs.form.validate() && this.formValue.id) {
-        this.$store.dispatch('incomeDevice/editDevice')
+        await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeDevice/editDevice'),['isSaveDevice'])
         this.$store.commit('incomeDevice/closeModal')
-      } else  {
-        this.$store.dispatch('incomeDevice/addDevice')
+      } 
+      else  {
+        await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeDevice/addDevice'),['isSaveDevice'])
         this.$store.commit('incomeDevice/closeModal')
       }
     }

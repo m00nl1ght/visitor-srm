@@ -4,6 +4,7 @@
     :on-close="onClose"
     :on-confirm="onConfirm"
     :title="title"
+    :isLoading="isLoading"
   >
     <v-form
       ref="form"
@@ -58,6 +59,10 @@ export default {
 
     title() {
       return this.$store.state.incomeEvent.formValue.id ? 'Редактировать запись' : 'Создать запись'
+    },
+
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('registrateEvent')
     }
   },
 
@@ -66,9 +71,9 @@ export default {
       this.$store.commit('incomeEvent/closeModal')
     },
 
-    onConfirm() {
-      if(this.$refs.form.validate()) {
-        this.$store.dispatch('incomeEvent/registrateEvent')
+    async onConfirm() {
+      if (this.$refs.form.validate()) {
+        await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeEvent/registrateEvent'), ['registrateEvent'])
       }
     },
   }

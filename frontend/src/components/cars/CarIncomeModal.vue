@@ -4,6 +4,7 @@
     :on-close="onClose"
     :on-confirm="onConfirm"
     :title="'Добавить нового посетителя'"
+    :isLoading="isLoading"
   >
     <v-form
       ref="form"
@@ -109,7 +110,11 @@ export default {
     },
     autoinsertVisitorList() {
       return this.$store.state.autoinsert.autoinsertVisitorList
+    },
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('registrateNewCar')
     }
+    
   },
 
   watch: {
@@ -130,9 +135,9 @@ export default {
       this.$store.commit('incomeCar/closeModal')
     },
 
-    onConfirm() {
+    async onConfirm() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('incomeCar/registrateNewCar')
+        await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeCar/registrateNewCar'), ['registrateNewCar'])
       }
     },
 

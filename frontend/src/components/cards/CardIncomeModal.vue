@@ -4,6 +4,7 @@
     :on-close="onClose"
     :on-confirm="onConfirm"
     :title="'Выдать карту'"
+    :isLoading="isLoading"
   >
     <v-alert
       v-if="cards.length == 0"
@@ -114,6 +115,9 @@ export default {
 
     autoinsertList() {
       return this.$store.state.autoinsert.autoinsertEmployeeList
+    },
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('addIncomeCard')
     }
   },
 
@@ -126,9 +130,9 @@ export default {
       this.$store.commit('incomeCard/closeModal')
     },
 
-    onConfirm() {
+    async onConfirm() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('incomeCard/addIncomeCard')
+        await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeCard/addIncomeCard'), ['addIncomeCard'])
       }
     },
 

@@ -4,6 +4,7 @@
     :on-close="onClose"
     :on-confirm="onConfirm"
     :title="'Зарегестрировать новую смену'"
+    :isLoading="isLoading"
   >
     <v-form 
       ref="form"
@@ -180,6 +181,10 @@ export default {
       set(value) { this.$store.commit('securityGroup/addModalValue', { key: 'securities', value}) }
     },
 
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('isSaveGroup')
+    }
+
   },
 
   methods: {
@@ -187,7 +192,7 @@ export default {
       this.$store.commit('securityGroup/securityGroupModalClose')
     },
 
-    onConfirm() {
+    async onConfirm() {
       if(this.$refs.form.validate()) {
         let data = {
           chiefId: this.chief.id,
@@ -200,9 +205,9 @@ export default {
         }
 
         if(this.addSecurityModalValue.id) {
-          this.$store.dispatch('securityGroup/editGroup', { data, id: this.addSecurityModalValue.id })
+          await this.$withLoadingIndicator(async () => await this.$store.dispatch('securityGroup/editGroup', { data, id: this.addSecurityModalValue.id }), ['isSaveGroup'])
         } else {
-          this.$store.dispatch('securityGroup/addGroup', data)
+          await this.$withLoadingIndicator(async () => await this.$store.dispatch('securityGroup/addGroup', data), ['isSaveGroup'])
         }
       }
 
