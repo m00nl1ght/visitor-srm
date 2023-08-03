@@ -1,8 +1,6 @@
 <template>
   <v-card-text>
-    <!-- <v-btn @click="getListUser">GET</v-btn>
-    <v-btn @click="showUserList">SHOW</v-btn> -->
-    <v-data-table :headers="headers" :items="showUserList">
+    <v-data-table :headers="headers" :items="showUserList" :loading="isLoading">
       <template #[`item.role`]="{ item }">
         <li v-for="roles in item.role" v-bind:key="roles.id">{{ roles.title }}</li>
       </template>
@@ -65,11 +63,16 @@ export default {
   computed: {
     showUserList() {
       return this.$store.state.user.userList
+    },
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('getUserList')
     }
   },
 
-  mounted() {
-    this.$store.dispatch('user/getUserList')
+  async mounted() {
+    if (this.showUserList && this.showUserList == 0) {
+      await this.$withLoadingIndicator(async () => await this.$store.dispatch('user/getUserList'), ['getUserList'])
+    }
   },
 
   methods: {

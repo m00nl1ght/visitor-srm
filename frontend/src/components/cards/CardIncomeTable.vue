@@ -1,39 +1,24 @@
 <template>
   <div>
-    <v-data-table
-      :headers="headers"
-      :items="items"
-    >
-      <template #[`item.decided`]="{item}">
-        <v-btn
-          outlined
-          small
-          color="success"
-          :disabled="disabled"
-          @click="decided(item.id)"
-        >
-          Вернули
-        </v-btn>
+    <v-data-table :headers="headers" :items="items" :loading="isLoading">
+      <template #[`item.decided`]="{ item }">
+        <v-btn outlined small color="success" :disabled="disabled" @click="decided(item.id)"> Вернули </v-btn>
       </template>
 
-      <template #[`item.employee`]="{item}">
+      <template #[`item.employee`]="{ item }">
         {{ printName(item.employee) }}
       </template>
 
-      <template #[`item.card`]="{item}">
+      <template #[`item.card`]="{ item }">
         {{ item.card.number }}
       </template>
 
-      <template #[`item.inTime`]="{item}">
+      <template #[`item.inTime`]="{ item }">
         {{ $moment(item.inTime).format('HH:mm DD.MM.YYYY') }}
       </template>
 
       <template #[`item.actions`]="{ item }">
-        <v-btn
-          icon
-          :disabled="disabled"
-          @click="onDelete(item.id)"
-        >
+        <v-btn icon :disabled="disabled" @click="onDelete(item.id)">
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
       </template>
@@ -43,11 +28,7 @@
       </template>
     </v-data-table>
 
-    <ConfirmModal
-      :is-open="confimDeleteOpen"
-      :on-close="closeConfirmDelete"
-      :on-confirm="onConfirmDelete"
-    >
+    <ConfirmModal :is-open="confimDeleteOpen" :on-close="closeConfirmDelete" :on-confirm="onConfirmDelete">
       <v-subheader>Вы уверены, что хотите удалить данный элемент?</v-subheader>
     </ConfirmModal>
   </div>
@@ -58,7 +39,6 @@ import peopleHelper from '@/services/helpers/people.js'
 import ConfirmModal from '@/components/app/modals/ConfirmModal.vue'
 
 export default {
-
   components: {
     ConfirmModal
   },
@@ -67,6 +47,10 @@ export default {
     disabled: {
       type: Boolean,
       default: () => false
+    },
+    isLoading: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -85,10 +69,10 @@ export default {
       {
         text: 'Номер карты',
         align: 'start',
-        value: 'card',
+        value: 'card'
       },
       { text: 'Дата выдачи', value: 'inTime' },
-      { text: 'Действия', value: 'actions', sortable: false },
+      { text: 'Действия', value: 'actions', sortable: false }
     ],
 
     confimDeleteOpen: false,

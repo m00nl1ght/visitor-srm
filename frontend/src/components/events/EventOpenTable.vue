@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="items" :single-expand="true" item-key="comment" show-expand class="elevation-1">
+    <v-data-table :headers="headers" :items="items" :single-expand="true" item-key="comment" show-expand class="elevation-1" :loading="isLoading">
       <template #[`item.inTime`]="{ item }">
         {{ $moment(item.inTime).format('hh:mm DD.MM.YYYY') }}
       </template>
@@ -47,6 +47,10 @@ export default {
   props: {
     items: Array,
     disabled: {
+      type: Boolean,
+      default: false
+    },
+    isLoading: {
       type: Boolean,
       default: false
     }

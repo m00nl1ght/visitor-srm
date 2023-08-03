@@ -14,9 +14,10 @@
 
     <v-card-text>
       <CarsIncomeList 
-        v-if="incomeCarList && incomeCarList.length > 0"
+        v-if="(incomeCarList && incomeCarList.length > 0) || isLoading"
         :items="incomeCarList"
         @printCard="printCard"
+        :isLoading="isLoading"
       />
 
       <p v-else>
@@ -54,11 +55,18 @@ export default {
   computed: {
     incomeCarList() {
       return this.$store.state.incomeCar.incomeCarList
+    },
+
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('getIncomeCarList')
     }
   },
 
-  mounted() {
-    this.$store.dispatch('incomeCar/getIncomeCarList')
+  async mounted() {
+    if (this.incomeCarList && this.incomeCarList == 0) {
+      await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeCar/getIncomeCarList'), ['getIncomeCarList'])
+    }
+    
   },
 
   methods: {

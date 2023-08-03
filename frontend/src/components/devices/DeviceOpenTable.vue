@@ -53,12 +53,7 @@ const STATUSES = {
 }
 
 export default {
-  props: {
-    isLoading: {
-      type: Boolean,
-      default: false
-    }
-  },
+  props: {},
 
   data: () => ({
     listStatus: [STATUSES.NEW, STATUSES.APPROVED, STATUSES.REJECTED],
@@ -90,6 +85,10 @@ export default {
       return head
     },
 
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('getDeviceList')
+    },
+
     statuses: {
       get() {
         return this.$store.state.incomeDevice.statuses
@@ -101,8 +100,10 @@ export default {
     }
   },
 
-  mounted() {
-    this.getDeviceList()
+  async mounted() {
+    if (this.showListDeviceStatus && this.showListDeviceStatus.length == 0) {
+      await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeDevice/getListDeviceStatus', this.statuses), ['getDeviceList'])
+    }
   },
 
   methods: {
