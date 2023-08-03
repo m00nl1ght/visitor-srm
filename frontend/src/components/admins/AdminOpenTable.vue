@@ -6,23 +6,14 @@
       </template>
 
       <template #[`item.actions`]="{ item }">
-        <v-tooltip top>
+        <!-- <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <v-btn v-bind="attrs" v-on="on" icon @click="onEdit(item)">
               <v-icon>mdi-pencil-outline</v-icon>
             </v-btn>
           </template>
           <span>Редактировать</span>
-        </v-tooltip>
-
-        <v-tooltip top>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn v-bind="attrs" v-on="on" icon @click="onDelete(item)">
-              <v-icon>mdi-trash-can-outline</v-icon>
-            </v-btn>
-          </template>
-          <span>Удалить</span>
-        </v-tooltip>
+        </v-tooltip> -->
 
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
@@ -32,6 +23,15 @@
           </template>
           <span>Изменить роль</span>
         </v-tooltip>
+
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn v-bind="attrs" v-on="on" icon @click="onDelete(item.id)">
+              <v-icon>mdi-trash-can-outline</v-icon>
+            </v-btn>
+          </template>
+          <span>Удалить</span>
+        </v-tooltip>
       </template>
 
       <template #no-data>
@@ -39,11 +39,16 @@
       </template>
     </v-data-table>
     <AdminIncomeModalRoles />
+    <ConfirmModal :is-open="confimDeleteOpen" :on-close="closeConfirmDelete" :on-confirm="onConfirmDelete">
+      <v-subheader>Вы уверены, что хотите удалить данный элемент?</v-subheader>
+    </ConfirmModal>
   </v-card-text>
+
 </template>
 
 <script>
 import AdminIncomeModalRoles from '@/components/admins/AdminIncomeModalRoles.vue'
+import ConfirmModal from '@/components/app/modals/ConfirmModal.vue'
 
 export default {
   data: () => ({
@@ -53,11 +58,15 @@ export default {
       { text: 'email', value: 'email', sortable: false },
       { text: 'Роль', value: 'role', sortable: false },
       { text: 'Действия', value: 'actions', sortable: false }
-    ]
+    ],
+
+    confimDeleteOpen: false,
+    deleteItemId: null
   }),
 
   components: {
-    AdminIncomeModalRoles
+    AdminIncomeModalRoles,
+    ConfirmModal
   },
 
   computed: {
@@ -80,13 +89,24 @@ export default {
       this.$store.commit('user/openEditModal')
     },
 
-    onDelete(id) {
-      this.$store.dispatch('user/deleteUser', id)
-    },
-
     onEditRole(item) {
       this.$store.commit('user/openEditModalRoles', item)
       console.log('RoleITEM', item)
+    },
+
+    onDelete(id) {
+      this.deleteItemId = id
+      this.confimDeleteOpen = true
+    },
+
+    closeConfirmDelete() {
+      this.deleteItemId = null
+      this.confimDeleteOpen = false
+    },
+
+    onConfirmDelete() {
+      this.$store.dispatch('user/deleteUser', this.deleteItemId)
+      this.closeConfirmDelete()
     }
   }
 }
