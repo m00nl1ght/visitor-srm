@@ -54,12 +54,16 @@ class IncomeCarService
     }
   }
 
-  //получение посетителей за заданные диапазон
-  public function carBetweenDays($startDay, $endDay)
+  public function getBySecurityTeam($teamId)
   {
     try {
-      $visitors = IncomeCar::whereBetween('in_time', array($startDay, $endDay))->with(['visitor_category', 'visitor'])->get();
-      return $visitors;
+      $alarm = IncomeCar::whereRelation(
+        'security_teams',
+        'security_team_id',
+        '=',
+        $teamId
+      )->get();
+      return $alarm;
     } catch (\Exception $exception) {
       throw new \Exception($exception->getMessage());
     }

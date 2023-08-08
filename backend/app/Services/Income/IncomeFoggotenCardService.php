@@ -68,14 +68,16 @@ class IncomeFoggotenCardService
     }
   }
 
-  //получение списка забытых карт за выбранный диапазон
-  public function cardBetweenDays($startDay, $endDay)
+  public function getBySecurityTeam($teamId)
   {
     try {
-      $visitors = IncomeFoggotenCard::whereBetween('in_time', array($startDay, $endDay))
-        ->with(['employee', 'employee.position', 'boss_employee', 'boss_employee.position', 'card'])
-        ->get();
-      return $visitors;
+      $alarm = IncomeFoggotenCard::whereRelation(
+        'security_teams',
+        'security_team_id',
+        '=',
+        $teamId
+      )->get();
+      return $alarm;
     } catch (\Exception $exception) {
       throw new \Exception($exception->getMessage());
     }

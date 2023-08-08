@@ -2,7 +2,7 @@
   <v-navigation-drawer app clipped>
     <v-list dense nav>
       <v-list-item-group color="primary">
-        <!-- <v-list-item :to="{ name: 'Home' }" exact>
+        <v-list-item :to="{ name: homePage }" exact>
           <v-list-item-icon>
             <v-icon>mdi-home</v-icon>
           </v-list-item-icon>
@@ -10,7 +10,7 @@
           <v-list-item-content>
             <v-list-item-title>Главная</v-list-item-title>
           </v-list-item-content>
-        </v-list-item> -->
+        </v-list-item>
 
         <v-list-item v-for="item in items" :key="item.title" :to="{ name: item.pathName }">
           <v-list-item-icon>
@@ -31,8 +31,9 @@ import * as routeNames from '@/router/names/index.js'
 
 export default {
   data: () => ({
+    homePage: routeNames.homePage,
     items: [
-      { pathName: routeNames.homePage, title: 'Главная', icon: 'mdi-home' },
+      // { pathName: routeNames.homePage, title: 'Главная', icon: 'mdi-home' },
       { pathName: routeNames.securityPage, title: 'Смена охраны', icon: 'mdi-shield-account' },
       { pathName: routeNames.visitorsPage, title: 'Посетители', icon: 'mdi-account-multiple' },
       { pathName: routeNames.carsPage, title: 'Автомобили', icon: 'mdi-truck' },

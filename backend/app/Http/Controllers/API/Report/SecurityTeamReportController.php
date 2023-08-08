@@ -4,6 +4,9 @@ namespace App\Http\Controllers\API\Report;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\SecurityMail;
 
 use Carbon\Carbon;
 
@@ -67,16 +70,6 @@ class SecurityTeamReportController extends Controller
       if (!$teamId) {
         $teamId =  $this->securityTeamService->getActive()->id;
       }
-      // $reportDay = Carbon::create($request->get('date'));
-      // $reportDay->addDay();
-
-      // $startEndTimeByWorkingTeam = $this->workingSecurityTeamService->startEndTimeByWorkingTeam($reportDay);
-
-      // $startDay = $startEndTimeByWorkingTeam[0];
-      // $endDay = $startEndTimeByWorkingTeam[1];
-
-      // // При регистрации новой смены не пропадают происшествия от предыдущей смены. 
-      // // надо еще апишки ролей сделать (админ, Ширяев, охрана), чтобы шаблоны разные были и возможности для устройств
 
       $reportData = $this->getReportData($teamId);
       return response($reportData);
@@ -84,8 +77,90 @@ class SecurityTeamReportController extends Controller
       return response($exception);
     }
   }
-}
 
+  private function flatSecurities($securities)
+  {
+    function getName($arr)
+    {
+      return $arr['last_name'] . ' ' .  $arr['name'] . ' ' . $arr['middle_name'];
+    }
+
+    $result = [];
+    $result[] = getName($securities['operator']);
+    $result[] = getName($securities['chief']);
+
+    foreach ($securities['securities'] as $arr) {
+      $result[] = getName($arr);
+    }
+
+    return $result;
+  }
+
+  private function countCategories($report)
+  {
+    $result = [];
+    $result['Всего'] = $report->count();
+
+    foreach ($report as $arr) {
+      $key = $arr->visitor_category->title;
+
+      if (isset($result[$key])) {
+        $result[$arr->visitor_category->title]++;
+      } else {
+        $result[$arr->visitor_category->title] = 1;
+      }
+    }
+
+    return $result;
+  }
+
+
+  public function sendSecurityTeamReport(Request $request)
+  {
+    try {
+      $securityTeam = null;
+      $teamId = $request->query('id');
+
+      if (!$teamId) {
+        $securityTeam =  $this->securityTeamService->getActive();
+        $teamId = $securityTeam->id;
+      } else {
+        $securityTeam = $this->securityTeamService->getOne($teamId);
+      }
+
+      $visitors = $this->incomeVisitorService->getBySecurityTeam($teamId);
+      $cars = $this->incomeCarService->getBySecurityTeam($teamId);
+      $alarms = $this->incomeAlarmService->getBySecurityTeam($teamId);
+      $events = $this->incomeEventService->getBySecurityTeam($teamId);
+      $foggotenCard = $this->incomeFoggotenCardService->getBySecurityTeam($teamId);
+
+      $countPeopleArr = $this->countCategories($visitors);
+      $countCarArr = $this->countCategories($cars);
+
+      $reportData = [
+        // $reportData['reportDayTomorrow']->format('d.m.Y') TODO Format date
+        'reportDay' => '',
+        'reportDayTomorrow' => '',
+        'visitors' => $visitors,
+        'cars' => $cars,
+        'alarms' => $alarms,
+        'events' => $events,
+        'foggotenCard' => $foggotenCard,
+        'securities' => $this->flatSecurities($securityTeam),
+        'visitorsCount' => $countPeopleArr,
+        'carsCount' => $countCarArr
+      ];
+
+      $toEmail = explode(',', env('MAIL_SECURITY_REPORT_RECIVERS'));
+      Mail::to($toEmail)->send(new SecurityMail($reportData));
+
+      return view('emails.reportSecurity', compact('reportData'));
+      // return response()->success('Отчет успешно отправлен', $reportData);
+    } catch (\Exception $exception) {
+      return response()->error('Ошибка отправки отчета', $exception->getMessage());
+    }
+  }
+}
 
 // <?php
 
@@ -199,42 +274,6 @@ class SecurityTeamReportController extends Controller
 //     } catch (\Exception $exception) {
 //       return response()->error('Ошибка получения отчета', $exception->getMessage());
 //     }
-//   }
-
-//   private function countCategories($report)
-//   {
-//     $result = [];
-//     $result['Всего'] = $report->count();
-
-//     foreach ($report as $arr) {
-//       $key = $arr->visitor_category->title;
-
-//       if (isset($result[$key])) {
-//         $result[$arr->visitor_category->title]++;
-//       } else {
-//         $result[$arr->visitor_category->title] = 1;
-//       }
-//     }
-
-//     return $result;
-//   }
-
-//   private function flatSecurities($securities)
-//   {
-//     function getName($arr)
-//     {
-//       return $arr['last_name'] . ' ' .  $arr['name'] . ' ' . $arr['middle_name'];
-//     }
-
-//     $result = [];
-//     $result[] = getName($securities['operator']);
-//     $result[] = getName($securities['chief']);
-
-//     foreach ($securities['securities'] as $arr) {
-//       $result[] = getName($arr);
-//     }
-
-//     return $result;
 //   }
 
 //   public function sendSecurityTeamReport()
