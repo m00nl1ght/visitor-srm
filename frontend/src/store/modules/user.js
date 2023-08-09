@@ -18,7 +18,7 @@ const state = () => ({
   openModalRoles: false,
   formValue: defaultFormValue(),
   userId: '',
-  roles: [],
+  roles: []
 })
 
 const getters = {
@@ -27,7 +27,9 @@ const getters = {
       const hasRole = state.currentUser.roles.filter((currRole) => roles.some((role) => role === currRole))
       return hasRole && hasRole.length > 0
     } else return false
-  }
+  },
+
+  isAdmin: (state) => state.currentUser?.roles?.length > 0 && state.currentUser.roles.find((role) => role === 'admin')
 }
 
 const mutations = {

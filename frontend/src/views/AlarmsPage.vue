@@ -7,8 +7,7 @@
     </v-toolbar>
 
     <v-card-text>
-      <AlarmOpenTable v-if="(openAlarmList && openAlarmList.length > 0) || isLoading" :items="openAlarmList" :isLoading="isLoading" />
-      <p v-else>Территория пуста, все посетители дома...</p>
+      <AlarmOpenTable :items="openAlarmList" :isLoading="isLoading" />
     </v-card-text>
 
     <AlarmIncomeModal />
@@ -35,16 +34,15 @@ export default {
     }
   },
 
-  async mounted() {
-    if (this.openAlarmList && this.openAlarmList.length == 0) {
-      await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeAlarm/getOpenAlarmList'), ['getOpenAlarmList'])
-    }
-    
-  },
-
   methods: {
     openModal() {
       this.$store.commit('incomeAlarm/openAddModal')
+    }
+  },
+
+  async mounted() {
+    if (this.openAlarmList && this.openAlarmList.length == 0) {
+      await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeAlarm/getOpenAlarmList'), ['getOpenAlarmList'])
     }
   }
 }

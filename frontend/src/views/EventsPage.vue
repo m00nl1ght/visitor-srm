@@ -3,20 +3,11 @@
     <v-toolbar>
       <v-toolbar-title>Список текущих проишествий</v-toolbar-title>
       <v-spacer />
-      <v-btn 
-        color="primary"
-        outlined
-        @click="openModal"
-      >
-        Добавить проишествие
-      </v-btn>
+      <v-btn color="primary" outlined @click="openModal"> Добавить проишествие </v-btn>
     </v-toolbar>
 
     <v-card-text>
-      <EventOpenTable 
-      v-if="(openEventList && openEventList.length > 0) || isLoading"
-      :items="openEventList" 
-      :isLoading="isLoading"/>
+      <EventOpenTable :items="openEventList" :isLoading="isLoading" />
     </v-card-text>
 
     <EventIncomeModal />
@@ -47,7 +38,6 @@ export default {
     if (this.openEventList && this.openEventList == 0) {
       await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeEvent/getOpenEventList'), ['getOpenEventList'])
     }
-    
   },
 
   methods: {

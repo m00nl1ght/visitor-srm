@@ -15,15 +15,15 @@
 </template>
 
 <script>
-import AdminOpenTable from '@/components/admins/AdminOpenTable.vue'
-import AdminIncomeModal from '@/components/admins/AdminIncomeModal.vue'
+import AdminOpenTable from './components/AdminOpenTable.vue'
+import AdminIncomeModal from './components/AdminIncomeModal.vue'
 
 export default {
-  data: () => ({}),
   components: {
     AdminIncomeModal,
     AdminOpenTable
   },
+
   methods: {
     openModal() {
       this.$store.commit('user/openAddModal')

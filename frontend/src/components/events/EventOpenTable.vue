@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="items" :single-expand="true" item-key="comment" show-expand class="elevation-1" :loading="isLoading">
+    <v-data-table :headers="headers" :items="items" :single-expand="true" item-key="id" show-expand class="elevation-1" :loading="isLoading">
       <template #[`item.inTime`]="{ item }">
         {{ $moment(item.inTime).format('hh:mm DD.MM.YYYY') }}
       </template>
