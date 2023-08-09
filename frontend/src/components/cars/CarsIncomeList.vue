@@ -1,5 +1,5 @@
 <template>
-  <v-data-table :headers="headers" :items="items">
+  <v-data-table :headers="headers" :items="items" :loading="isLoading">
     <template #[`item.printBtn`]="{ item }">
       <v-btn :disabled="disabled" icon @click="printCard({ id: item.id })">
         <v-icon>mdi-printer</v-icon>
@@ -41,6 +41,10 @@ export default {
       default: () => []
     },
     disabled: {
+      type: Boolean,
+      default: false
+    },
+    isLoading: {
       type: Boolean,
       default: false
     }

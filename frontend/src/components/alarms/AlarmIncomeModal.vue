@@ -1,5 +1,5 @@
 <template>
-  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="title">
+  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="title" :isLoading="isLoading">
     <v-form ref="form" v-model="valid" class="pt-5" lazy-validation>
       <v-text-field v-model="formValue.title" outlined label="Название" dense :rules="rules" />
 
@@ -42,6 +42,10 @@ export default {
 
     title() {
       return this.$store.state.incomeAlarm.formValue.id ? 'Редактировать запись' : 'Создать запись'
+    },
+
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('registrateAlarm')
     }
   },
 
@@ -54,9 +58,9 @@ export default {
       this.$store.commit('incomeAlarm/closeModal')
     },
 
-    onConfirm() {
+    async onConfirm() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('incomeAlarm/registrateAlarm')
+        await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeAlarm/registrateAlarm'), ['registrateAlarm'])
       }
     }
   }

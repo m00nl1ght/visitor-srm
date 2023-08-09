@@ -13,7 +13,10 @@
     </v-toolbar>
 
     <v-card-text>
-      <EventOpenTable :items="openEventList" />
+      <EventOpenTable 
+      v-if="(openEventList && openEventList.length > 0) || isLoading"
+      :items="openEventList" 
+      :isLoading="isLoading"/>
     </v-card-text>
 
     <EventIncomeModal />
@@ -33,11 +36,18 @@ export default {
   computed: {
     openEventList() {
       return this.$store.state.incomeEvent.openEventList
+    },
+
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('getOpenEventList')
     }
   },
 
-  mounted() {
-    this.$store.dispatch('incomeEvent/getOpenEventList')
+  async mounted() {
+    if (this.openEventList && this.openEventList == 0) {
+      await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeEvent/getOpenEventList'), ['getOpenEventList'])
+    }
+    
   },
 
   methods: {

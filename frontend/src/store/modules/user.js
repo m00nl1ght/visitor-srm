@@ -9,13 +9,6 @@ function defaultFormValue() {
   }
 }
 
-function defaultFormRoles() {
-  return {
-    userId: '',
-    roles: []
-  }
-}
-
 const state = () => ({
   error: undefined,
   userList: [],
@@ -64,7 +57,8 @@ const mutations = {
   },
   closeModalRoles(state) {
     state.openModalRoles = false
-    state.openEditModalRoles = defaultFormRoles()
+    state.userId = ''
+    state.roles = []
   },
   showRolesList(state, roles) {
     state.rolesList = roles
@@ -120,7 +114,7 @@ const actions = {
     }
   },
 
-  async addRoles({ dispatch, state }) {
+  async addRoles({ dispatch, commit, state }) {
     try {
       let arrayRoles = []
       for (let i = 0; i < state.roles.length; i++) {
@@ -128,8 +122,7 @@ const actions = {
       }
       await api.addRoles(state.userId, arrayRoles)
       dispatch('getUserList')
-      state.userId = ''
-      state.roles = []
+      commit('closeModalRoles')
     } catch (error) {
       console.log(error)
     }

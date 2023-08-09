@@ -50,7 +50,9 @@ export default {
   },
 
   async mounted() {
-    await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeVisitor/getIncomeVisitorList'), ['getIncomeVisitorList'])
+    if (this.incomeVisitorList && this.incomeVisitorList.length == 0) {
+      await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeVisitor/getIncomeVisitorList'), ['getIncomeVisitorList'])
+    }
   },
 
   methods: {

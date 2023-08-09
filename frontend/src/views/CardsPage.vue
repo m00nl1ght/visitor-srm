@@ -13,7 +13,10 @@
     </v-toolbar>
 
     <v-card-text>
-      <CardIncomeTable :items="incomeCardList" />
+      <CardIncomeTable 
+      v-if="(incomeCardList && incomeCardList.length > 0) || isLoading"
+      :items="incomeCardList"
+      :isLoading="isLoading" />
     </v-card-text>
 
     <CardIncomeModal />
@@ -33,11 +36,18 @@ export default {
   computed: {
     incomeCardList() {
       return this.$store.state.incomeCard.incomeCardList
+    },
+
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('getIncomeCardList')
     }
   },
 
-  mounted() {
-    this.$store.dispatch('incomeCard/getIncomeCardList')
+  async mounted() {
+    if (this.incomeCardList && this.incomeCardList == 0) {
+      await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeCard/getIncomeCardList'), ['getIncomeCardList'])
+    }
+    
   },
 
   methods: {

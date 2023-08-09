@@ -7,7 +7,7 @@
     <v-col cols="12" sm="6" md="3">
       <v-text-field v-model="search" append-icon="mdi-magnify" label="Поиск" single-line hide-details> </v-text-field>
     </v-col>
-    <v-data-table :headers="headers" :items="showListDeviceStatus" :search="search">
+    <v-data-table :headers="headers" :items="showListDeviceStatus" :search="search" :loading="isLoading">
       <template #[`item.access`]="{ item }">
         <v-chip class="ma-2" :color="item.status === 'approved' ? 'green' : 'red'" text-color="black" outlined>
           {{ item.status === 'approved' ? 'Разрешено' : 'Не разрешено' }}
@@ -53,6 +53,8 @@ const STATUSES = {
 }
 
 export default {
+  props: {},
+
   data: () => ({
     listStatus: [STATUSES.NEW, STATUSES.APPROVED, STATUSES.REJECTED],
     edit: true,
@@ -83,6 +85,10 @@ export default {
       return head
     },
 
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('getDeviceList')
+    },
+
     statuses: {
       get() {
         return this.$store.state.incomeDevice.statuses
@@ -94,8 +100,10 @@ export default {
     }
   },
 
-  mounted() {
-    this.getDeviceList()
+  async mounted() {
+    if (this.showListDeviceStatus && this.showListDeviceStatus.length == 0) {
+      await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeDevice/getListDeviceStatus', this.statuses), ['getDeviceList'])
+    }
   },
 
   methods: {

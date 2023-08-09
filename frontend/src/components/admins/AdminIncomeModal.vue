@@ -1,5 +1,5 @@
 <template>
-  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="title">
+  <MainModalLayout :is-open="isOpen" :on-close="onClose" :on-confirm="onConfirm" :title="title" :isLoading="isLoading">
     <v-form ref="form" v-model="valid" class="pt-5" lazy-validation>
       <v-text-field label="Имя пользователя" :rules="[rules.required]" v-model="userForm.name"></v-text-field>
       <v-text-field label="Почта" placeholder="test@test.com" v-model="userForm.email" :rules="[rules.required, rules.email]"></v-text-field>
@@ -62,8 +62,13 @@ export default {
     isOpen() {
       return this.$store.state.user.openModal
     },
+    
     showRoleList() {
       return this.$store.state.user.rolesList
+    },
+
+    isLoading() {
+      return this.$store.getters['appProgressBanner/loaderObj']('registration')
     }
   },
   mounted() {
@@ -73,9 +78,10 @@ export default {
     onClose() {
       this.$store.commit('user/closeModal')
     },
-    onConfirm() {
+    
+    async onConfirm() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('user/registration', this.userForm)
+        await this.$withLoadingIndicator(async () => await this.$store.dispatch('user/registration', this.userForm), ['registration'])
         this.$store.commit('user/closeModal')
       }
       this.userForm.name = '',
