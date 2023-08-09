@@ -28,8 +28,7 @@ class RegistrationController extends Controller
         'email' => $request->email,
         'password' => Hash::make($request->password)
       ]);
-      return response()->json([], Response::HTTP_OK);
-      // return response()->json([], Response::HTTP_OK);
+      return response()->json(Response::HTTP_OK);
     } catch (\Exception $e) {
       return $this->sendError($e, 'Ошибка получения списка категорий');
       Log::error($e->getMessage(), ['trace' => $e->getTraceAsString()]);

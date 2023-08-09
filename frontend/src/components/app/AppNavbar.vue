@@ -42,7 +42,7 @@ export default {
       { pathName: routeNames.cardsPage, title: 'Карты доступа', icon: 'mdi-card-account-details' },
       { pathName: routeNames.reportsPage, title: 'Отчеты', icon: 'mdi-chart-line' },
       { pathName: routeNames.devicesPage, title: 'ИТ устройства', icon: 'mdi-monitor' },
-      { pathName: routeNames.adminPage, title: 'Администратор', icon: 'mdi-shield-crown-outline' }
+      { pathName: routeNames.adminEditUsersPage, title: 'Администратор', icon: 'mdi-shield-crown-outline' }
     ]
   })
 }
