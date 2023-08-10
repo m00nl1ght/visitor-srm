@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const urls = {
   GET_VISITOR_CATEGORY: '/api/visitor/categories',
-  GET_SYSTEM_ALARM_CATEGORY: '/api/systemAlarmList'
+  GET_SYSTEM_ALARM_CATEGORY: '/api/references/system-alarm'
 }
 
 export default {

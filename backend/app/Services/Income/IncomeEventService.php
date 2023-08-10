@@ -70,12 +70,16 @@ class IncomeEventService
     }
   }
 
-  //получение событий за заданный промежуток
-  public function eventBetweenDays($startDay, $endDay)
+  public function getBySecurityTeam($teamId)
   {
     try {
-      $events = IncomeEvent::whereBetween('in_time', array($startDay, $endDay))->get();
-      return $events;
+      $alarm = IncomeEvent::whereRelation(
+        'security_teams',
+        'security_team_id',
+        '=',
+        $teamId
+      )->get();
+      return $alarm;
     } catch (\Exception $exception) {
       throw new \Exception($exception->getMessage());
     }

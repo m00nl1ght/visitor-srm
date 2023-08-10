@@ -31,6 +31,17 @@ class SecurityTeamService
   }
 
   // Получение списка рабочих смен охраны
+  public function getOne($teamId)
+  {
+    try {
+      $team = SecurityTeamModel::where('id', $teamId)->with(['operator', 'chief', 'securities'])->first();
+      return $team;
+    } catch (\Exception $exception) {
+      throw new \Exception($exception->getMessage());
+    }
+  }
+
+  // Получение списка рабочих смен охраны
   public function getList($limit)
   {
     try {

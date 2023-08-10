@@ -7,8 +7,8 @@
     </v-toolbar>
 
     <v-card-text>
-      <AlarmOpenTable v-if="(openAlarmList && openAlarmList.length > 0) || isLoading" :items="openAlarmList" :isLoading="isLoading" />
-      <p v-else>Территория пуста, все посетители дома...</p>
+      <AlarmOpenTable :items="openAlarmList" :isLoading="isLoading" />
+      
     </v-card-text>
 
     <AlarmIncomeModal />

@@ -15,7 +15,6 @@ use App\Http\Controllers\API\Income\IncomeCarController;
 use App\Http\Controllers\API\Income\IncomeAlarmController;
 use App\Http\Controllers\API\Income\IncomeEventController;
 use App\Http\Controllers\API\Income\IncomeFoggotenCardController;
-use App\Http\Controllers\API\Income\SystemAlarmListController;
 
 use App\Http\Controllers\API\People\EmployeeController;
 use App\Http\Controllers\API\People\PositionController;
@@ -83,7 +82,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::resource('/income-foggoten-card', IncomeFoggotenCardController::class);
 
   //Неисправности
-  Route::get('/systemAlarmList', [SystemAlarmListController::class, 'index']);
   Route::get('/income-alarm/get-by-security-team', [IncomeAlarmController::class, 'getBySecurityTeam']);
   Route::post('/income-alarm/close', [IncomeAlarmController::class, 'closeAlarm']);
   Route::resource('/income-alarm', IncomeAlarmController::class);
@@ -95,6 +93,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
   //Отчеты
   Route::get('/security-team-report/by-team', [SecurityTeamReportController::class, 'bySecurityTeam']);
+  Route::get('/security-team-report/send-security-team-report', [SecurityTeamReportController::class, 'sendSecurityTeamReport']);
   //old
   // Route::get('/report/byDay', [ReportController::class, 'byDay']);
   // Route::get('/report/bySecurityTeam', [ReportController::class, 'bySecurityTeam']);

@@ -110,8 +110,8 @@ const mutations = {
     }
 
     const car = {
-      model: value.car.carModel.title,
-      number: value.car.regNumber
+      model: value.car?.carModel?.title,
+      number: value.car?.regNumber
     }
 
     state.formValue = { ...state.formValue, visitor, car }
