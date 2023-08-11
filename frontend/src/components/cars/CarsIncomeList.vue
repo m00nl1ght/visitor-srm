@@ -26,7 +26,7 @@
     </template>
 
     <template #no-data>
-      <p>Данные отсутствуют...</p>
+      <p>Территория пуста, все посетители на автомобилях дома...</p>
     </template>
   </v-data-table>
 </template>

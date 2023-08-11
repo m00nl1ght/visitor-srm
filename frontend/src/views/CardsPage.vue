@@ -3,20 +3,11 @@
     <v-toolbar>
       <v-toolbar-title>Список выданых карт</v-toolbar-title>
       <v-spacer />
-      <v-btn 
-        color="primary"
-        outlined
-        @click="openModal"
-      >
-        Выдать карту
-      </v-btn>
+      <v-btn color="primary" outlined @click="openModal"> Выдать карту </v-btn>
     </v-toolbar>
 
     <v-card-text>
-      <CardIncomeTable 
-      v-if="(incomeCardList && incomeCardList.length > 0) || isLoading"
-      :items="incomeCardList"
-      :isLoading="isLoading" />
+      <CardIncomeTable :items="incomeCardList" :isLoading="isLoading" />
     </v-card-text>
 
     <CardIncomeModal />
@@ -24,8 +15,8 @@
 </template>
 
 <script>
-import CardIncomeTable from "@/components/cards/CardIncomeTable.vue"
-import CardIncomeModal from "@/components/cards/CardIncomeModal.vue"
+import CardIncomeTable from '@/components/cards/CardIncomeTable.vue'
+import CardIncomeModal from '@/components/cards/CardIncomeModal.vue'
 
 export default {
   components: {
@@ -43,16 +34,15 @@ export default {
     }
   },
 
-  async mounted() {
-    if (this.incomeCardList && this.incomeCardList == 0) {
-      await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeCard/getIncomeCardList'), ['getIncomeCardList'])
-    }
-    
-  },
-
   methods: {
     openModal() {
       this.$store.commit('incomeCard/openAddModal')
+    }
+  },
+
+  async mounted() {
+    if (this.incomeCardList && this.incomeCardList == 0) {
+      await this.$withLoadingIndicator(async () => await this.$store.dispatch('incomeCard/getIncomeCardList'), ['getIncomeCardList'])
     }
   }
 }

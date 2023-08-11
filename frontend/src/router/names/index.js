@@ -16,4 +16,4 @@ export const reportOverviewPage = 'ReportOverviewPage'
 export const reportAnaliticsPage = 'ReportAnaliticsPage'
 export const devicesPage = 'DevicesPage'
 
-export const adminPage = 'AdminPage'
+export const adminEditUsersPage = 'AdminEditUsersPage'

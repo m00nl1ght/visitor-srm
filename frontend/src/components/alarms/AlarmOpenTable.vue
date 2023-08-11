@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="items" :single-expand="true" item-key="title" show-expand class="elevation-1" :loading="isLoading">
+    <v-data-table :headers="headers" :items="items" :single-expand="true" item-key="id" show-expand class="elevation-1" :loading="isLoading">
       <template #[`item.decided`]="{ item }">
         <v-btn :disabled="disabled" outlined small color="success" @click="decided(item.id)"> Решено </v-btn>
       </template>

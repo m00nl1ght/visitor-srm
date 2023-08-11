@@ -43,9 +43,9 @@ use App\Http\Controllers\API\References\SystemAlarmController;
 
 //пользователи
 Route::post('login', [LoginController::class, 'login']);
-Route::post('registration', [RegistrationController::class, 'registration']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
+  Route::post('registration', [RegistrationController::class, 'registration']);
   Route::post('logout', [LoginController::class, 'logout']);
 
   Route::get('/users/get-current', [UserController::class, 'getCurrentUser']);

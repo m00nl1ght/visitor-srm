@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import AdminIncomeModalRoles from '@/components/admins/AdminIncomeModalRoles.vue'
+import AdminIncomeModalRoles from './AdminIncomeModalRoles.vue'
 import ConfirmModal from '@/components/app/modals/ConfirmModal.vue'
 
 export default {

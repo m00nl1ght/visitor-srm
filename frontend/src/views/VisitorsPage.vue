@@ -8,14 +8,7 @@
     </v-toolbar>
 
     <v-card-text>
-      <VisitorsIncomeList
-        v-if="(incomeVisitorList && incomeVisitorList.length > 0) || isLoading"
-        :items="incomeVisitorList"
-        @printCard="printCard"
-        :isLoading="isLoading"
-      />
-
-      <p v-else>Территория пуста, все посетители дома...</p>
+      <VisitorsIncomeList :items="incomeVisitorList" @printCard="printCard" :isLoading="isLoading" />
     </v-card-text>
 
     <VisitorPrintCardModal :is-open="isOpenPrintModal" :on-close="() => (isOpenPrintModal = false)" :print-card-value="printCardValue" />

@@ -16,4 +16,4 @@ export const reportOverviewPage = '/reports/overview'
 export const reportAnaliticsPage = '/reports/analitics'
 export const devicesPage = '/devices'
 
-export const adminPage = '/admin'
+export const adminEditUsersPage = '/admin/edit-users'
