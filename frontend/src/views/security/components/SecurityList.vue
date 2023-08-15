@@ -3,57 +3,32 @@
     <div class="d-flex justify-space-between align-center pr-5">
       <v-card-title>Список сотрудников охраны</v-card-title>
 
-      <v-btn 
-        color="primary"
-        outlined
-        @click="openModal"
-      >
-        Добавить сотрудника охраны
-      </v-btn>
+      <v-btn v-if="isSecurityChief || isAdmin" color="primary" outlined @click="openModal"> Добавить сотрудника охраны </v-btn>
 
       <SecurityAddModal :title="modalTitle" />
-      <ConfirmModal 
+      <ConfirmModal
         :is-open="confirmModalOpen"
         :on-confirm="confirmDelete"
-        :on-close="() => confirmModalOpen = false"
+        :on-close="() => (confirmModalOpen = false)"
         :title="'Подтвердите удаление'"
       />
     </div>
 
     <v-card-text>
-      <v-data-table
-        :headers="headers"
-        :items="securities"
-      >
+      <v-data-table :headers="headers" :items="securities">
         <template #[`item.securityName`]="{ item }">
           {{ printFullName(item) }}
         </template>
 
         <template #[`item.actions`]="{ item }">
-          <v-icon
-            small
-            class="mr-2"
-            @click="editItem(item)"
-          >
-            mdi-pencil
-          </v-icon>
-          <v-icon
-            small
-            @click="deleteItem(item)"
-          >
-            mdi-delete
-          </v-icon>
+          <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+          <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
         </template>
 
         <template #no-data>
           <p>Данные отсутствуют...</p>
 
-          <v-btn
-            color="primary"
-            @click="initialize"
-          >
-            Обновить
-          </v-btn>
+          <v-btn color="primary" @click="initialize"> Обновить </v-btn>
         </template>
       </v-data-table>
     </v-card-text>
@@ -73,18 +48,30 @@ export default {
 
   data: () => ({
     modalTitle: '',
-    headers: [
-      { align: 'start', text: 'ФИО', value: 'securityName' },
-      { text: 'Категория', value: 'role.title'},
-      { text: 'Редактировать', value: 'actions', sortable: false },
-    ],
+    admin_security_chief: ['admin', 'security_chief'],
     confirmModalOpen: false,
     deleteItemId: null
   }),
 
   computed: {
+    headers() {
+      let head = [
+        { align: 'start', text: 'ФИО', value: 'securityName' },
+        { text: 'Категория', value: 'role.title' }
+      ]
+
+      if (this.hasAccessRole(this.admin_security_chief)) {
+        head.push({ text: 'Редактировать', value: 'actions', sortable: false })
+      }
+      return head
+    },
+
     securities() {
       return this.$store.getters['security/securities']
+    },
+
+    hasAccessRole() {
+      return this.$store.getters['user/hasAccessRole']
     }
   },
 
@@ -98,7 +85,7 @@ export default {
     },
 
     openModal() {
-      this.modalTitle = "Добавить сотрудника"
+      this.modalTitle = 'Добавить сотрудника'
       this.$store.commit('security/resetAddFormValue')
       this.$store.commit('security/setSecurityModalOpen', true)
     },
@@ -117,6 +104,6 @@ export default {
       this.$store.dispatch('security/deleteSecurity', this.deleteItemId)
       this.confirmModalOpen = false
     }
-  },
+  }
 }
 </script>

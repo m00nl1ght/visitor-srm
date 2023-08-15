@@ -19,7 +19,7 @@ export default {
       tabs: [
         { text: 'Текущая смена', to: { name: routeNames.securityCurrentGroup } },
         { text: 'Состав охраны', to: { name: routeNames.securityList } },
-        { text: 'Отчет за смену', to: { name: routeNames.securityMainReport } }
+        // { text: 'Отчет за смену', to: { name: routeNames.securityMainReport } }
       ]
     }
   },

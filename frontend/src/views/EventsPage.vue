@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-toolbar-title>Список текущих проишествий</v-toolbar-title>
       <v-spacer />
-      <v-btn color="primary" outlined @click="openModal"> Добавить проишествие </v-btn>
+      <v-btn v-if="hasAccessRole(securityGroup)" color="primary" outlined @click="openModal"> Добавить проишествие </v-btn>
     </v-toolbar>
 
     <v-card-text>
@@ -24,6 +24,10 @@ export default {
     EventIncomeModal
   },
 
+  data: () => ({
+    securityGroup: ['admin', 'security', 'security_chief', 'employee_security_chief'],
+  }),
+
   computed: {
     openEventList() {
       return this.$store.state.incomeEvent.openEventList
@@ -31,6 +35,10 @@ export default {
 
     isLoading() {
       return this.$store.getters['appProgressBanner/loaderObj']('getOpenEventList')
+    },
+
+    hasAccessRole() {
+      return this.$store.getters['user/hasAccessRole']
     }
   },
 

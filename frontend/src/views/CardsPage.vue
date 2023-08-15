@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-toolbar-title>Список выданых карт</v-toolbar-title>
       <v-spacer />
-      <v-btn color="primary" outlined @click="openModal"> Выдать карту </v-btn>
+      <v-btn v-if="hasAccessRole(securityGroup)" color="primary" outlined @click="openModal"> Выдать карту </v-btn>
     </v-toolbar>
 
     <v-card-text>
@@ -24,6 +24,10 @@ export default {
     CardIncomeModal
   },
 
+  data: () => ({
+    securityGroup: ['admin', 'security', 'security_chief', 'employee_security_chief'],
+  }),
+
   computed: {
     incomeCardList() {
       return this.$store.state.incomeCard.incomeCardList
@@ -31,6 +35,10 @@ export default {
 
     isLoading() {
       return this.$store.getters['appProgressBanner/loaderObj']('getIncomeCardList')
+    },
+
+    hasAccessRole() {
+      return this.$store.getters['user/hasAccessRole']
     }
   },
 

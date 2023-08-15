@@ -7,7 +7,7 @@ const routes = [
   {
     path: paths.adminEditUsersPage,
     name: names.adminEditUsersPage,
-    meta: { layout: 'main' },
+    meta: { layout: 'main', auth: true, accessRoles: ['admin'] },
     component: EditUsersPage
   }
 ]
