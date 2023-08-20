@@ -1,4 +1,4 @@
-import api from '@/services/cardApi'
+import api from '@/services/cards/cardApi'
 
 const state = () => ({
   cardList: []
@@ -12,6 +12,10 @@ const getters = {
 const mutations = {
   storeCardList(state, payload) {
     state.cardList = payload
+  },
+
+  addCard(state, card) {
+    state.cardList.push(card)
   }
 }
 
@@ -20,6 +24,23 @@ const actions = {
     try {
       const { data } = await api.getCardList()
       commit('storeCardList', data)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async storeCard({ commit }, payload) {
+    try {
+      const { data } = await api.storeCard(payload)
+      commit('addCard', data)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async updateById(_, { id, data }) {
+    try {
+      await api.updateById({ id, data })
     } catch (error) {
       console.log(error)
     }

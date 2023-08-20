@@ -90,7 +90,7 @@ const actions = {
     try {
       await api.addIncomeCard(state.formValue)
       dispatch('getIncomeCardList')
-      dispatch('accessCard/getCardList', null, { root: true })
+      dispatch('cards/getCardList', null, { root: true })
       commit('closeModal')
     } catch (error) {
       console.log(error)
@@ -101,7 +101,7 @@ const actions = {
     try {
       await api.returnIncomeCard(id)
       await dispatch('getIncomeCardList')
-      dispatch('accessCard/getCardList', null, { root: true })
+      dispatch('cards/getCardList', null, { root: true })
     } catch (error) {
       console.log(error)
     }
@@ -111,7 +111,7 @@ const actions = {
     try {
       await api.deleteIncomeCard(id)
       await dispatch('getIncomeCardList')
-      dispatch('accessCard/getCardList', null, { root: true })
+      dispatch('cards/getCardList', null, { root: true })
     } catch (error) {
       console.log(error)
     }

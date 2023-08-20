@@ -26,4 +26,33 @@ class CardController extends Controller
       return response($exception);
     }
   }
+
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
+  public function store(Request $request)
+  {
+    try {
+      $card = $this->cardService->storeCard($request->number, $request->card_category_id);
+      return response($card);
+    } catch (\Exception $exception) {
+      return response($exception);
+    }
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function update(Request $request, $id)
+  {
+    $card = $this->cardService->updateCard($request, $id);
+    return response($card);
+  }
 }

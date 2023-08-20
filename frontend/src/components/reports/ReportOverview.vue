@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <v-overlay :value="overlay">
+    <div>Здесь будут отчеты за даты</div>
+    <!-- <v-overlay :value="overlay">
       <v-progress-circular indeterminate size="64" color="primary" />
     </v-overlay>
 
@@ -24,12 +25,12 @@
         <h2 class="mb-3">Отчет за следующие даты: {{ dateTitle ? dateTitle : '' }}</h2>
         <SecurityMainReport :report-data="reportData" />
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>
 
 <script>
-import SecurityMainReport from '@/components/reports/SecurityMainReport.vue'
+// import SecurityMainReport from '@/components/reports/SecurityMainReport.vue'
 
 // export default connect({
 //   stateToProps: {
@@ -51,7 +52,7 @@ import SecurityMainReport from '@/components/reports/SecurityMainReport.vue'
 
 export default {
   components: {
-    SecurityMainReport
+    // SecurityMainReport
   },
   props: {
     reportData: {
@@ -71,7 +72,7 @@ export default {
 
   methods: {
     getReport() {
-      this.overlay = true
+      // this.overlay = true
 
       if (this.date.length === 1 || this.date[0] == this.date[1]) {
         this.$emit('getReportByDay', this.date[0], () => (this.overlay = false))

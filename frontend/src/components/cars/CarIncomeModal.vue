@@ -126,7 +126,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch('accessCard/getCardList')
+    this.$store.dispatch('cards/getCardList')
     this.$store.dispatch('visitorCategory/getCategoryList')
   },
 

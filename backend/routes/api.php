@@ -19,6 +19,7 @@ use App\Http\Controllers\API\Income\IncomeFoggotenCardController;
 use App\Http\Controllers\API\People\EmployeeController;
 use App\Http\Controllers\API\People\PositionController;
 use App\Http\Controllers\API\Card\CardController;
+use App\Http\Controllers\API\Card\CardCategoryController;
 use App\Http\Controllers\API\Report\SecurityTeamReportController;
 
 use App\Http\Controllers\Auth\RegistrationController;
@@ -78,8 +79,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::get('/income-car/on-territory', [IncomeCarController::class, 'onTerritory']);
 
   //Карты доступа
-  Route::get('/card/index', [CardController::class, 'index']);
+  Route::resource('/card', CardController::class);
   Route::resource('/income-foggoten-card', IncomeFoggotenCardController::class);
+  Route::resource('/card-category', CardCategoryController::class);
 
   //Неисправности
   Route::get('/income-alarm/get-by-security-team', [IncomeAlarmController::class, 'getBySecurityTeam']);
