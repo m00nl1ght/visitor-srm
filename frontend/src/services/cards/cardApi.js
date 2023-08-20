@@ -9,8 +9,8 @@ export default {
     return axios.get(urls.GET_CARD)
   },
 
-  addCard({ number, cardCategoryId }) {
-    return axios.get(urls.GET_CARD, { number, cardCategoryId })
+  storeCard(payload) {
+    return axios.post(urls.GET_CARD, payload)
   },
 
   updateById({ data, id }) {

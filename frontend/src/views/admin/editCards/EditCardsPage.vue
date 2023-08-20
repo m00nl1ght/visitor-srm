@@ -3,25 +3,32 @@
     <v-toolbar>
       <v-toolbar-title>Администрирование</v-toolbar-title>
       <v-spacer />
-      <v-btn color="primary" outlined @click="onAdd"> Добавить карту доступа </v-btn>
+      <v-btn color="primary" outlined @click="openEditForm"> Добавить карту доступа </v-btn>
     </v-toolbar>
 
     <v-card-text>
-      <CardTable :items="cards" />
+      <CardTable :items="cards" @onEdit="openEditForm" />
     </v-card-text>
+
+    <AddCardForm :editedItem="editedItem" :isOpen="isOpen" @onClose="onCloseEditForm" />
   </v-card>
 </template>
 
 <script>
 import CardTable from './components/CardTable.vue'
+import AddCardForm from '@/views/admin/editCards/components/AddCardForm.vue'
 
 export default {
   components: {
-    CardTable
+    CardTable,
+    AddCardForm
   },
 
   data() {
-    return {}
+    return {
+      editedItem: undefined,
+      isOpen: false
+    }
   },
 
   computed: {
@@ -35,8 +42,14 @@ export default {
       this.$store.dispatch('cards/getCardList')
     },
 
-    onAdd() {
-      console.log('onAdd')
+    openEditForm(editedItem = undefined) {
+      this.editedItem = editedItem
+      this.isOpen = true
+    },
+
+    onCloseEditForm() {
+      this.isOpen = false
+      this.editedItem = undefined
     }
   },
 

@@ -9,23 +9,13 @@
     </template>
 
     <template #[`item.actions`]="{ item }">
-      <v-tooltip top>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" icon @click="$emit('onEdit', item)">
-            <v-icon>mdi-account-plus</v-icon>
-          </v-btn>
-        </template>
-        <span>Редактировать</span>
-      </v-tooltip>
+      <v-btn icon @click="$emit('onEdit', item)" title="Редактировать">
+        <v-icon>mdi-pencil-outline</v-icon>
+      </v-btn>
 
-      <v-tooltip top>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" icon @click="$emit('onDelete', item.id)">
-            <v-icon>mdi-trash-can-outline</v-icon>
-          </v-btn>
-        </template>
-        <span>Удалить</span>
-      </v-tooltip>
+      <v-btn icon @click="$emit('onDelete', item.id)" title="Удалить">
+        <v-icon>mdi-trash-can-outline</v-icon>
+      </v-btn>
     </template>
 
     <template #no-data>

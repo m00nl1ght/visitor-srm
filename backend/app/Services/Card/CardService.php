@@ -28,13 +28,15 @@ class CardService
     }
   }
 
-  public function storeCard($cardNumber, $cardCategoryId)
+  public function storeCard($data)
   {
+    // $cardNumber, $cardCategoryId
+    // ->number, $request->card_category_id
     $card = new Card();
 
-    $card->number = $cardNumber;
+    $card->number = $data->number;
     $card->issued = 0;
-    $card->card_category_id = $cardCategoryId;
+    $card->card_category_id = $data->card_category['id'];
 
     $card->save();
     return $card;
@@ -48,7 +50,7 @@ class CardService
       if (!$card || $card->issued == 1) throw new \Exception('Cant edit this card');
 
       if (isset($data['number'])) $card->number = $data['number'];
-      if (isset($data['card_category_id'])) $card->card_category_id = $data['card_category_id'];
+      if (isset($data['card_category'])) $card->card_category_id = $data->card_category['id'];
 
       $card->update();
       return $card;

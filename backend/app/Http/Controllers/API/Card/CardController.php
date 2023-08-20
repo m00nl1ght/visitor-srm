@@ -36,7 +36,7 @@ class CardController extends Controller
   public function store(Request $request)
   {
     try {
-      $card = $this->cardService->storeCard($request->number, $request->card_category_id);
+      $card = $this->cardService->storeCard($request);
       return response($card);
     } catch (\Exception $exception) {
       return response($exception);
