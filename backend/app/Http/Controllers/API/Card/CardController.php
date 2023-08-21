@@ -52,7 +52,11 @@ class CardController extends Controller
    */
   public function update(Request $request, $id)
   {
-    $card = $this->cardService->updateCard($request, $id);
-    return response($card);
+    try {
+      $card = $this->cardService->updateCard($request, $id);
+      return response($card);
+    } catch (\Exception $exception) {
+      return response($exception->getMessage());
+    }
   }
 }

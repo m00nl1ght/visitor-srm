@@ -13,7 +13,7 @@
         <v-icon>mdi-pencil-outline</v-icon>
       </v-btn>
 
-      <v-btn icon @click="$emit('onDelete', item.id)" title="Удалить">
+      <v-btn icon @click="$emit('onDelete', item.id)" title="Удалить" disabled>
         <v-icon>mdi-trash-can-outline</v-icon>
       </v-btn>
     </template>

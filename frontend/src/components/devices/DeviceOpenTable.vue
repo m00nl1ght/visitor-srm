@@ -100,7 +100,6 @@ export default {
       },
       set(newValue) {
         this.$store.commit('incomeDevice/changeStatuses', newValue)
-        console.log(newValue)
       }
     },
 
@@ -122,10 +121,6 @@ export default {
 
     onEdit(item) {
       this.$store.commit('incomeDevice/openEditModal', item.id)
-    },
-
-    onDelete(id) {
-      console.log(id)
     },
 
     onApproved(id) {

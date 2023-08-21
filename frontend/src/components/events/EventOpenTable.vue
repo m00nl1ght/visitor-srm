@@ -81,10 +81,6 @@ export default {
   },
 
   methods: {
-    decided(id) {
-      console.log(id)
-    },
-
     onEdit(item) {
       this.$store.commit('incomeEvent/openEditModal', item.id)
     },

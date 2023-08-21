@@ -32,7 +32,6 @@ const actions = {
 
   async logout({ commit, state }) {
     try {
-      console.log('logout')
       await api.logout(state.authToken)
       localStorage.removeItem('token')
       axios.defaults.headers.common['Authorization'] = ''

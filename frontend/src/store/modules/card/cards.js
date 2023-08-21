@@ -40,7 +40,6 @@ const actions = {
 
   async updateById(_, { id, data }) {
     try {
-      console.log('updateById', { id, data })
       await api.updateById({ id, data })
     } catch (error) {
       console.log(error)

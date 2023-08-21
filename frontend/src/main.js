@@ -27,8 +27,6 @@ Vue.prototype.$withLoadingIndicator = withLoadingIndicator
 Vue.prototype.$withNotifier = withNotifier
 
 async function createApp() {
-  // const AUTH_TOKEN = '8|ZFhptoKtKH4xfRzFFwnl7YuMFApJdJhpEpz1XSES'
-
   if (process.env.NODE_ENV !== 'production') {
     //   axios.defaults.withCredentials = true
     axios.defaults.baseURL = process.env.VUE_APP_DEV_BACKEND_URL

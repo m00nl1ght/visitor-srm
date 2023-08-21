@@ -32,7 +32,6 @@ const mutations = {
 
   setLoadingObject(state, params) {
     const { loaderObj, data } = params
-    // console.log(loaderObj, data);
     if (loaderObj && loaderObj.length) {
       loaderObj.forEach((key) => {
         if (state.loadingObjCount[key] === undefined) Vue.set(state.loadingObjCount, key, 0)

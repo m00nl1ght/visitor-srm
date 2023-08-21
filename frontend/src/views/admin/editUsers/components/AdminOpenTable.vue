@@ -83,7 +83,6 @@ export default {
 
     onEditRole(item) {
       this.$store.commit('user/openEditModalRoles', item)
-      console.log('RoleITEM', item)
     },
 
     onDelete(id) {
