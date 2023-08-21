@@ -78,12 +78,12 @@ export default {
         { text: 'Серийный номер', value: 'details.serialNumber', sortable: false }
       ]
 
-      if (this.hasAccessRole(this.employee_security_chief)) {
-        head.push({ text: 'Статус', value: 'status', sortable: false })
-        head.push({ text: 'Подтверждение', value: 'approves', sortable: false })
-      } else if (this.hasAccessRole(this.admin)) {
+      if (this.hasAccessRole(this.admin)) {
         head.push({ text: 'Статус', value: 'status', sortable: false })
         head.push({ text: 'Действия', value: 'actions', sortable: false })
+        head.push({ text: 'Подтверждение', value: 'approves', sortable: false })
+      } else if (this.hasAccessRole(this.employee_security_chief)) {
+        head.push({ text: 'Статус', value: 'status', sortable: false })
         head.push({ text: 'Подтверждение', value: 'approves', sortable: false })
       }
 

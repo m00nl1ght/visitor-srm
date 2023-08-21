@@ -1,7 +1,7 @@
 <template>
   <v-data-table :headers="headers" :items="items" :loading="isLoading">
     <template #[`item.printBtn`]="{ item }">
-      <v-btn v-if="hasAccessRole(securityGroup)" :disabled="disabled" icon @click="printCard({ id: item.id })">
+      <v-btn v-if="hasAccessRole(security)" :disabled="disabled" icon @click="printCard({ id: item.id })">
         <v-icon>mdi-printer</v-icon>
       </v-btn>
     </template>
@@ -55,7 +55,7 @@ export default {
   },
 
   data: () => ({
-    securityGroup: ['admin', 'security', 'security_chief', 'employee_security_chief'],
+    security: ['security'],
     exitTime: {}
   }),
 
@@ -67,7 +67,7 @@ export default {
         { text: 'Телефон', value: 'visitor.phone' },
         { text: 'Вход', value: 'inTime' }
       ]
-      if (this.hasAccessRole(this.securityGroup)) {
+      if (this.hasAccessRole(this.security)) {
         head.push({ text: 'Выход', value: 'actions', sortable: false })
       }
       return head

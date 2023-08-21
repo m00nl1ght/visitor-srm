@@ -133,7 +133,7 @@ const actions = {
       const { data } = await api.registrateNewCar(state.formValue)
       commit('addIncomeCar', data)
       commit('closeModal')
-      dispatch('accessCard/getCardList', null, { root: true })
+      dispatch('cards/getCardList', null, { root: true })
     } catch (error) {
       commit('storeError', error)
     }
@@ -143,7 +143,7 @@ const actions = {
     try {
       await api.exitCar({ id, time })
       commit('exitCar', id)
-      dispatch('accessCard/getCardList', null, { root: true })
+      dispatch('cards/getCardList', null, { root: true })
     } catch (error) {
       commit('storeError', error)
     }

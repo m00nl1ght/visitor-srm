@@ -122,7 +122,7 @@ const actions = {
       const { data } = await api.registrateNewVisitor(state.formValue)
       commit('addIncomeVisitor', data)
       commit('closeModal')
-      dispatch('accessCard/getCardList', null, { root: true })
+      dispatch('cards/getCardList', null, { root: true })
     } catch (error) {
       console.log(error)
     }
@@ -132,7 +132,7 @@ const actions = {
     try {
       await api.exitVisitor({ id, time })
       commit('exitVisitor', id)
-      dispatch('accessCard/getCardList', null, { root: true })
+      dispatch('cards/getCardList', null, { root: true })
     } catch (error) {
       commit('storeError', error)
     }

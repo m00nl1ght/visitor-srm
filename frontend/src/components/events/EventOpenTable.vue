@@ -57,7 +57,7 @@ export default {
   },
 
   data: () => ({
-    securityGroup: ['admin', 'security', 'security_chief', 'employee_security_chief'],
+    security: ['security'],
     confimDeleteOpen: false,
     deleteItemId: null
   }),
@@ -69,7 +69,7 @@ export default {
         { text: 'Комментарий', value: 'comment', sortable: false, width: 1000 },
         { text: 'Дата', value: 'inTime', width: 150 }
       ]
-      if (this.hasAccessRole(this.securityGroup)) {
+      if (this.hasAccessRole(this.security)) {
         head.push({ text: 'Действия', value: 'actions', sortable: false, width: 120 })
       }
       return head

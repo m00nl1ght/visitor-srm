@@ -3,7 +3,7 @@
     <div class="d-flex justify-space-between align-center pr-5">
       <v-card-title>Список сотрудников охраны</v-card-title>
 
-      <v-btn v-if="isSecurityChief || isAdmin" color="primary" outlined @click="openModal"> Добавить сотрудника охраны </v-btn>
+      <v-btn v-if="hasAccessRole(security_chief) || isAdmin" color="primary" outlined @click="openModal"> Добавить сотрудника охраны </v-btn>
 
       <SecurityAddModal :title="modalTitle" />
       <ConfirmModal
@@ -48,7 +48,7 @@ export default {
 
   data: () => ({
     modalTitle: '',
-    admin_security_chief: ['admin', 'security_chief'],
+    security_chief: ['security_chief'],
     confirmModalOpen: false,
     deleteItemId: null
   }),
@@ -60,7 +60,7 @@ export default {
         { text: 'Категория', value: 'role.title' }
       ]
 
-      if (this.hasAccessRole(this.admin_security_chief)) {
+      if (this.hasAccessRole(this.security_chief)) {
         head.push({ text: 'Редактировать', value: 'actions', sortable: false })
       }
       return head

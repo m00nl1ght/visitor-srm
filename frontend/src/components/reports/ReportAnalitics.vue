@@ -1,5 +1,5 @@
 <template>
-  <v-card>
-    <h2>ReportAnalitics</h2>
-  </v-card>
+   <v-container>
+    Здесь будет аналитика
+   </v-container>
 </template>

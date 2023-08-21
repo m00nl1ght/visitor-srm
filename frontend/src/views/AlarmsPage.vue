@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-toolbar-title>Список активных неисправностей</v-toolbar-title>
       <v-spacer />
-      <v-btn v-if="hasAccessRole(securityGroup)" color="primary" outlined @click="openModal"> Добавить неисправность </v-btn>
+      <v-btn v-if="hasAccessRole(security)" color="primary" outlined @click="openModal"> Добавить неисправность </v-btn>
     </v-toolbar>
 
     <v-card-text>
@@ -26,7 +26,7 @@ export default {
   },
 
   data: () => ({
-    securityGroup: ['admin', 'security', 'security_chief', 'employee_security_chief']
+    security: ['security']
   }),
 
   computed: {

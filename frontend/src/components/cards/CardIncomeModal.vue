@@ -110,7 +110,7 @@ export default {
     },
 
     cards() {
-      return this.$store.getters['accessCard/getFreeEmployeeCard']
+      return this.$store.getters['cards/getFreeEmployeeCard']
     },
 
     autoinsertList() {
@@ -122,7 +122,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch('accessCard/getCardList')
+    this.$store.dispatch('cards/getCardList')
   },
 
   methods: {

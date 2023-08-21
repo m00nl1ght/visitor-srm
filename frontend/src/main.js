@@ -14,7 +14,7 @@ import '@/globalRouterHooks'
 const VueHtmlToPaperOptions = {
   name: '_blank',
   specs: ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
-  styles: [`${process.env.VUE_APP_DEV_BACKEND_URL}/styles/print_card.css`],
+  styles: [`/styles/print_card.css`],
   timeout: 1000, // default timeout before the print window appears
   autoClose: false, // if false, the window will not close after printing
   windowTitle: window.document.title // override the window title

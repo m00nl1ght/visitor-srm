@@ -15,7 +15,8 @@ import incomeAlarm from '@/store/modules/income/incomeAlarm'
 import incomeEvent from '@/store/modules/income/incomeEvent'
 import incomeDevice from '@/store/modules/income/incomeDevice'
 import incomeCard from '@/store/modules/income/incomeCard'
-import accessCard from '@/store/modules/card/accessCard'
+import cards from '@/store/modules/card/cards'
+import cardCategory from '@/store/modules/card/cardCategory'
 import visitorCategory from '@/store/modules/category/visitorCategory'
 import systemAlarmCategory from '@/store/modules/category/systemAlarmCategory'
 import autoinsert from '@/store/modules/autoinsert.js'
@@ -41,7 +42,8 @@ export default new Vuex.Store({
     incomeEvent,
     incomeCard,
     incomeDevice,
-    accessCard,
+    cards,
+    cardCategory,
     visitorCategory,
     systemAlarmCategory,
     autoinsert,

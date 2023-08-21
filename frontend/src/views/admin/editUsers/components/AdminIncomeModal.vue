@@ -12,6 +12,7 @@
         label="Введите пароль"
         @click:append="showPassword = !showPassword"
       ></v-text-field>
+      
       <v-text-field
         v-model="repeatPassword"
         :append-icon="showPasswordRepeat ? 'mdi-eye' : 'mdi-eye-off'"

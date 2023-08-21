@@ -55,7 +55,7 @@ export default {
   },
 
   data: () => ({
-    securityGroup: ['admin', 'security', 'security_chief', 'employee_security_chief'],
+    security: ['security'],
     confimDeleteOpen: false,
     deleteItemId: null
   }),
@@ -67,7 +67,7 @@ export default {
         { text: 'Номер карты', align: 'start', value: 'card' },
         { text: 'Дата выдачи', value: 'inTime' }
       ]
-      if (this.hasAccessRole(this.securityGroup)) {
+      if (this.hasAccessRole(this.security)) {
         head.push({ text: 'Возврат', value: 'decided', sortable: false })
         head.push({ text: 'Действия', value: 'actions', sortable: false })
       }

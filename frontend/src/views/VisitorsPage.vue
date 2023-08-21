@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-toolbar-title>Список посетителей на объекте</v-toolbar-title>
       <v-spacer />
-      <v-btn v-if="hasAccessRole(securityGroup)" color="primary" outlined @click="openModal"> Добавить нового посетителя </v-btn>
+      <v-btn v-if="hasAccessRole(security)" color="primary" outlined @click="openModal"> Добавить нового посетителя </v-btn>
       <VisitorIncomeModal />
     </v-toolbar>
 
@@ -31,7 +31,7 @@ export default {
   data: () => ({
     isOpenPrintModal: false,
     printCardValue: {},
-    securityGroup: ['admin','security','security_chief','employee_security_chief'],
+    security: ['security'],
   }),
 
   computed: {
