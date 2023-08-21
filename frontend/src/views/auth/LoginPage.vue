@@ -10,7 +10,7 @@
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field v-model="email" :rules="emailRules" label="Login" required clearable @input="resetError" />
 
-            <v-text-field v-model="password" :rules="passwordRules" label="Password" required clearable @input="resetError" />
+            <v-text-field v-model="password" :rules="passwordRules" label="Password" :type="'password'" required clearable @input="resetError" />
 
             <v-btn :disabled="!valid" color="primary" outlined class="mt-5" @click="validate"> Войти </v-btn>
           </v-form>

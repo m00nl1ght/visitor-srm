@@ -5,12 +5,13 @@
         <v-card-title>Состав текущей смены</v-card-title>
 
         <v-spacer />
+        <div v-if="hasAccessRole(security_chief)">
+          <v-btn v-if="currentGroup && currentGroup.length !== 0" color="primary" outlined @click="openEditModal"> Редактировать смену </v-btn>
 
-        <v-btn v-if="currentGroup && currentGroup.length !== 0" color="primary" outlined @click="openEditModal"> Редактировать смену </v-btn>
+          <v-btn class="ml-3" color="primary" outlined @click="openAddModal"> Новая смена </v-btn>
 
-        <v-btn class="ml-3" color="primary" outlined @click="openAddModal"> Новая смена </v-btn>
-
-        <v-btn class="ml-3" color="primary" outlined @click="sendReport"> Отправить отчет </v-btn>
+          <v-btn class="ml-3" color="primary" outlined @click="sendReport"> Отправить отчет </v-btn>
+        </div>
       </div>
 
       <v-card-text>
@@ -57,6 +58,10 @@ import CurrentGroupRegistrateModal from './CurrentGroupRegistrateModal.vue'
 import peopleHelper from '@/services/helpers/people.js'
 
 export default {
+  data: () => ({
+    security_chief: ['security_chief']
+  }),
+
   components: {
     CurrentGroupRegistrateModal
   },
@@ -64,6 +69,10 @@ export default {
   computed: {
     currentGroup() {
       return this.$store.getters['securityGroup/currentGroup']
+    },
+
+    hasAccessRole() {
+      return this.$store.getters['user/hasAccessRole']
     }
   },
 

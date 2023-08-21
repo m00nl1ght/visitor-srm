@@ -66,19 +66,31 @@ export default {
   },
 
   data: () => ({
-    headers: [
-      { text: 'Решено', value: 'decided', sortable: false, width: 100 },
-      { text: 'Система', align: 'start', value: 'system', sortable: false, width: 200 },
-      { text: 'Описание', value: 'title', width: 150 },
-      { text: 'Место', value: 'place', sortable: false, width: 150 },
-      { text: 'Комментарий', value: 'comment', sortable: false, width: 600 },
-      { text: 'Дата', value: 'inTime' },
-      { text: 'Действия', value: 'actions', sortable: false }
-    ],
-
+    security: ['security'],
     confimDeleteOpen: false,
     deleteItemId: null
   }),
+
+  computed: {
+    headers() {
+      let head = [
+        { text: 'Система', align: 'start', value: 'system', sortable: false, width: 200 },
+        { text: 'Описание', value: 'title', width: 150 },
+        { text: 'Место', value: 'place', sortable: false, width: 150 },
+        { text: 'Комментарий', value: 'comment', sortable: false, width: 600 },
+        { text: 'Дата', value: 'inTime' }
+      ]
+      if (this.hasAccessRole(this.security)) {
+        head.push({ text: 'Решено', value: 'decided', sortable: false, width: 100 })
+        head.push({ text: 'Действия', value: 'actions', sortable: false })
+      }
+      return head
+    },
+
+    hasAccessRole() {
+      return this.$store.getters['user/hasAccessRole']
+    }
+  },
 
   methods: {
     decided(id) {

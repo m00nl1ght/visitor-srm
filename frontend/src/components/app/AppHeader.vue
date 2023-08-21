@@ -13,7 +13,7 @@
 
     <div class="d-flex flex-column ml-5 subtitle-2">
       <span>Вы вошли как:</span>
-      <span v-if="activeLoginBtn">Сотрудник охраны</span>
+      <span v-if="activeLoginBtn">{{ currentUser.name }}</span>
       <span v-else>Гость</span>
     </div>
 
@@ -31,6 +31,9 @@ export default {
   computed: {
     activeLoginBtn() {
       return this.$store.getters['auth/isLoggedIn']
+    },
+    currentUser() {
+      return this.$store.state.user.currentUser
     }
   },
 

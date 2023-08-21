@@ -1,5 +1,4 @@
 import api from '@/services/userApi.js'
-// import { cloneDeep } from 'lodash'
 
 function defaultFormValue() {
   return {
@@ -29,7 +28,8 @@ const getters = {
     } else return false
   },
 
-  isAdmin: (state) => state.currentUser?.roles?.length > 0 && state.currentUser.roles.find((role) => role === 'admin')
+  isAdmin: (state) => state.currentUser?.roles?.length > 0 && state.currentUser.roles.find((role) => role === 'admin'),
+  isSecurityChief: (state) => state.currentUser?.roles?.length > 0 && state.currentUser.roles.find((role) => role === 'security_chief')
 }
 
 const mutations = {
@@ -55,7 +55,6 @@ const mutations = {
   },
   closeModal(state) {
     state.openModal = false
-    // state.formValue = defaultFormValue()
   },
   closeModalRoles(state) {
     state.openModalRoles = false

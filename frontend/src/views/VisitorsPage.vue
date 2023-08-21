@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-toolbar-title>Список посетителей на объекте</v-toolbar-title>
       <v-spacer />
-      <v-btn color="primary" outlined @click="openModal"> Добавить нового посетителя </v-btn>
+      <v-btn v-if="hasAccessRole(security)" color="primary" outlined @click="openModal"> Добавить нового посетителя </v-btn>
       <VisitorIncomeModal />
     </v-toolbar>
 
@@ -21,6 +21,7 @@ import VisitorIncomeModal from '@/components/visitors/VisitorIncomeModal.vue'
 import VisitorPrintCardModal from '@/components/visitors/VisitorPrintCardModal.vue'
 
 export default {
+  
   components: {
     VisitorsIncomeList,
     VisitorIncomeModal,
@@ -29,7 +30,8 @@ export default {
 
   data: () => ({
     isOpenPrintModal: false,
-    printCardValue: {}
+    printCardValue: {},
+    security: ['security'],
   }),
 
   computed: {
@@ -39,6 +41,10 @@ export default {
 
     isLoading() {
       return this.$store.getters['appProgressBanner/loaderObj']('getIncomeVisitorList')
+    },
+
+    hasAccessRole() {
+      return this.$store.getters['user/hasAccessRole']
     }
   },
 

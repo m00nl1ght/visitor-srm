@@ -7,25 +7,27 @@ import * as paths from '../paths/index.js'
 
 const routes = [
   {
+
     name: names.adminPage,
     path: paths.adminPage,
     redirect: { name: names.adminEditUsersPage },
-    meta: { layout: 'main' },
+    meta: { layout: 'main', auth: true, accessRoles: ['admin']  },
     component: AdminPage,
     children: [
       {
         path: paths.adminEditUsersPage,
         name: names.adminEditUsersPage,
-        meta: { layout: 'main' },
+        meta: { layout: 'main', auth: true, accessRoles: ['admin']  },
         component: EditUsersPage
       },
       {
         name: names.adminEditCardsPage,
         path: paths.adminEditCardsPage,
         component: EditCardsPage,
-        meta: { layout: 'main' }
+        meta: { layout: 'main', auth: true, accessRoles: ['admin']  }
       }
     ]
+
   }
 ]
 

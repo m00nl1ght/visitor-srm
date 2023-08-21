@@ -2,7 +2,7 @@
   <div>
     <v-data-table :headers="headers" :items="items" :loading="isLoading">
       <template #[`item.decided`]="{ item }">
-        <v-btn outlined small color="success" :disabled="disabled" @click="decided(item.id)"> Вернули </v-btn>
+        <v-btn outlined small color="success" :disabled="disabled" @click="decided(item.id)"> Вернуть </v-btn>
       </template>
 
       <template #[`item.employee`]="{ item }">
@@ -55,29 +55,28 @@ export default {
   },
 
   data: () => ({
-    headers: [
-      {
-        text: 'Возврат',
-        value: 'decided',
-        sortable: false
-      },
-      {
-        text: 'Сотрудник',
-        value: 'employee',
-        sortable: false
-      },
-      {
-        text: 'Номер карты',
-        align: 'start',
-        value: 'card'
-      },
-      { text: 'Дата выдачи', value: 'inTime' },
-      { text: 'Действия', value: 'actions', sortable: false }
-    ],
-
+    security: ['security'],
     confimDeleteOpen: false,
     deleteItemId: null
   }),
+
+  computed: {
+    headers() {
+      let head = [
+        { text: 'Сотрудник', value: 'employee', sortable: false },
+        { text: 'Номер карты', align: 'start', value: 'card' },
+        { text: 'Дата выдачи', value: 'inTime' }
+      ]
+      if (this.hasAccessRole(this.security)) {
+        head.push({ text: 'Возврат', value: 'decided', sortable: false })
+        head.push({ text: 'Действия', value: 'actions', sortable: false })
+      }
+      return head
+    },
+    hasAccessRole() {
+      return this.$store.getters['user/hasAccessRole']
+    }
+  },
 
   methods: {
     printName(person) {

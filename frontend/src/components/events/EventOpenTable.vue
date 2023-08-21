@@ -57,16 +57,28 @@ export default {
   },
 
   data: () => ({
-    headers: [
-      { text: 'Описание', align: 'start', value: 'description', width: 200 },
-      { text: 'Комментарий', value: 'comment', sortable: false, width: 1000 },
-      { text: 'Дата', value: 'inTime', width: 150 },
-      { text: 'Действия', value: 'actions', sortable: false, width: 120 }
-    ],
-
+    security: ['security'],
     confimDeleteOpen: false,
     deleteItemId: null
   }),
+
+  computed: {
+    headers() {
+      let head = [
+        { text: 'Описание', align: 'start', value: 'description', width: 200 },
+        { text: 'Комментарий', value: 'comment', sortable: false, width: 1000 },
+        { text: 'Дата', value: 'inTime', width: 150 }
+      ]
+      if (this.hasAccessRole(this.security)) {
+        head.push({ text: 'Действия', value: 'actions', sortable: false, width: 120 })
+      }
+      return head
+    },
+
+    hasAccessRole() {
+      return this.$store.getters['user/hasAccessRole']
+    }
+  },
 
   methods: {
     decided(id) {

@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-toolbar-title>Список автомобилей на объекте</v-toolbar-title>
       <v-spacer />
-      <v-btn color="primary" outlined @click="openModal"> Добавить новый автомобиль </v-btn>
+      <v-btn v-if="hasAccessRole(security)" color="primary" outlined @click="openModal"> Добавить новый автомобиль </v-btn>
     </v-toolbar>
 
     <v-card-text>
@@ -30,7 +30,8 @@ export default {
 
   data: () => ({
     isOpenPrintModal: false,
-    printCardValue: {}
+    printCardValue: {},
+    security: ['security'],
   }),
 
   computed: {
@@ -40,6 +41,10 @@ export default {
 
     isLoading() {
       return this.$store.getters['appProgressBanner/loaderObj']('getIncomeCarList')
+    },
+
+    hasAccessRole() {
+      return this.$store.getters['user/hasAccessRole']
     }
   },
 

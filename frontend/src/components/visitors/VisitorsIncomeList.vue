@@ -1,7 +1,7 @@
 <template>
   <v-data-table :headers="headers" :items="items" :loading="isLoading">
     <template #[`item.printBtn`]="{ item }">
-      <v-btn :disabled="disabled" icon @click="printCard({ id: item.id })">
+      <v-btn v-if="hasAccessRole(security)" :disabled="disabled" icon @click="printCard({ id: item.id })">
         <v-icon>mdi-printer</v-icon>
       </v-btn>
     </template>
@@ -55,22 +55,28 @@ export default {
   },
 
   data: () => ({
-    headers: [
-      {
-        text: '',
-        value: 'printBtn'
-      },
-      {
-        text: 'ФИО',
-        align: 'start',
-        value: 'visitorName'
-      },
-      { text: 'Телефон', value: 'visitor.phone' },
-      { text: 'Вход', value: 'inTime' },
-      { text: 'Выход', value: 'actions', sortable: false }
-    ],
+    security: ['security'],
     exitTime: {}
   }),
+
+  computed: {
+    headers() {
+      let head = [
+        { text: '', value: 'printBtn' },
+        { text: 'ФИО', align: 'start', value: 'visitorName' },
+        { text: 'Телефон', value: 'visitor.phone' },
+        { text: 'Вход', value: 'inTime' }
+      ]
+      if (this.hasAccessRole(this.security)) {
+        head.push({ text: 'Выход', value: 'actions', sortable: false })
+      }
+      return head
+    },
+
+    hasAccessRole() {
+      return this.$store.getters['user/hasAccessRole']
+    }
+  },
 
   methods: {
     exitVisitor({ id }) {

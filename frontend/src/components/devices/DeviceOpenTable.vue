@@ -58,7 +58,9 @@ export default {
   data: () => ({
     listStatus: [STATUSES.NEW, STATUSES.APPROVED, STATUSES.REJECTED],
     edit: true,
-    search: ''
+    search: '',
+    admin: ['admin'],
+    employee_security_chief: ['employee_security_chief']
   }),
 
   computed: {
@@ -76,9 +78,12 @@ export default {
         { text: 'Серийный номер', value: 'details.serialNumber', sortable: false }
       ]
 
-      if (this.edit === true) {
+      if (this.hasAccessRole(this.admin)) {
         head.push({ text: 'Статус', value: 'status', sortable: false })
         head.push({ text: 'Действия', value: 'actions', sortable: false })
+        head.push({ text: 'Подтверждение', value: 'approves', sortable: false })
+      } else if (this.hasAccessRole(this.employee_security_chief)) {
+        head.push({ text: 'Статус', value: 'status', sortable: false })
         head.push({ text: 'Подтверждение', value: 'approves', sortable: false })
       }
 
@@ -97,6 +102,10 @@ export default {
         this.$store.commit('incomeDevice/changeStatuses', newValue)
         console.log(newValue)
       }
+    },
+
+    hasAccessRole() {
+      return this.$store.getters['user/hasAccessRole']
     }
   },
 
